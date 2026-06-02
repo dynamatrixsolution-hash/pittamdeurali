@@ -4,7 +4,7 @@ import api from '../services/api';
 
 const Footer = () => {
   const [settings, setSettings] = useState({
-    hotelName: '',
+    hotelName: 'New Pittam Deurali Guest House and Restaurant',
     address: 'Pittam Deurali, Lumle 33700, Kaski, Nepal',
     phone: '+977-9801234567',
     email: 'stay@newpittamdeurali.com',
@@ -39,9 +39,9 @@ const Footer = () => {
                 alt="New Pittam Deurali Logo"
                 style={{ height: '40px', width: 'auto', objectFit: 'contain' }}
               />
-              <h5 className="font-serif fw-bold m-0" style={{ color: 'var(--color-gold)' }}>
+              {/* <h5 className="font-serif fw-bold m-0" style={{ color: 'var(--color-gold)' }}>
                 {settings.hotelName}
-              </h5>
+              </h5> */}
             </div>
             <p className="small lh-lg" style={{ maxWidth: '380px' }}>
               Enjoy comfortable accommodation, delicious local cuisine, and beautiful surroundings with genuine family-operated Nepali hospitality. Located at the scenic ridge-top of Pitam Deurali.
@@ -106,7 +106,7 @@ const Footer = () => {
           </div>
         </div>
 
-        <hr className="my-4" style={{ borderColor: 'var(--border-color)' }} />
+        <hr className="my-4" style={{ borderColor: 'var(--accent)' }} />
 
         <div className="row small">
           <div className="col-md-6 text-center text-md-start">
@@ -116,7 +116,7 @@ const Footer = () => {
           </div>
           <div className="col-md-6 text-center text-md-end mt-2 mt-md-0">
             <p className="mb-0">
-              Family-Run Guest House & Restaurant &bull; Pitam Deurali, Nepal
+              Developed by &bull; <a href="https://dynamatrixsolution.live/" target="_blank" rel="noopener noreferrer" className="text-decoration-none text-reset hover-gold" style={{ color: 'var(--color-gold)' }}>Dynamatrix Solutions</a>
             </p>
           </div>
         </div>

@@ -130,7 +130,7 @@ const Home = () => {
       {/* 1. Hero Slideshow Section */}
       <section className="hero-slider">
         {slidesToRender.map((slide, idx) => (
-          <div 
+          <div
             key={idx}
             className={`hero-slide ${idx === currentSlideIndex ? 'active' : ''}`}
             style={{ backgroundImage: `url(${getAPIImageUrl(slide.image)})` }}
@@ -159,16 +159,16 @@ const Home = () => {
         {/* Previous/Next Navigation Arrows */}
         {slidesToRender.length > 1 && (
           <>
-            <button 
-              className="hero-arrow hero-arrow-left" 
-              onClick={handlePrevSlide} 
+            <button
+              className="hero-arrow hero-arrow-left"
+              onClick={handlePrevSlide}
               aria-label="Previous Slide"
             >
               <i className="bi bi-chevron-left"></i>
             </button>
-            <button 
-              className="hero-arrow hero-arrow-right" 
-              onClick={handleNextSlide} 
+            <button
+              className="hero-arrow hero-arrow-right"
+              onClick={handleNextSlide}
               aria-label="Next Slide"
             >
               <i className="bi bi-chevron-right"></i>
@@ -181,7 +181,7 @@ const Home = () => {
           <ul className="hero-dots">
             {slidesToRender.map((_, idx) => (
               <li key={idx}>
-                <button 
+                <button
                   className={`hero-dot ${idx === currentSlideIndex ? 'active' : ''}`}
                   onClick={() => setCurrentSlideIndex(idx)}
                   aria-label={`Go to slide ${idx + 1}`}
@@ -213,9 +213,9 @@ const Home = () => {
             </div>
             <div className="col-lg-6 col-12">
               <div style={{ border: '1px solid var(--border-color)', padding: '12px', borderRadius: '4px' }}>
-                <img 
-                  src={getAPIImageUrl(welcome.image)} 
-                  alt="Welcome New Pittam Deurali" 
+                <img
+                  src={getAPIImageUrl(welcome.image)}
+                  alt="Welcome New Pittam Deurali"
                   className="img-fluid w-100"
                   style={{ objectFit: 'cover', height: '400px', borderRadius: '2px' }}
                 />
@@ -269,14 +269,14 @@ const Home = () => {
               <div className="col-lg-4 col-md-6 col-12" key={room._id}>
                 <div className="card-luxury h-100 d-flex flex-column">
                   <div style={{ height: '240px', overflow: 'hidden', flexShrink: 0 }}>
-                    <img 
-                      src={getAPIImageUrl(room.images[0])} 
-                      className="w-100 h-100" 
-                      style={{ objectFit: 'cover' }} 
+                    <img
+                      src={getAPIImageUrl(room.images[0])}
+                      className="w-100 h-100"
+                      style={{ objectFit: 'cover' }}
                       alt={room.title}
                     />
                   </div>
-                  
+
                   <div className="p-4 d-flex flex-column flex-grow-1">
                     <div className="d-flex justify-content-between align-items-start gap-2 mb-3" style={{ minHeight: '56px' }}>
                       <h4 className="font-serif mb-0 fs-5 text-white" style={{ wordBreak: 'break-word', overflowWrap: 'anywhere' }}>{room.title}</h4>
@@ -284,7 +284,7 @@ const Home = () => {
                         <span className="fw-bold fs-6 text-nowrap" style={{ color: 'var(--color-gold)' }}>${room.price} <span className="small text-secondary fw-normal">/ night</span></span>
                       ) : (
                         <span className="small text-gold fw-semibold text-nowrap">
-                          <a 
+                          <a
                             href={`https://wa.me/${settings?.whatsappNumber ? settings.whatsappNumber.replace(/[+\s-]/g, '') : '9779801234567'}?text=Hi,%20I'm%20interested%20in%20the%20price%20and%20booking%20of%20the%20${encodeURIComponent(room.title)}.`}
                             target="_blank"
                             rel="noopener noreferrer"
@@ -297,19 +297,19 @@ const Home = () => {
                         </span>
                       )}
                     </div>
-                    
+
                     <div className="flex-grow-1 mb-3">
                       <p className="small text-secondary lh-lg mb-0" style={{ display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden', textOverflow: 'ellipsis' }}>
                         {room.shortDescription}
                       </p>
                     </div>
-                    
+
                     <div className="d-flex flex-wrap gap-1 border-top pt-3" style={{ borderColor: 'var(--border-color)', fontSize: '0.75rem', color: 'var(--text-secondary)' }}>
                       <span className="me-3"><i className="bi bi-people me-1"></i> {room.capacity} Guests</span>
                       <span><i className="bi bi-calendar-check me-1"></i> {room.bedType}</span>
                     </div>
                   </div>
-                  
+
                   <div className="px-4 pb-4 mt-auto">
                     <Link to={`/rooms/${room.slug}`} className="btn btn-blue-outline w-100 py-2 text-center text-decoration-none">
                       View Details
@@ -361,10 +361,10 @@ const Home = () => {
                 {restaurant?.galleryImages && restaurant.galleryImages.length > 0 ? (
                   restaurant.galleryImages.slice(0, 2).map((img, idx) => (
                     <div className="col-6" key={idx}>
-                      <img 
-                        src={getAPIImageUrl(img)} 
-                        alt="Restaurant representation" 
-                        className="img-fluid w-100" 
+                      <img
+                        src={getAPIImageUrl(img)}
+                        alt="Restaurant representation"
+                        className="img-fluid w-100"
                         style={{ objectFit: 'cover', height: '280px', borderRadius: '4px', border: '1px solid var(--border-color)' }}
                       />
                     </div>
@@ -372,18 +372,18 @@ const Home = () => {
                 ) : (
                   <>
                     <div className="col-6">
-                      <img 
-                        src={getAPIImageUrl(restaurant?.coverImage) || "/uploads/image copy 6.png"} 
-                        alt="Dining Area" 
-                        className="img-fluid w-100" 
+                      <img
+                        src={getAPIImageUrl(restaurant?.coverImage) || "/uploads/image copy 6.png"}
+                        alt="Dining Area"
+                        className="img-fluid w-100"
                         style={{ objectFit: 'cover', height: '280px', borderRadius: '4px', border: '1px solid var(--border-color)' }}
                       />
                     </div>
                     <div className="col-6">
-                      <img 
-                        src="/uploads/image copy 7.png" 
-                        alt="Traditional Dal Bhat" 
-                        className="img-fluid w-100" 
+                      <img
+                        src="/uploads/image copy 7.png"
+                        alt="Traditional Dal Bhat"
+                        className="img-fluid w-100"
                         style={{ objectFit: 'cover', height: '280px', borderRadius: '4px', border: '1px solid var(--border-color)' }}
                       />
                     </div>
@@ -409,10 +409,10 @@ const Home = () => {
             {gallery.map((img, idx) => (
               <div className="col-lg-4 col-md-6 col-12" key={img._id || idx}>
                 <div className="gallery-preview-item position-relative overflow-hidden" style={{ height: '240px', borderRadius: '4px', border: '1px solid var(--border-color)' }}>
-                  <img 
-                    src={getAPIImageUrl(img.url)} 
-                    alt={img.caption || 'New Pittam Deurali'} 
-                    className="w-100 h-100" 
+                  <img
+                    src={getAPIImageUrl(img.url)}
+                    alt={img.caption || 'New Pittam Deurali'}
+                    className="w-100 h-100"
                     style={{ objectFit: 'cover', transition: 'transform 0.5s ease' }}
                   />
                 </div>
@@ -488,11 +488,11 @@ const Home = () => {
                     </p>
                   </div>
                   <div className="mt-3 d-flex align-items-center gap-3">
-                    <img 
-                      src={getAPIImageUrl(item.image) || 'https://img.icons8.com/office/40/user.png'} 
-                      alt={item.guestName} 
-                      className="rounded-circle" 
-                      style={{ width: '50px', height: '50px', objectFit: 'cover', border: '1px solid var(--color-gold)' }} 
+                    <img
+                      src={getAPIImageUrl(item.image) || 'https://img.icons8.com/office/40/user.png'}
+                      alt={item.guestName}
+                      className="rounded-circle"
+                      style={{ width: '50px', height: '50px', objectFit: 'cover', border: '1px solid var(--color-gold)' }}
                     />
                     <div className="text-start">
                       <h6 className="mb-0 fw-bold">{item.guestName}</h6>
@@ -523,10 +523,10 @@ const Home = () => {
               Have questions about lodging availability, dining bookings, or trail conditions? Get in touch with us directly via phone, email, or WhatsApp.
             </p>
             <div className="d-flex flex-wrap justify-content-center gap-3 mt-4">
-              <a 
-                href={`https://wa.me/${settings?.whatsappNumber ? settings.whatsappNumber.replace(/[+\s-]/g, '') : '9779801234567'}`} 
-                target="_blank" 
-                rel="noopener noreferrer" 
+              <a
+                href={`https://wa.me/${settings?.whatsappNumber ? settings.whatsappNumber.replace(/[+\s-]/g, '') : '9779801234567'}`}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="btn btn-success py-2.5 px-4 d-flex align-items-center gap-2"
                 style={{ border: 'none' }}
               >
@@ -535,13 +535,14 @@ const Home = () => {
               <Link to="/contact" className="btn btn-blue py-2.5 px-4">
                 Contact Us Form
               </Link>
-              <a 
-                href="https://www.google.com/maps/dir/?api=1&destination=Pitam+Deurali+Guest+House+and+Restaurant+Lumle+Nepal" 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                className="btn btn-orange-outline py-2.5 px-4 d-flex align-items-center gap-2"
+              <a
+                href="https://www.google.com/maps/dir/?api=1&destination=Pitam+Deurali+Guest+House+and+Restaurant+Lumle+Nepal"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn btn-orange text-white text-decoration-none"
+                style={{ fontSize: '0.75rem' }}
               >
-                <i className="bi bi-map"></i> Get Directions
+                <i className="bi bi-map-fill me-1"></i> Get Directions
               </a>
             </div>
           </div>

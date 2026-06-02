@@ -27,7 +27,8 @@
   --color-error: #EF4444;
   --color-warning: #F59E0B;
   
-  --font-serif: 'Playfair Display', Georgia, serif;
+  /* Use Poppins everywhere (even where .font-serif is applied) */
+  --font-serif: 'Poppins', system-ui, -apple-system, sans-serif;
   --font-sans: 'Poppins', system-ui, -apple-system, sans-serif;
   --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   --box-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
