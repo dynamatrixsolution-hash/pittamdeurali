@@ -40,6 +40,13 @@ const CmsRooms = () => {
     fetchRooms();
   }, []);
 
+  const getAPIImageUrl = (url) => {
+    if (!url) return '';
+    if (url.startsWith('http')) return url;
+    const baseUrl = (import.meta.env.VITE_API_URL || 'http://localhost:5000/api').replace('/api', '');
+    return `${baseUrl}${url}`;
+  };
+
   const resetForm = () => {
     setTitle('');
     setDescription('');
@@ -170,10 +177,10 @@ const CmsRooms = () => {
   return (
     <div className="fade-in-up">
       <div className="d-flex justify-content-between align-items-center mb-4">
-        <h3 className="font-serif fw-bold m-0 text-white">Rooms CMS Manager</h3>
+        <h3 className="font-serif fw-bold m-0 text-white">Accommodation CMS Manager</h3>
         {view === 'list' ? (
           <button className="btn btn-luxury py-2" onClick={() => { resetForm(); setView('add'); }}>
-            <i className="bi bi-plus-lg me-2"></i> Add Luxury Room
+            <i className="bi bi-plus-lg me-2"></i> Add Guest Room
           </button>
         ) : (
           <button className="btn btn-luxury-outline py-2" onClick={() => { resetForm(); setView('list'); }}>
@@ -186,7 +193,7 @@ const CmsRooms = () => {
 
       {view === 'list' ? (
         <div className="table-luxury">
-          <table className="table table-dark table-hover mb-0 align-middle small" style={{ borderColor: 'var(--border-color)' }}>
+          <table className="table table-dark mb-0 align-middle small" style={{ borderColor: 'var(--border-color)' }}>
             <thead>
               <tr className="text-uppercase" style={{ fontSize: '0.75rem', color: 'var(--color-gold)' }}>
                 <th className="py-3 px-4">Title</th>
@@ -231,7 +238,7 @@ const CmsRooms = () => {
         // Add or Edit Form
         <form onSubmit={handleSubmit} className="p-4" style={{ backgroundColor: 'var(--bg-card)', border: '1px solid var(--border-color)', borderRadius: '6px' }}>
           <h5 className="font-serif fw-bold text-white mb-4 border-bottom pb-2" style={{ borderColor: 'var(--border-color)', color: 'var(--color-gold) !important' }}>
-            {view === 'add' ? 'New Sanctuary Room' : 'Modify Room Details'}
+            {view === 'add' ? 'New Guest Room' : 'Modify Room Details'}
           </h5>
 
           <div className="row g-3 mb-4">
@@ -287,13 +294,26 @@ const CmsRooms = () => {
             <label className="form-label-luxury">Upload New Gallery Images (Multi)</label>
             <input type="file" className="form-control form-luxury mb-3" multiple accept="image/*" onChange={handleImageChange} />
 
+            {newImages.length > 0 && (
+              <div className="mb-3">
+                <label className="form-label-luxury d-block">New Images Preview</label>
+                <div className="d-flex flex-wrap gap-2">
+                  {newImages.map((file, idx) => (
+                    <div key={idx} style={{ width: '80px', height: '80px', border: '1px solid var(--border-color)', borderRadius: '4px', overflow: 'hidden' }}>
+                      <img src={URL.createObjectURL(file)} alt="New Preview" className="w-100 h-100" style={{ objectFit: 'cover' }} />
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
             {view === 'edit' && existingImages.length > 0 && (
               <div>
                 <label className="form-label-luxury d-block">Existing Images</label>
                 <div className="d-flex flex-wrap gap-2">
                   {existingImages.map((img, idx) => (
                     <div key={idx} className="position-relative" style={{ width: '80px', height: '80px', border: '1px solid var(--border-color)', borderRadius: '4px', overflow: 'hidden' }}>
-                      <img src={img.startsWith('http') ? img : `http://localhost:5000${img}`} alt="" className="w-100 h-100" style={{ objectFit: 'cover' }} />
+                      <img src={getAPIImageUrl(img)} alt="" className="w-100 h-100" style={{ objectFit: 'cover' }} />
                       <button type="button" className="btn btn-sm btn-danger position-absolute top-0 end-0 py-0 px-1 rounded-0" style={{ fontSize: '0.65rem' }} onClick={() => handleRemoveExistingImage(idx)}>
                         <i className="bi bi-x"></i>
                       </button>
@@ -317,7 +337,7 @@ const CmsRooms = () => {
           </div>
 
           <button type="submit" className="btn btn-luxury px-5 py-3" disabled={saving || !isFormValid}>
-            {saving ? 'Saving...' : 'Save Sanctuary Room'}
+            {saving ? 'Saving...' : 'Save Guest Room'}
           </button>
         </form>
       )}

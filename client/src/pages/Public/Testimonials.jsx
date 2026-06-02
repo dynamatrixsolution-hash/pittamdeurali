@@ -17,7 +17,7 @@ const Testimonials = () => {
 
   const fetchReviews = async () => {
     try {
-      const res = await api.get('/testimonials?approvedOnly=true');
+      const res = await api.get('/reviews/approved');
       if (res.success) {
         setReviews(res.data);
       }
@@ -58,12 +58,12 @@ const Testimonials = () => {
       data.append('guestName', guestName);
       data.append('country', country);
       data.append('rating', rating);
-      data.append('reviewText', reviewText);
+      data.append('review', reviewText);
       if (guestImage) {
-        data.append('guestImage', guestImage);
+        data.append('image', guestImage);
       }
 
-      const res = await api.post('/testimonials', data, {
+      const res = await api.post('/reviews', data, {
         headers: { 'Content-Type': 'multipart/form-data' }
       });
 
@@ -85,7 +85,8 @@ const Testimonials = () => {
   const getAPIImageUrl = (url) => {
     if (!url) return '';
     if (url.startsWith('http')) return url;
-    return `http://localhost:5000${url}`;
+    const baseUrl = (import.meta.env.VITE_API_URL || 'http://localhost:5000/api').replace('/api', '');
+    return `${baseUrl}${url}`;
   };
 
   if (loading) {
@@ -105,7 +106,7 @@ const Testimonials = () => {
           <h6 className="text-uppercase fw-semibold" style={{ color: 'var(--color-gold)', letterSpacing: '0.15em', fontSize: '0.75rem' }}>
             Testimonials
           </h6>
-          <h1 className="display-4 font-serif fw-bold my-2 text-white">Guest Journals</h1>
+          <h1 className="display-4 font-serif fw-bold my-2">Guest Journals</h1>
           <div className="gold-accent-line"></div>
           <p className="lead text-secondary" style={{ fontSize: '1rem' }}>
             Shared stories from travelers who have stepped through our threshold and experienced stillness.
@@ -120,9 +121,9 @@ const Testimonials = () => {
             {reviews.map(item => (
               <div className="testimonial-card text-start" key={item._id}>
                 <div className="d-flex align-items-center gap-3 mb-3">
-                  <img src={getAPIImageUrl(item.guestImage)} alt="" className="testimonial-avatar m-0" />
+                  <img src={getAPIImageUrl(item.image) || 'https://img.icons8.com/office/40/user.png'} alt="" className="testimonial-avatar m-0" />
                   <div>
-                    <h6 className="mb-0 fw-bold text-white">{item.guestName}</h6>
+                    <h6 className="mb-0 fw-bold">{item.guestName}</h6>
                     <span className="small text-secondary">{item.country || 'Traveler'}</span>
                   </div>
                 </div>
@@ -131,7 +132,7 @@ const Testimonials = () => {
                     <i className="bi bi-star-fill me-1" key={i}></i>
                   ))}
                 </div>
-                <p className="small text-secondary lh-lg mb-0">"{item.reviewText}"</p>
+                <p className="small text-secondary lh-lg mb-0">"{item.review}"</p>
               </div>
             ))}
 
@@ -146,7 +147,7 @@ const Testimonials = () => {
         {/* Submit Form Sidebar */}
         <div className="col-lg-5">
           <div className="p-4" style={{ backgroundColor: 'var(--bg-secondary)', border: '1px solid var(--border-color)', borderRadius: '4px' }}>
-            <h4 className="font-serif fw-bold mb-4 text-white">Share Your Experience</h4>
+            <h4 className="font-serif fw-bold mb-4">Share Your Experience</h4>
             
             {successMsg && <div className="alert alert-success rounded-0 small py-2">{successMsg}</div>}
             {errorMsg && <div className="alert alert-danger rounded-0 small py-2">{errorMsg}</div>}
@@ -215,11 +216,16 @@ const Testimonials = () => {
                   onChange={handleFileChange}
                   accept="image/*"
                 />
+                {guestImage && (
+                  <div className="mt-2" style={{ maxWidth: '100px', maxHeight: '100px', overflow: 'hidden', border: '1px solid var(--border-color)', borderRadius: '4px' }}>
+                    <img src={URL.createObjectURL(guestImage)} alt="Guest Preview" style={{ width: '100%', height: 'auto', display: 'block' }} />
+                  </div>
+                )}
               </div>
 
               <button 
                 type="submit" 
-                className="btn btn-luxury w-100 mt-2 py-3"
+                className="btn btn-blue w-100 mt-2 py-3"
                 disabled={submitting || !isFormValid}
               >
                 {submitting ? 'Submitting...' : 'Submit Review'}

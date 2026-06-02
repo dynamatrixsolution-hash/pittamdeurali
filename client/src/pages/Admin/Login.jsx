@@ -41,7 +41,12 @@ const Login = () => {
     <div className="d-flex align-items-center justify-content-center" style={{ minHeight: '85vh', backgroundColor: 'var(--bg-primary)' }}>
       <div className="p-5" style={{ width: '100%', maxWidth: '420px', backgroundColor: 'var(--bg-card)', border: '1px solid var(--border-color)' }}>
         <div className="text-center mb-4">
-          <h2 className="font-serif fw-bold" style={{ color: 'var(--color-gold)' }}>Sanctum Retreat</h2>
+          <img 
+            src="/logo.png" 
+            alt="New Pittam Deurali Logo" 
+            style={{ height: '75px', width: 'auto', objectFit: 'contain', marginBottom: '16px' }} 
+          />
+          <h2 className="font-serif fw-bold" style={{ color: 'var(--color-gold)' }}>Deurali Guest House</h2>
           <span className="small text-secondary text-uppercase tracking-wider">Property Administrator Panel</span>
         </div>
 

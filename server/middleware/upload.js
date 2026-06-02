@@ -1,7 +1,6 @@
 import multer from 'multer';
 import path from 'path';
 import fs from 'fs';
-import { cloudinary, isCloudinaryConfigured } from '../config/cloudinary.js';
 
 // Ensure the local uploads folder exists
 const uploadDir = './public/uploads';
@@ -39,31 +38,10 @@ const upload = multer({
   limits: { fileSize: 5 * 1024 * 1024 } // 5MB limit
 });
 
-// Helper/middleware to upload to Cloudinary if enabled
+// Helper/middleware to upload/save local image path
 const handleImageUpload = async (file) => {
   if (!file) return null;
-  
-  if (isCloudinaryConfigured) {
-    try {
-      const result = await cloudinary.uploader.upload(file.path, {
-        folder: 'hotel_pokhara',
-      });
-      // Try to clean up local temp file after upload
-      try {
-        fs.unlinkSync(file.path);
-      } catch (err) {
-        console.error('Failed to delete temp file:', err.message);
-      }
-      return { url: result.secure_url, publicId: result.public_id };
-    } catch (error) {
-      console.error('Cloudinary Upload Error, falling back to local file path:', error.message);
-      // Fallback to local path relative URL
-      return { url: `/uploads/${path.basename(file.path)}`, publicId: null };
-    }
-  } else {
-    // If not using Cloudinary, return the static server path
-    return { url: `/uploads/${path.basename(file.path)}`, publicId: null };
-  }
+  return { url: `/uploads/${path.basename(file.path)}`, publicId: null };
 };
 
 export { upload, handleImageUpload };

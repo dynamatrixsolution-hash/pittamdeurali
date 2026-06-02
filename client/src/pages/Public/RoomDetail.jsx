@@ -22,6 +22,11 @@ const RoomDetail = () => {
     message: ''
   });
 
+  const [settings, setSettings] = useState({
+    hotelName: 'New Pittam Deurali Guest House & Restaurant',
+    email: 'stay@newpittamdeurali.com'
+  });
+
   useEffect(() => {
     const fetchRoomDetails = async () => {
       try {
@@ -36,7 +41,18 @@ const RoomDetail = () => {
         setLoading(false);
       }
     };
+    const fetchSettings = async () => {
+      try {
+        const res = await api.get('/settings');
+        if (res.success && res.data) {
+          setSettings(res.data);
+        }
+      } catch (err) {
+        console.error('Error loading settings:', err);
+      }
+    };
     fetchRoomDetails();
+    fetchSettings();
   }, [slug]);
 
   const handleChange = (e) => {
@@ -76,9 +92,8 @@ const RoomDetail = () => {
       if (res.success) {
         setSuccessMsg('Your reservation request has been logged successfully!');
         
-        // 2. Generate and trigger Mailto pre-filled professional template
-        const subject = encodeURIComponent('Hotel Inquiry');
-        const bodyText = `Hello Hotel Team,
+        const subject = encodeURIComponent('Room Booking Inquiry');
+        const bodyText = `Hello ${settings.hotelName},
 
 I would like to inquire about room availability for "${room.title}".
 
@@ -93,7 +108,7 @@ ${formData.message || 'No additional message.'}
 
 Thank you.`;
 
-        const mailtoUrl = `mailto:stay@sanctumpokhara.com?subject=${subject}&body=${encodeURIComponent(bodyText)}`;
+        const mailtoUrl = `mailto:${settings.email}?subject=${subject}&body=${encodeURIComponent(bodyText)}`;
         
         // Trigger mailto after brief delay
         setTimeout(() => {
@@ -121,7 +136,8 @@ Thank you.`;
   const getAPIImageUrl = (url) => {
     if (!url) return '';
     if (url.startsWith('http')) return url;
-    return `http://localhost:5000${url}`;
+    const baseUrl = (import.meta.env.VITE_API_URL || 'http://localhost:5000/api').replace('/api', '');
+    return `${baseUrl}${url}`;
   };
 
   if (loading) {
@@ -138,7 +154,7 @@ Thank you.`;
     return (
       <div className="container py-5 text-center">
         <h3 className="font-serif my-5">Accommodation not found.</h3>
-        <Link to="/rooms" className="btn btn-luxury">Explore Rooms</Link>
+        <Link to="/rooms" className="btn btn-blue">Explore Rooms</Link>
       </div>
     );
   }
@@ -152,7 +168,7 @@ Thank you.`;
       <div className="row g-5">
         {/* Gallery Slider */}
         <div className="col-lg-7">
-          <h1 className="font-serif fw-bold mb-3 text-white">{room.title}</h1>
+          <h1 className="font-serif fw-bold mb-3">{room.title}</h1>
           <div className="gold-accent-line left mb-4"></div>
           
           <div className="mb-3" style={{ height: '420px', border: '1px solid var(--border-color)', overflow: 'hidden', borderRadius: '4px' }}>
@@ -174,7 +190,7 @@ Thank you.`;
             ))}
           </div>
 
-          <h5 className="font-serif fw-bold mt-5 mb-3 text-white">Chamber Overview</h5>
+          <h5 className="font-serif fw-bold mt-5 mb-3">Room Overview</h5>
           <p className="lh-lg text-secondary" style={{ textAlign: 'justify', fontSize: '0.9rem' }}>{room.description}</p>
         </div>
 
@@ -182,27 +198,41 @@ Thank you.`;
         <div className="col-lg-5">
           {/* Specifications Card */}
           <div className="p-4 mb-4" style={{ backgroundColor: 'var(--bg-secondary)', border: '1px solid var(--border-color)', borderRadius: '4px' }}>
-            <h4 className="font-serif fw-bold mb-3 text-white" style={{ color: 'var(--color-gold) !important' }}>Chamber Specs</h4>
+            <h4 className="font-serif fw-bold mb-3" style={{ color: 'var(--color-gold)' }}>Room Details</h4>
             <div className="d-flex flex-column gap-3 small">
               <div className="d-flex justify-content-between border-bottom pb-2" style={{ borderColor: 'var(--border-color)' }}>
                 <span className="text-secondary">Capacity</span>
-                <span className="fw-semibold text-white">{room.capacity} Guests</span>
+                <span className="fw-semibold">{room.capacity} Guests</span>
               </div>
               <div className="d-flex justify-content-between border-bottom pb-2" style={{ borderColor: 'var(--border-color)' }}>
                 <span className="text-secondary">Bed Type</span>
-                <span className="fw-semibold text-white">{room.bedType}</span>
+                <span className="fw-semibold">{room.bedType}</span>
               </div>
               <div className="d-flex justify-content-between border-bottom pb-2" style={{ borderColor: 'var(--border-color)' }}>
                 <span className="text-secondary">Room Size</span>
-                <span className="fw-semibold text-white">{room.roomSize}</span>
+                <span className="fw-semibold">{room.roomSize}</span>
               </div>
-              <div className="d-flex justify-content-between pb-1">
+              <div className="d-flex justify-content-between pb-1 align-items-center">
                 <span className="text-secondary">Rate per night</span>
-                <span className="fw-bold fs-5 text-white" style={{ color: 'var(--color-gold)' }}>${room.price}</span>
+                {settings?.showRoomPricesPublicly ? (
+                  <span className="fw-bold fs-5" style={{ color: 'var(--color-gold)' }}>${room.price}</span>
+                ) : (
+                  <span className="small text-gold fw-semibold">
+                    <a 
+                      href={`https://wa.me/${settings?.whatsappNumber ? settings.whatsappNumber.replace(/[+\s-]/g, '') : '9779801234567'}?text=Hi,%20I'm%20interested%20in%20the%20price%20and%20booking%20of%20the%20${encodeURIComponent(room.title)}.`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-decoration-none text-gold d-inline-flex align-items-center"
+                      style={{ color: 'var(--color-gold)' }}
+                    >
+                      Contact for Price <i className="bi bi-whatsapp ms-1 text-success"></i>
+                    </a>
+                  </span>
+                )}
               </div>
             </div>
 
-            <h6 className="text-uppercase fw-semibold mt-4 mb-2 text-white" style={{ fontSize: '0.75rem', letterSpacing: '0.05em' }}>
+            <h6 className="text-uppercase fw-semibold mt-4 mb-2" style={{ fontSize: '0.75rem', letterSpacing: '0.05em' }}>
               Included Amenities
             </h6>
             <div className="d-flex flex-wrap gap-1">
@@ -216,7 +246,7 @@ Thank you.`;
 
           {/* Form Card */}
           <div className="p-4" style={{ backgroundColor: 'var(--bg-card)', border: '1px solid var(--border-color)', borderRadius: '4px' }}>
-            <h4 className="font-serif fw-bold mb-4 text-white">Inquire Availability</h4>
+            <h4 className="font-serif fw-bold mb-4">Inquire Availability</h4>
             
             {successMsg && <div className="alert alert-success rounded-0 small py-2">{successMsg}</div>}
             {errorMsg && <div className="alert alert-danger rounded-0 small py-2">{errorMsg}</div>}
@@ -317,7 +347,7 @@ Thank you.`;
 
               <button 
                 type="submit" 
-                className="btn btn-luxury w-100 mt-2 py-3" 
+                className="btn btn-blue w-100 mt-2 py-3" 
                 disabled={submitting || !isFormValid}
               >
                 {submitting ? 'Processing Inquiry...' : 'Submit Inquiry'}

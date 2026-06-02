@@ -9,7 +9,7 @@ const GallerySchema = new mongoose.Schema(
     category: {
       type: String,
       required: [true, 'Please add image category'],
-      enum: ['Rooms', 'Exterior', 'Restaurant', 'Lobby', 'Pokhara Views', 'Events'],
+      enum: ['Guest House', 'Rooms', 'Restaurant', 'Surroundings', 'Facilities', '360 View'],
     },
     caption: {
       type: String,

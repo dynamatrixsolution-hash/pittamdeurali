@@ -24,18 +24,16 @@ const WhatsAppButton = () => {
   const cleanedPhone = whatsappNumber.replace(/[+\s-]/g, '');
 
   // Pre-filled WhatsApp message template
-  const rawMessage = `Hello Hotel Team,
+  const rawMessage = `Hello New Pittam Deurali Guest House & Restaurant,
 
-I would like to inquire about booking availability.
+I would like to inquire about accommodation and restaurant services.
 
-Guest Details:
-- Name: 
-- Guests: 
-- Check-in: 
-- Check-out: 
+Name:
+Guests:
+Check-in Date:
+Check-out Date:
 
-Additional Message:
-[Inquiry Details]
+Please provide further details.
 
 Thank you.`;
 

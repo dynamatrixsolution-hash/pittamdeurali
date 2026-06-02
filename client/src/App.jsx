@@ -11,8 +11,8 @@ import About from './pages/Public/About';
 import Rooms from './pages/Public/Rooms';
 import RoomDetail from './pages/Public/RoomDetail';
 import Gallery from './pages/Public/Gallery';
-import Services from './pages/Public/Services';
-import Experiences from './pages/Public/Experiences';
+import Treks from './pages/Public/Treks';
+import Restaurant from './pages/Public/Restaurant';
 import Blog from './pages/Public/Blog';
 import Testimonials from './pages/Public/Testimonials';
 import Contact from './pages/Public/Contact';
@@ -50,8 +50,8 @@ function App() {
             <Route path="/rooms" element={<Rooms />} />
             <Route path="/rooms/:slug" element={<RoomDetail />} />
             <Route path="/gallery" element={<Gallery />} />
-            <Route path="/services" element={<Services />} />
-            <Route path="/experiences" element={<Experiences />} />
+            <Route path="/treks" element={<Treks />} />
+            <Route path="/restaurant" element={<Restaurant />} />
             <Route path="/blog" element={<Blog />} />
             <Route path="/testimonials" element={<Testimonials />} />
             <Route path="/contact" element={<Contact />} />

@@ -38,10 +38,10 @@ const Services = () => {
           <h6 className="text-uppercase fw-semibold" style={{ color: 'var(--color-gold)', letterSpacing: '0.15em', fontSize: '0.75rem' }}>
             Services
           </h6>
-          <h1 className="display-4 font-serif fw-bold my-2 text-white">Retreat Amenities</h1>
+          <h1 className="display-4 font-serif fw-bold my-2">Guest House Services</h1>
           <div className="gold-accent-line"></div>
           <p className="lead text-secondary" style={{ fontSize: '1rem' }}>
-            Thoughtfully curated services designed to bring absolute restoration during your residence.
+            Conveniences and facilities provided to ensure a comfortable stay in our mountain guest house.
           </p>
         </div>
       </div>
@@ -53,7 +53,7 @@ const Services = () => {
               <div className="fs-1 mb-4" style={{ color: 'var(--color-gold)' }}>
                 <i className={`bi ${ser.icon}`}></i>
               </div>
-              <h4 className="font-serif fw-bold mb-3 text-white">{ser.title}</h4>
+              <h4 className="font-serif fw-bold mb-3">{ser.title}</h4>
               <p className="small text-secondary lh-lg mb-0">{ser.description}</p>
             </div>
           </div>

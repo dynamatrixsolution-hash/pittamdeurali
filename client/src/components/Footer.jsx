@@ -4,10 +4,10 @@ import api from '../services/api';
 
 const Footer = () => {
   const [settings, setSettings] = useState({
-    hotelName: 'Sanctum Retreat Pokhara',
-    address: 'Lakeside Road, Ward 6, Pokhara, Nepal',
-    phone: '+977-61-460000',
-    email: 'stay@sanctumpokhara.com',
+    hotelName: '',
+    address: 'Pittam Deurali, Lumle 33700, Kaski, Nepal',
+    phone: '+977-9801234567',
+    email: 'stay@newpittamdeurali.com',
     facebookUrl: '#',
     instagramUrl: '#',
     tripAdvisorUrl: '#',
@@ -33,11 +33,18 @@ const Footer = () => {
         <div className="row g-4">
           {/* Logo & Description */}
           <div className="col-lg-5 col-md-6">
-            <h5 className="font-serif fw-bold mb-3" style={{ color: 'var(--color-gold)' }}>
-              {settings.hotelName}
-            </h5>
+            <div className="d-flex align-items-center gap-2 mb-3">
+              <img
+                src="/logo.png"
+                alt="New Pittam Deurali Logo"
+                style={{ height: '40px', width: 'auto', objectFit: 'contain' }}
+              />
+              <h5 className="font-serif fw-bold m-0" style={{ color: 'var(--color-gold)' }}>
+                {settings.hotelName}
+              </h5>
+            </div>
             <p className="small lh-lg" style={{ maxWidth: '380px' }}>
-              Experience minimalist architectural beauty and organic luxury nestled between Pokhara's peaceful lakes and the towering snowbound Annapurna peaks.
+              Enjoy comfortable accommodation, delicious local cuisine, and beautiful surroundings with genuine family-operated Nepali hospitality. Located at the scenic ridge-top of Pitam Deurali.
             </p>
             <div className="d-flex gap-3 mt-3">
               <a href={settings.facebookUrl} target="_blank" rel="noopener noreferrer" className="fs-5" style={{ color: 'var(--text-primary)' }}>
@@ -54,21 +61,22 @@ const Footer = () => {
 
           {/* Quick Links */}
           <div className="col-lg-3 col-md-6">
-            <h6 className="text-uppercase fw-bold small mb-3 text-white" style={{ letterSpacing: '0.1em', color: 'var(--text-primary)' }}>
+            <h6 className="text-uppercase fw-bold small mb-3" style={{ letterSpacing: '0.1em', color: 'var(--text-primary)' }}>
               Discover
             </h6>
             <ul className="list-unstyled d-flex flex-column gap-2 small">
-              <li><Link to="/rooms" className="text-decoration-none text-reset hover-gold">Accommodation</Link></li>
-              <li><Link to="/services" className="text-decoration-none text-reset hover-gold">Amenities</Link></li>
-              <li><Link to="/experiences" className="text-decoration-none text-reset hover-gold">Expeditions</Link></li>
-              <li><Link to="/gallery" className="text-decoration-none text-reset hover-gold">Gallery</Link></li>
+              <li><Link to="/rooms" className="text-decoration-none text-reset hover-gold">Rooms & Lodging</Link></li>
+              <li><Link to="/restaurant" className="text-decoration-none text-reset hover-gold">Restaurant & Dining</Link></li>
+              <li><Link to="/treks" className="text-decoration-none text-reset hover-gold">Popular Treks</Link></li>
+              <li><Link to="/gallery" className="text-decoration-none text-reset hover-gold">Photo Gallery</Link></li>
+              <li><Link to="/contact" className="text-decoration-none text-reset hover-gold">Contact Us</Link></li>
             </ul>
           </div>
 
           {/* Contact Details */}
           <div className="col-lg-4 col-md-6">
             <h6 className="text-uppercase fw-bold small mb-3" style={{ letterSpacing: '0.1em', color: 'var(--text-primary)' }}>
-              Reservations
+              Reservations & Location
             </h6>
             <ul className="list-unstyled d-flex flex-column gap-2 small">
               <li>
@@ -82,6 +90,17 @@ const Footer = () => {
               <li>
                 <i className="bi bi-envelope-fill me-2" style={{ color: 'var(--color-gold)' }}></i>
                 {settings.email}
+              </li>
+              <li className="mt-2">
+                <a
+                  href="https://www.google.com/maps/dir/?api=1&destination=Pitam+Deurali+Guest+House+and+Restaurant+Lumle+Nepal"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn btn-orange btn-sm py-1 px-3 text-white text-decoration-none"
+                  style={{ fontSize: '0.75rem' }}
+                >
+                  <i className="bi bi-map-fill me-1"></i> Get Directions
+                </a>
               </li>
             </ul>
           </div>
@@ -97,7 +116,7 @@ const Footer = () => {
           </div>
           <div className="col-md-6 text-center text-md-end mt-2 mt-md-0">
             <p className="mb-0">
-              Aman Inspired Boutique Sanctuary &bull; Pokhara, Nepal
+              Family-Run Guest House & Restaurant &bull; Pitam Deurali, Nepal
             </p>
           </div>
         </div>

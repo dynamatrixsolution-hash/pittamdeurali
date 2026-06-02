@@ -27,7 +27,8 @@ const Blog = () => {
   const getAPIImageUrl = (url) => {
     if (!url) return '';
     if (url.startsWith('http')) return url;
-    return `http://localhost:5000${url}`;
+    const baseUrl = (import.meta.env.VITE_API_URL || 'http://localhost:5000/api').replace('/api', '');
+    return `${baseUrl}${url}`;
   };
 
   // Get unique categories
@@ -57,7 +58,7 @@ const Blog = () => {
         // Detailed Article View
         <div style={{ maxWidth: '800px', margin: '0 auto' }}>
           <button 
-            className="btn btn-sm btn-luxury-outline mb-4" 
+            className="btn btn-sm btn-blue-outline mb-4" 
             onClick={() => setReadingArticle(null)}
           >
             <i className="bi bi-arrow-left me-2"></i> Back to Journals
@@ -74,7 +75,7 @@ const Blog = () => {
             {readingArticle.category}
           </span>
           
-          <h1 className="font-serif display-5 fw-bold mb-3 text-white">{readingArticle.title}</h1>
+          <h1 className="font-serif display-5 fw-bold mb-3">{readingArticle.title}</h1>
           <div className="d-flex gap-3 text-secondary small border-bottom pb-3 mb-4" style={{ borderColor: 'var(--border-color)' }}>
             <span>By {readingArticle.author}</span>
             <span>&bull;</span>
@@ -94,7 +95,7 @@ const Blog = () => {
               <h6 className="text-uppercase fw-semibold" style={{ color: 'var(--color-gold)', letterSpacing: '0.15em', fontSize: '0.75rem' }}>
                 Blog
               </h6>
-              <h1 className="display-4 font-serif fw-bold my-2 text-white">Retreat Journals</h1>
+              <h1 className="display-4 font-serif fw-bold my-2">Retreat Journals</h1>
               <div className="gold-accent-line"></div>
               <p className="lead text-secondary" style={{ fontSize: '1rem' }}>
                 Read about design principles, Himalayan wellness practices, and itineraries for exploring Pokhara.
@@ -118,7 +119,7 @@ const Blog = () => {
                 <button 
                   key={cat} 
                   onClick={() => setSelectedCategory(cat)}
-                  className={`btn btn-sm px-3 py-1 border-0 rounded-0 text-uppercase small ${selectedCategory === cat ? 'btn-luxury' : 'btn-luxury-outline'}`}
+                  className={`btn btn-sm px-3 py-1 border-0 rounded-0 text-uppercase small ${selectedCategory === cat ? 'btn-blue' : 'btn-blue-outline'}`}
                   style={{ fontSize: '0.7rem', letterSpacing: '0.05rem' }}
                 >
                   {cat}
@@ -146,12 +147,12 @@ const Blog = () => {
                         <span className="small text-uppercase fw-semibold" style={{ color: 'var(--color-gold)' }}>{post.category}</span>
                         <span className="small text-secondary">{new Date(post.createdAt).toLocaleDateString()}</span>
                       </div>
-                      <h4 className="font-serif fw-bold fs-5 mb-2 text-white">{post.title}</h4>
+                      <h4 className="font-serif fw-bold fs-5 mb-2">{post.title}</h4>
                       <p className="small text-secondary lh-lg mb-3">{post.summary}</p>
                     </div>
                     <button 
                       onClick={() => setReadingArticle(post)}
-                      className="btn btn-sm btn-luxury-outline align-self-start py-1 px-3"
+                      className="btn btn-sm btn-blue-outline align-self-start py-1 px-3"
                       style={{ fontSize: '0.75rem', letterSpacing: '0.05em' }}
                     >
                       Read Article

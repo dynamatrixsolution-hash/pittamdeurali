@@ -1,6 +1,5 @@
 import Gallery from '../models/Gallery.js';
 import { handleImageUpload } from '../middleware/upload.js';
-import { cloudinary } from '../config/cloudinary.js';
 import fs from 'fs';
 import path from 'path';
 
@@ -53,6 +52,50 @@ export const uploadGalleryImage = async (req, res) => {
   }
 };
 
+// @desc    Update gallery image (Replace file, caption, category, order)
+// @route   PUT /api/gallery/:id
+// @access  Private
+export const updateGalleryImage = async (req, res) => {
+  try {
+    const item = await Gallery.findById(req.params.id);
+    if (!item) {
+      return res.status(404).json({ success: false, message: 'Gallery image not found' });
+    }
+
+    const { category, caption, order } = req.body;
+
+    if (category) item.category = category;
+    if (caption !== undefined) item.caption = caption;
+    if (order !== undefined) item.order = Number(order);
+
+    if (req.file) {
+      // Delete old local file if it exists
+      if (item.url && item.url.startsWith('/uploads/')) {
+        const oldFilename = path.basename(item.url);
+        const oldFilePath = path.join('./public/uploads', oldFilename);
+        if (fs.existsSync(oldFilePath)) {
+          try {
+            fs.unlinkSync(oldFilePath);
+          } catch (err) {
+            console.error('Failed to delete old local file:', err.message);
+          }
+        }
+      }
+
+      // Upload new file
+      const uploadResult = await handleImageUpload(req.file);
+      if (uploadResult) {
+        item.url = uploadResult.url;
+      }
+    }
+
+    const updated = await item.save();
+    res.json({ success: true, data: updated });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+};
+
 // @desc    Delete gallery image
 // @route   DELETE /api/gallery/:id
 // @access  Private
@@ -63,16 +106,8 @@ export const deleteGalleryImage = async (req, res) => {
       return res.status(404).json({ success: false, message: 'Gallery image not found' });
     }
 
-    // Delete image from Cloudinary if applicable
-    if (item.publicId) {
-      try {
-        await cloudinary.uploader.destroy(item.publicId);
-      } catch (err) {
-        console.error('Failed to delete image from Cloudinary:', err.message);
-      }
-    } 
     // Delete image from local files if applicable
-    else if (item.url.startsWith('/uploads/')) {
+    if (item.url && item.url.startsWith('/uploads/')) {
       const filename = path.basename(item.url);
       const filePath = path.join('./public/uploads', filename);
       if (fs.existsSync(filePath)) {

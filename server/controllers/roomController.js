@@ -1,5 +1,7 @@
 import Room from '../models/Room.js';
 import { handleImageUpload } from '../middleware/upload.js';
+import fs from 'fs';
+import path from 'path';
 
 // Helper function to create URL slug from title
 const slugify = (text) => {
@@ -111,6 +113,22 @@ export const updateRoom = async (req, res) => {
       imageUrls = Array.isArray(existingImages) ? existingImages : JSON.parse(existingImages);
     }
 
+    // Delete removed images from local disk
+    const removedImages = room.images.filter(img => !imageUrls.includes(img));
+    for (const img of removedImages) {
+      if (img.startsWith('/uploads/')) {
+        const filename = path.basename(img);
+        const filePath = path.join('./public/uploads', filename);
+        if (fs.existsSync(filePath)) {
+          try {
+            fs.unlinkSync(filePath);
+          } catch (err) {
+            console.error('Failed to delete room image on update:', err.message);
+          }
+        }
+      }
+    }
+
     if (req.files && req.files.length > 0) {
       for (const file of req.files) {
         const uploadResult = await handleImageUpload(file);
@@ -158,6 +176,21 @@ export const deleteRoom = async (req, res) => {
     const room = await Room.findById(req.params.id);
     if (!room) {
       return res.status(404).json({ success: false, message: 'Room not found' });
+    }
+
+    // Delete all local images associated with the room
+    for (const img of room.images) {
+      if (img.startsWith('/uploads/')) {
+        const filename = path.basename(img);
+        const filePath = path.join('./public/uploads', filename);
+        if (fs.existsSync(filePath)) {
+          try {
+            fs.unlinkSync(filePath);
+          } catch (err) {
+            console.error('Failed to delete room image on delete:', err.message);
+          }
+        }
+      }
     }
     
     await Room.findByIdAndDelete(req.params.id);

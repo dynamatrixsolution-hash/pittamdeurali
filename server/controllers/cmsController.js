@@ -49,10 +49,10 @@ export const updateHomepageCms = async (req, res) => {
     if (req.body.welcome) homepage.welcome = { ...homepage.welcome, ...req.body.welcome };
     if (req.body.roomsSection) homepage.roomsSection = { ...homepage.roomsSection, ...req.body.roomsSection };
     if (req.body.servicesSection) homepage.servicesSection = { ...homepage.servicesSection, ...req.body.servicesSection };
-    if (req.body.experiencesSection) homepage.experiencesSection = { ...homepage.experiencesSection, ...req.body.experiencesSection };
     if (req.body.testimonialsSection) homepage.testimonialsSection = { ...homepage.testimonialsSection, ...req.body.testimonialsSection };
     if (req.body.gallerySection) homepage.gallerySection = { ...homepage.gallerySection, ...req.body.gallerySection };
     if (req.body.faqs) homepage.faqs = req.body.faqs;
+    if (req.body.heroSlides) homepage.heroSlides = req.body.heroSlides;
 
     const updated = await homepage.save();
     res.json({ success: true, data: updated });
@@ -83,7 +83,9 @@ export const updateSettings = async (req, res) => {
     // Update fields
     const fields = [
       'hotelName', 'address', 'phone', 'email', 'whatsappNumber',
-      'googleMapIframe', 'facebookUrl', 'instagramUrl', 'tripAdvisorUrl'
+      'googleMapIframe', 'facebookUrl', 'instagramUrl', 'tripAdvisorUrl',
+      'showPricesPublicly', 'enableDiscounts', 'highlightDiscountedItems', 'showContactForPriceInstead',
+      'showRoomPricesPublicly'
     ];
 
     fields.forEach(field => {

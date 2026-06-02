@@ -13,7 +13,7 @@ const CmsGallery = () => {
   const [category, setCategory] = useState('Rooms');
   const [caption, setCaption] = useState('');
 
-  const categories = ['Rooms', 'Exterior', 'Restaurant', 'Lobby', 'Pokhara Views', 'Events'];
+  const categories = ['Guest House', 'Rooms', 'Restaurant', 'Surroundings', 'Facilities'];
 
   const fetchGallery = async () => {
     try {
@@ -96,7 +96,8 @@ const CmsGallery = () => {
   const getAPIImageUrl = (url) => {
     if (!url) return '';
     if (url.startsWith('http')) return url;
-    return `http://localhost:5000${url}`;
+    const baseUrl = (import.meta.env.VITE_API_URL || 'http://localhost:5000/api').replace('/api', '');
+    return `${baseUrl}${url}`;
   };
 
   if (loading) {
@@ -118,6 +119,11 @@ const CmsGallery = () => {
             <div className="mb-3">
               <label className="form-label-luxury">Select Image *</label>
               <input type="file" id="galleryFile" className="form-control form-luxury" onChange={handleFileChange} accept="image/*" required />
+              {file && (
+                <div className="mt-2" style={{ maxWidth: '100%', maxHeight: '180px', overflow: 'hidden', border: '1px solid var(--border-color)', borderRadius: '4px' }}>
+                  <img src={URL.createObjectURL(file)} alt="Upload Preview" style={{ width: '100%', height: 'auto', display: 'block' }} />
+                </div>
+              )}
             </div>
 
             <div className="mb-3">

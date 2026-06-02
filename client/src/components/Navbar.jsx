@@ -25,10 +25,14 @@ const Navbar = () => {
   const closeMenu = () => setIsOpen(false);
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark navbar-luxury sticky-top">
+    <nav className={`navbar navbar-expand-lg navbar-luxury sticky-top ${isDarkMode ? 'navbar-dark' : 'navbar-light'}`}>
       <div className="container">
-        <NavLink className="navbar-brand font-serif fw-bold fs-4 text-decoration-none" to="/" onClick={closeMenu} style={{ color: 'var(--color-gold)' }}>
-          {hotelName}
+        <NavLink className="navbar-brand font-serif fw-bold fs-4 text-decoration-none d-flex align-items-center" to="/" onClick={closeMenu} style={{ color: 'var(--color-gold)' }}>
+          <img 
+            src="/logo.png" 
+            alt="New Pittam Deurali Logo" 
+            style={{ height: '44px', width: 'auto', objectFit: 'contain' }} 
+          />
         </NavLink>
         
         <button 
@@ -51,12 +55,17 @@ const Navbar = () => {
             </li>
             <li className="nav-item">
               <NavLink className={({ isActive }) => `nav-link nav-link-luxury ${isActive ? 'active' : ''}`} to="/about" onClick={closeMenu}>
-                About Us
+                About
               </NavLink>
             </li>
             <li className="nav-item">
               <NavLink className={({ isActive }) => `nav-link nav-link-luxury ${isActive ? 'active' : ''}`} to="/rooms" onClick={closeMenu}>
-                Rooms
+                Accommodation
+              </NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink className={({ isActive }) => `nav-link nav-link-luxury ${isActive ? 'active' : ''}`} to="/restaurant" onClick={closeMenu}>
+                Restaurant
               </NavLink>
             </li>
             <li className="nav-item">
@@ -65,23 +74,13 @@ const Navbar = () => {
               </NavLink>
             </li>
             <li className="nav-item">
-              <NavLink className={({ isActive }) => `nav-link nav-link-luxury ${isActive ? 'active' : ''}`} to="/services" onClick={closeMenu}>
-                Services
-              </NavLink>
-            </li>
-            <li className="nav-item">
-              <NavLink className={({ isActive }) => `nav-link nav-link-luxury ${isActive ? 'active' : ''}`} to="/experiences" onClick={closeMenu}>
-                Experiences
-              </NavLink>
-            </li>
-            <li className="nav-item">
-              <NavLink className={({ isActive }) => `nav-link nav-link-luxury ${isActive ? 'active' : ''}`} to="/blog" onClick={closeMenu}>
-                Blog
+              <NavLink className={({ isActive }) => `nav-link nav-link-luxury ${isActive ? 'active' : ''}`} to="/treks" onClick={closeMenu}>
+                Popular Treks
               </NavLink>
             </li>
             <li className="nav-item">
               <NavLink className={({ isActive }) => `nav-link nav-link-luxury ${isActive ? 'active' : ''}`} to="/contact" onClick={closeMenu}>
-                Contact Us
+                Contact
               </NavLink>
             </li>
             

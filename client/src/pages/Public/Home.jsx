@@ -1,31 +1,40 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import api from '../../services/api';
+import WeatherWidget from '../../components/WeatherWidget';
 
 const Home = () => {
   const [cms, setCms] = useState(null);
   const [rooms, setRooms] = useState([]);
-  const [services, setServices] = useState([]);
-  const [experiences, setExperiences] = useState([]);
+  const [gallery, setGallery] = useState([]);
   const [testimonials, setTestimonials] = useState([]);
+  const [settings, setSettings] = useState(null);
+  const [heroes, setHeroes] = useState([]);
+  const [restaurant, setRestaurant] = useState(null);
   const [loading, setLoading] = useState(true);
+
+  const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [cmsRes, roomsRes, servicesRes, experiencesRes, testimonialsRes] = await Promise.all([
+        const [cmsRes, roomsRes, galleryRes, testimonialsRes, settingsRes, heroesRes, restaurantRes] = await Promise.all([
           api.get('/cms/homepage'),
           api.get('/rooms'),
-          api.get('/services'),
-          api.get('/experiences'),
-          api.get('/testimonials?approvedOnly=true')
+          api.get('/gallery'),
+          api.get('/reviews/approved'),
+          api.get('/settings'),
+          api.get('/heroes'),
+          api.get('/restaurant')
         ]);
 
         if (cmsRes.success) setCms(cmsRes.data);
-        if (roomsRes.success) setRooms(roomsRes.data.filter(r => r.featured)); 
-        if (servicesRes.success) setServices(servicesRes.data.slice(0, 4)); 
-        if (experiencesRes.success) setExperiences(experiencesRes.data.slice(0, 3)); 
-        if (testimonialsRes.success) setTestimonials(testimonialsRes.data.slice(0, 3)); 
+        if (roomsRes.success) setRooms(roomsRes.data.filter(r => r.featured));
+        if (galleryRes.success) setGallery(galleryRes.data.slice(0, 6)); // Display up to 6 gallery images
+        if (testimonialsRes.success) setTestimonials(testimonialsRes.data.slice(0, 3));
+        if (settingsRes.success) setSettings(settingsRes.data);
+        if (heroesRes.success) setHeroes(heroesRes.data);
+        if (restaurantRes.success) setRestaurant(restaurantRes.data);
       } catch (err) {
         console.error('Error fetching homepage data:', err);
       } finally {
@@ -35,6 +44,58 @@ const Home = () => {
 
     fetchData();
   }, []);
+
+  const getAPIImageUrl = (url) => {
+    if (!url) return '';
+    if (url.startsWith('http')) return url;
+    const baseUrl = (import.meta.env.VITE_API_URL || 'http://localhost:5000/api').replace('/api', '');
+    return `${baseUrl}${url}`;
+  };
+
+  // Set up active slides from database or fall back to default slideshow
+  const activeSlides = heroes
+    .filter(h => h.active)
+    .map(h => ({
+      title: h.title,
+      subtitle: h.subtitle,
+      image: h.imageUrl,
+      buttonText: h.buttonText,
+      buttonLink: h.buttonLink
+    }));
+  const defaultSlides = [
+    {
+      title: 'Experience Authentic Hospitality in Deurali',
+      subtitle: 'Enjoy cozy wooden rooms, hot showers, and friendly local family hospitality in Kaski.',
+      image: '/uploads/image.png',
+      buttonText: 'Explore Rooms',
+      buttonLink: '/rooms'
+    },
+    {
+      title: 'Traditional Wood-fired Kitchen',
+      subtitle: 'Savor organic local Dal Bhat, handmade dumplings, and fresh mountain teas.',
+      image: '/uploads/image copy 6.png',
+      buttonText: 'View Food Menu',
+      buttonLink: '/restaurant'
+    },
+    {
+      title: 'Breathtaking Himalayan Vistas',
+      subtitle: 'Wake up to direct sunrise views of the majestic Annapurna and Dhaulagiri ranges.',
+      image: '/uploads/image copy 8.png',
+      buttonText: 'View Gallery',
+      buttonLink: '/gallery'
+    }
+  ];
+
+  const slidesToRender = activeSlides.length > 0 ? activeSlides : defaultSlides;
+
+  // Auto sliding timer
+  useEffect(() => {
+    if (slidesToRender.length <= 1) return;
+    const interval = setInterval(() => {
+      setCurrentSlideIndex(prev => (prev + 1) % slidesToRender.length);
+    }, 6000);
+    return () => clearInterval(interval);
+  }, [slidesToRender.length]);
 
   if (loading) {
     return (
@@ -46,57 +107,96 @@ const Home = () => {
     );
   }
 
-  // Get hero data with fallbacks
-  const hero = cms?.hero || {
-    title: 'Unveil Pure Sanctuary',
-    subtitle: 'Experience the heights of luxury coexisting with the wild majesty of Pokhara\'s lakes and peaks.',
-    image: 'https://images.unsplash.com/photo-1544735716-392fe2489ffa?auto=format&fit=crop&w=1920&q=80',
-    buttonText: 'Explore Rooms',
-    buttonLink: '/rooms'
+  const handlePrevSlide = (e) => {
+    e.stopPropagation();
+    setCurrentSlideIndex(prev => (prev - 1 + slidesToRender.length) % slidesToRender.length);
+  };
+
+  const handleNextSlide = (e) => {
+    e.stopPropagation();
+    setCurrentSlideIndex(prev => (prev + 1) % slidesToRender.length);
   };
 
   // Get welcome data with fallbacks
   const welcome = cms?.welcome || {
-    title: 'Welcome to Sanctum Retreat',
-    subtitle: 'A Symphony of Stone, Water, and Himalayan Sky',
-    description: 'Nestled on the serene edges of Phewa Lake, Sanctum Retreat represents the pinnacle of modern organic luxury. Our architecture integrates sustainable local slate and timber...',
-    image: 'https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1200&q=80'
-  };
-
-  const getAPIImageUrl = (url) => {
-    if (!url) return '';
-    if (url.startsWith('http')) return url;
-    return `http://localhost:5000${url}`;
+    title: 'Welcome to New Pittam Deurali',
+    subtitle: 'Authentic Nepali Hospitality & Cozy Mountain Lodging',
+    description: 'Nestled in the beautiful ridge-top village of Pitam Deurali, our family-run guest house and restaurant serves as a warm, welcoming stopover for trekkers, families, and tourists. Enjoy our comfortable rooms, authentic homemade Nepali meals, and breathtaking views of the Annapurna and Dhaulagiri mountain ranges.',
+    image: '/uploads/image copy.png'
   };
 
   return (
     <div className="fade-in-up">
-      {/* Hero Section */}
-      <section 
-        className="hero-fullscreen" 
-        style={{ backgroundImage: `url(${getAPIImageUrl(hero.image)})` }}
-      >
-        <div className="hero-overlay"></div>
-        <div className="container position-relative text-center text-white" style={{ zIndex: 2 }}>
-          <div className="row justify-content-center">
-            <div className="col-lg-8 col-11">
-              <h1 className="display-4 fw-bold mb-4 font-serif" style={{ color: 'var(--text-primary)' }}>{hero.title}</h1>
-              <p className="fs-6 mb-5 lh-lg" style={{ color: 'rgba(255, 255, 255, 0.9)', fontWeight: 300, maxWidth: '600px', margin: '0 auto 40px' }}>
-                {hero.subtitle}
-              </p>
-              <Link to={hero.buttonLink || '/rooms'} className="btn btn-luxury">
-                {hero.buttonText}
-              </Link>
+      {/* 1. Hero Slideshow Section */}
+      <section className="hero-slider">
+        {slidesToRender.map((slide, idx) => (
+          <div 
+            key={idx}
+            className={`hero-slide ${idx === currentSlideIndex ? 'active' : ''}`}
+            style={{ backgroundImage: `url(${getAPIImageUrl(slide.image)})` }}
+          >
+            <div className="hero-slide-overlay"></div>
+            <div className="hero-slide-content">
+              <div className="container text-center">
+                <div className="row justify-content-center">
+                  <div className="col-lg-10 col-12">
+                    <h1 className="display-4 fw-bold mb-4 font-serif text-white px-2" style={{ lineHeight: '1.2' }}>
+                      {slide.title}
+                    </h1>
+                    <p className="fs-6 mb-5 lh-lg px-3" style={{ color: 'rgba(255, 255, 255, 0.9)', fontWeight: 300, maxWidth: '700px', margin: '0 auto 40px' }}>
+                      {slide.subtitle}
+                    </p>
+                    <Link to={slide.buttonLink || '/rooms'} className="btn btn-orange py-3 px-5">
+                      {slide.buttonText || 'Explore'}
+                    </Link>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
+        ))}
+
+        {/* Previous/Next Navigation Arrows */}
+        {slidesToRender.length > 1 && (
+          <>
+            <button 
+              className="hero-arrow hero-arrow-left" 
+              onClick={handlePrevSlide} 
+              aria-label="Previous Slide"
+            >
+              <i className="bi bi-chevron-left"></i>
+            </button>
+            <button 
+              className="hero-arrow hero-arrow-right" 
+              onClick={handleNextSlide} 
+              aria-label="Next Slide"
+            >
+              <i className="bi bi-chevron-right"></i>
+            </button>
+          </>
+        )}
+
+        {/* Dot Indicators */}
+        {slidesToRender.length > 1 && (
+          <ul className="hero-dots">
+            {slidesToRender.map((_, idx) => (
+              <li key={idx}>
+                <button 
+                  className={`hero-dot ${idx === currentSlideIndex ? 'active' : ''}`}
+                  onClick={() => setCurrentSlideIndex(idx)}
+                  aria-label={`Go to slide ${idx + 1}`}
+                ></button>
+              </li>
+            ))}
+          </ul>
+        )}
       </section>
 
-      {/* Welcome Section */}
+      {/* 2. Welcome Section */}
       <section className="section-padding" style={{ backgroundColor: 'var(--bg-primary)' }}>
         <div className="container">
           <div className="row align-items-center g-5">
-            <div className="col-lg-6">
+            <div className="col-lg-6 col-12">
               <h6 className="text-uppercase fw-semibold" style={{ color: 'var(--color-gold)', letterSpacing: '0.15em', fontSize: '0.75rem' }}>
                 {welcome.subtitle}
               </h6>
@@ -104,20 +204,20 @@ const Home = () => {
                 {welcome.title}
               </h2>
               <div className="gold-accent-line left"></div>
-              <p className="lh-lg text-secondary my-4" style={{ textAlign: 'justify', fontSize: '0.9rem' }}>
+              <p className="lh-lg text-secondary my-4" style={{ textAlign: 'justify', fontSize: '0.95rem' }}>
                 {welcome.description}
               </p>
-              <Link to="/about" className="btn btn-luxury-outline mt-2">
-                About Us
+              <Link to="/about" className="btn btn-blue-outline mt-2">
+                Our Story
               </Link>
             </div>
-            <div className="col-lg-6">
-              <div style={{ border: '1px solid var(--border-color)', padding: '12px' }}>
+            <div className="col-lg-6 col-12">
+              <div style={{ border: '1px solid var(--border-color)', padding: '12px', borderRadius: '4px' }}>
                 <img 
                   src={getAPIImageUrl(welcome.image)} 
-                  alt="Welcome Retreat" 
+                  alt="Welcome New Pittam Deurali" 
                   className="img-fluid w-100"
-                  style={{ objectFit: 'cover', height: '400px' }}
+                  style={{ objectFit: 'cover', height: '400px', borderRadius: '2px' }}
                 />
               </div>
             </div>
@@ -125,49 +225,94 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Rooms Section */}
-      <section className="section-padding" style={{ backgroundColor: 'var(--bg-secondary)' }}>
+      {/* Live Weather Section */}
+      <section className="section-padding" style={{ backgroundColor: 'var(--bg-secondary)', borderBottom: '1px solid var(--border-color)' }}>
+        <div className="container">
+          <div className="row justify-content-center text-center mb-5">
+            <div className="col-lg-8 col-11">
+              <h6 className="text-uppercase fw-semibold" style={{ color: 'var(--color-gold)', letterSpacing: '0.15em', fontSize: '0.75rem' }}>
+                Climate & Weather
+              </h6>
+              <h2 className="display-6 font-serif fw-bold my-2" style={{ color: 'var(--text-primary)' }}>
+                Live Pitam Deurali Weather
+              </h2>
+              <div className="gold-accent-line"></div>
+              <p className="small text-secondary mb-4">
+                Real-time meteorological conditions and 5-day mountain weather forecasts directly from the viewpoint summit (~2,100m).
+              </p>
+            </div>
+          </div>
+          <div className="row justify-content-center">
+            <div className="col-lg-10 col-12">
+              <WeatherWidget />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 3. Accommodation Features */}
+      <section className="section-padding" style={{ backgroundColor: 'var(--bg-primary)' }}>
         <div className="container text-center">
           <h6 className="text-uppercase fw-semibold" style={{ color: 'var(--color-gold)', letterSpacing: '0.15em', fontSize: '0.75rem' }}>
-            Sanctuary Chambers
+            Rooms & Lodging
           </h6>
           <h2 className="display-6 font-serif fw-bold my-2" style={{ color: 'var(--text-primary)' }}>
-            {cms?.roomsSection?.title || 'Sanctuary Chambers'}
+            {cms?.roomsSection?.title || 'Comfortable Accommodations'}
           </h2>
-          <p className="small text-secondary mb-4" style={{ letterSpacing: '0.02em' }}>
-            {cms?.roomsSection?.subtitle || 'Quiet spaces of stone and silk with private heated pools and unrestricted lake views.'}
+          <p className="small text-secondary mb-4">
+            {cms?.roomsSection?.subtitle || 'Warm wooden rooms with comfortable beds, hot showers, and forest/mountain views.'}
           </p>
           <div className="gold-accent-line"></div>
 
           <div className="row g-4 justify-content-center text-start mt-4">
             {rooms.map(room => (
-              <div className="col-lg-4 col-md-6" key={room._id}>
-                <div className="card-luxury h-100 d-flex flex-column justify-content-between">
-                  <div>
-                    <div style={{ height: '240px', overflow: 'hidden' }}>
-                      <img 
-                        src={getAPIImageUrl(room.images[0])} 
-                        className="w-100 h-100" 
-                        style={{ objectFit: 'cover' }} 
-                        alt={room.title}
-                      />
+              <div className="col-lg-4 col-md-6 col-12" key={room._id}>
+                <div className="card-luxury h-100 d-flex flex-column">
+                  <div style={{ height: '240px', overflow: 'hidden', flexShrink: 0 }}>
+                    <img 
+                      src={getAPIImageUrl(room.images[0])} 
+                      className="w-100 h-100" 
+                      style={{ objectFit: 'cover' }} 
+                      alt={room.title}
+                    />
+                  </div>
+                  
+                  <div className="p-4 d-flex flex-column flex-grow-1">
+                    <div className="d-flex justify-content-between align-items-start gap-2 mb-3" style={{ minHeight: '56px' }}>
+                      <h4 className="font-serif mb-0 fs-5 text-white" style={{ wordBreak: 'break-word', overflowWrap: 'anywhere' }}>{room.title}</h4>
+                      {settings?.showRoomPricesPublicly ? (
+                        <span className="fw-bold fs-6 text-nowrap" style={{ color: 'var(--color-gold)' }}>${room.price} <span className="small text-secondary fw-normal">/ night</span></span>
+                      ) : (
+                        <span className="small text-gold fw-semibold text-nowrap">
+                          <a 
+                            href={`https://wa.me/${settings?.whatsappNumber ? settings.whatsappNumber.replace(/[+\s-]/g, '') : '9779801234567'}?text=Hi,%20I'm%20interested%20in%20the%20price%20and%20booking%20of%20the%20${encodeURIComponent(room.title)}.`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-decoration-none text-gold d-inline-flex align-items-center"
+                            style={{ color: 'var(--color-gold)' }}
+                            onClick={e => e.stopPropagation()}
+                          >
+                            Contact <i className="bi bi-whatsapp ms-1 text-success"></i>
+                          </a>
+                        </span>
+                      )}
                     </div>
-                    <div className="p-4">
-                      <div className="d-flex justify-content-between align-items-center mb-2">
-                        <h4 className="font-serif mb-0 fs-5" style={{ color: 'var(--text-primary)' }}>{room.title}</h4>
-                        <span className="fw-bold fs-6" style={{ color: 'var(--color-gold)' }}>${room.price}</span>
-                      </div>
-                      <p className="small text-secondary mb-3 lh-lg">{room.shortDescription}</p>
-                      
-                      <div className="d-flex flex-wrap gap-1 border-top pt-3" style={{ borderColor: 'var(--border-color)', fontSize: '0.75rem', color: 'var(--text-secondary)' }}>
-                        <span className="me-3"><i className="bi bi-people me-1"></i> {room.capacity} Guests</span>
-                        <span><i className="bi bi-arrows-fullscreen me-1"></i> {room.roomSize}</span>
-                      </div>
+                    
+                    <div className="flex-grow-1 mb-3">
+                      <p className="small text-secondary lh-lg mb-0" style={{ display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                        {room.shortDescription}
+                      </p>
+                    </div>
+                    
+                    <div className="d-flex flex-wrap gap-1 border-top pt-3" style={{ borderColor: 'var(--border-color)', fontSize: '0.75rem', color: 'var(--text-secondary)' }}>
+                      <span className="me-3"><i className="bi bi-people me-1"></i> {room.capacity} Guests</span>
+                      <span><i className="bi bi-calendar-check me-1"></i> {room.bedType}</span>
                     </div>
                   </div>
-                  <div className="px-4 pb-4">
-                    <Link to={`/rooms/${room.slug}`} className="btn btn-luxury-outline w-100 py-2 text-center text-decoration-none">
-                      Explore Room
+                  
+                  <div className="px-4 pb-4 mt-auto">
+                    <Link to={`/rooms/${room.slug}`} className="btn btn-blue-outline w-100 py-2 text-center text-decoration-none">
+                      View Details
                     </Link>
                   </div>
                 </div>
@@ -177,167 +322,227 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Services Section */}
-      <section className="section-padding" style={{ backgroundColor: 'var(--bg-primary)' }}>
-        <div className="container text-center">
-          <h6 className="text-uppercase fw-semibold" style={{ color: 'var(--color-gold)', letterSpacing: '0.15em', fontSize: '0.75rem' }}>
-            Curated Amenities
-          </h6>
-          <h2 className="display-6 font-serif fw-bold my-2" style={{ color: 'var(--text-primary)' }}>
-            {cms?.servicesSection?.title || 'Curated Amenities'}
-          </h2>
-          <p className="small text-secondary mb-4">
-            {cms?.servicesSection?.subtitle || 'Designed to rejuvenate mind, body, and spirit.'}
-          </p>
-          <div className="gold-accent-line"></div>
-
-          <div className="row g-4 mt-4">
-            {services.map(service => (
-              <div className="col-lg-3 col-md-6" key={service._id}>
-                <div className="card-luxury p-4 h-100 d-flex flex-column align-items-center">
-                  <div className="fs-2 mb-3" style={{ color: 'var(--color-gold)' }}>
-                    <i className={`bi ${service.icon}`}></i>
-                  </div>
-                  <h5 className="font-serif fw-bold mb-2" style={{ color: 'var(--text-primary)' }}>{service.title}</h5>
-                  <p className="small text-secondary mb-0 lh-lg">{service.description}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Experiences Section */}
-      <section className="section-padding" style={{ backgroundColor: 'var(--bg-secondary)' }}>
-        <div className="container text-center">
-          <h6 className="text-uppercase fw-semibold" style={{ color: 'var(--color-gold)', letterSpacing: '0.15em', fontSize: '0.75rem' }}>
-            Pokhara Excursions
-          </h6>
-          <h2 className="display-6 font-serif fw-bold my-2" style={{ color: 'var(--text-primary)' }}>
-            {cms?.experiencesSection?.title || 'Pokhara Excursions'}
-          </h2>
-          <p className="small text-secondary mb-4">
-            {cms?.experiencesSection?.subtitle || 'Bespoke adventures curated by our expert local guides.'}
-          </p>
-          <div className="gold-accent-line"></div>
-
-          <div className="row g-4 text-start mt-4 justify-content-center">
-            {experiences.map(exp => (
-              <div className="col-lg-4 col-md-6" key={exp._id}>
-                <div className="card-luxury h-100 d-flex flex-column justify-content-between">
-                  <div>
-                    <div style={{ height: '220px', overflow: 'hidden' }}>
-                      <img 
-                        src={getAPIImageUrl(exp.image)} 
-                        className="w-100 h-100" 
-                        style={{ objectFit: 'cover' }} 
-                        alt={exp.title}
-                      />
-                    </div>
-                    <div className="p-4">
-                      <h5 className="font-serif mb-2" style={{ color: 'var(--text-primary)' }}>{exp.title}</h5>
-                      <p className="small text-secondary lh-lg mb-0">{exp.description}</p>
-                    </div>
-                  </div>
-                  
-                  <div className="px-4 pb-4">
-                    <div className="d-flex justify-content-between align-items-center border-top pt-3" style={{ borderColor: 'var(--border-color)' }}>
-                      <span className="small text-secondary">Inquiry price from</span>
-                      <span className="fw-bold text-white">${exp.price}</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Testimonials Section */}
-      <section className="section-padding" style={{ backgroundColor: 'var(--bg-primary)' }}>
-        <div className="container text-center">
-          <h6 className="text-uppercase fw-semibold" style={{ color: 'var(--color-gold)', letterSpacing: '0.15em', fontSize: '0.75rem' }}>
-            Guest Journals
-          </h6>
-          <h2 className="display-6 font-serif fw-bold my-2" style={{ color: 'var(--text-primary)' }}>
-            {cms?.testimonialsSection?.title || 'Guest Journals'}
-          </h2>
-          <div className="gold-accent-line"></div>
-
-          <div className="row g-4 justify-content-center mt-4">
-            {testimonials.map(item => (
-              <div className="col-lg-5" key={item._id}>
-                <div className="testimonial-card h-100 d-flex flex-column justify-content-between">
-                  <div>
-                    <img src={getAPIImageUrl(item.guestImage)} alt={item.guestName} className="testimonial-avatar" />
-                    <p className="fst-italic lh-lg text-secondary small">
-                      "{item.reviewText}"
-                    </p>
-                  </div>
-                  <div className="mt-3">
-                    <div className="mb-1" style={{ color: 'var(--color-gold)' }}>
-                      {Array.from({ length: item.rating }).map((_, i) => (
-                        <i className="bi bi-star-fill me-1" key={i}></i>
-                      ))}
-                    </div>
-                    <h6 className="mb-0 fw-bold" style={{ color: 'var(--text-primary)' }}>{item.guestName}</h6>
-                    <span className="small text-secondary">{item.country}</span>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* FAQ Section */}
+      {/* 4. Restaurant Features */}
       <section className="section-padding" style={{ backgroundColor: 'var(--bg-secondary)' }}>
         <div className="container">
-          <div className="text-center">
-            <h6 className="text-uppercase fw-semibold" style={{ color: 'var(--color-gold)', letterSpacing: '0.15em', fontSize: '0.75rem' }}>
-              FAQ
-            </h6>
-            <h2 className="display-6 font-serif fw-bold my-2" style={{ color: 'var(--text-primary)' }}>
-              Frequently Asked Questions
-            </h2>
-            <div className="gold-accent-line"></div>
+          <div className="row align-items-center g-5">
+            <div className="col-lg-6 col-12 order-lg-2">
+              <h6 className="text-uppercase fw-semibold" style={{ color: 'var(--color-gold)', letterSpacing: '0.15em', fontSize: '0.75rem' }}>
+                {restaurant?.subtitle || 'Restaurant & Dining'}
+              </h6>
+              <h2 className="display-6 font-serif fw-bold my-3">
+                {restaurant?.title || 'Authentic Wood-Fire Nepali Cuisine'}
+              </h2>
+              <div className="gold-accent-line left"></div>
+              <p className="lh-lg text-secondary my-4" style={{ fontSize: '0.95rem' }}>
+                {restaurant?.description || 'At New Pittam Deurali Restaurant, we believe that good food is essential for any journey. Enjoy traditional Nepalese Dal Bhat cooked on a traditional wood fire, handmade momos, and seasonal vegetable curries using fresh, organic ingredients harvested straight from local farms.'}
+              </p>
+              <div className="d-flex flex-column gap-2 mb-4">
+                {restaurant?.features && restaurant.features.length > 0 ? (
+                  restaurant.features.map((feat, idx) => (
+                    <span key={idx} className="small text-secondary">
+                      <i className="bi bi-check2-circle me-2 text-success"></i> {feat}
+                    </span>
+                  ))
+                ) : (
+                  <>
+                    <span className="small text-secondary"><i className="bi bi-check2-circle me-2 text-success"></i> Authentic traditional Nepali recipes</span>
+                    <span className="small text-secondary"><i className="bi bi-check2-circle me-2 text-success"></i> 100% locally sourced, organic ingredients</span>
+                    <span className="small text-secondary"><i className="bi bi-check2-circle me-2 text-success"></i> Warm family operated kitchen & dining</span>
+                  </>
+                )}
+              </div>
+              <Link to="/restaurant" className="btn btn-green py-2.5 px-4">
+                Explore Dining & Menu
+              </Link>
+            </div>
+            <div className="col-lg-6 col-12 order-lg-1">
+              <div className="row g-3">
+                {restaurant?.galleryImages && restaurant.galleryImages.length > 0 ? (
+                  restaurant.galleryImages.slice(0, 2).map((img, idx) => (
+                    <div className="col-6" key={idx}>
+                      <img 
+                        src={getAPIImageUrl(img)} 
+                        alt="Restaurant representation" 
+                        className="img-fluid w-100" 
+                        style={{ objectFit: 'cover', height: '280px', borderRadius: '4px', border: '1px solid var(--border-color)' }}
+                      />
+                    </div>
+                  ))
+                ) : (
+                  <>
+                    <div className="col-6">
+                      <img 
+                        src={getAPIImageUrl(restaurant?.coverImage) || "/uploads/image copy 6.png"} 
+                        alt="Dining Area" 
+                        className="img-fluid w-100" 
+                        style={{ objectFit: 'cover', height: '280px', borderRadius: '4px', border: '1px solid var(--border-color)' }}
+                      />
+                    </div>
+                    <div className="col-6">
+                      <img 
+                        src="/uploads/image copy 7.png" 
+                        alt="Traditional Dal Bhat" 
+                        className="img-fluid w-100" 
+                        style={{ objectFit: 'cover', height: '280px', borderRadius: '4px', border: '1px solid var(--border-color)' }}
+                      />
+                    </div>
+                  </>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 5. Gallery Preview */}
+      <section className="section-padding" style={{ backgroundColor: 'var(--bg-primary)' }}>
+        <div className="container text-center">
+          <h6 className="text-uppercase fw-semibold" style={{ color: 'var(--color-gold)', letterSpacing: '0.15em', fontSize: '0.75rem' }}>
+            Visual Showcase
+          </h6>
+          <h2 className="display-6 font-serif fw-bold my-2">Property Gallery</h2>
+          <p className="small text-secondary mb-4">A glimpse of our cozy guest house, local dining, and surrounding mountain trails.</p>
+          <div className="gold-accent-line mb-5"></div>
+
+          <div className="row g-3">
+            {gallery.map((img, idx) => (
+              <div className="col-lg-4 col-md-6 col-12" key={img._id || idx}>
+                <div className="gallery-preview-item position-relative overflow-hidden" style={{ height: '240px', borderRadius: '4px', border: '1px solid var(--border-color)' }}>
+                  <img 
+                    src={getAPIImageUrl(img.url)} 
+                    alt={img.caption || 'New Pittam Deurali'} 
+                    className="w-100 h-100" 
+                    style={{ objectFit: 'cover', transition: 'transform 0.5s ease' }}
+                  />
+                </div>
+              </div>
+            ))}
           </div>
 
-          <div className="row justify-content-center mt-5">
-            <div className="col-lg-8 col-11">
-              <div className="accordion accordion-flush" id="faqAccordion">
-                {(cms?.faqs || []).map((faq, index) => (
-                  <div 
-                    className="accordion-item mb-3" 
-                    key={faq._id || index}
-                    style={{ backgroundColor: 'var(--bg-card)', border: '1px solid var(--border-color)', borderRadius: '4px' }}
-                  >
-                    <h2 className="accordion-header" id={`flush-heading${index}`}>
-                      <button 
-                        className="accordion-button collapsed font-serif shadow-none" 
-                        type="button" 
-                        data-bs-toggle="collapse" 
-                        data-bs-target={`#flush-collapse${index}`} 
-                        aria-expanded="false" 
-                        aria-controls={`flush-collapse${index}`}
-                        style={{ backgroundColor: 'var(--bg-card)', color: 'var(--text-primary)', fontSize: '1rem', borderTopLeftRadius: '4px', borderTopRightRadius: '4px' }}
-                      >
-                        {faq.question}
-                      </button>
-                    </h2>
-                    <div 
-                      id={`flush-collapse${index}`} 
-                      className="accordion-collapse collapse" 
-                      aria-labelledby={`flush-heading${index}`} 
-                      data-bs-parent="#faqAccordion"
-                    >
-                      <div className="accordion-body small lh-lg" style={{ color: 'var(--text-secondary)' }}>
-                        {faq.answer}
+          <div className="text-center mt-5">
+            <Link to="/gallery" className="btn btn-blue-outline py-2.5 px-4">
+              View All Photos
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* 6. Why Choose Us */}
+      <section className="section-padding" style={{ backgroundColor: 'var(--bg-secondary)' }}>
+        <div className="container text-center">
+          <h6 className="text-uppercase fw-semibold" style={{ color: 'var(--color-gold)', letterSpacing: '0.15em', fontSize: '0.75rem' }}>
+            Why Choose Us
+          </h6>
+          <h2 className="display-6 font-serif fw-bold my-2">Nepali Hospitality at Its Best</h2>
+          <div className="gold-accent-line mb-5"></div>
+
+          <div className="row g-4 text-start">
+            <div className="col-md-4 col-12">
+              <div className="card-luxury p-4 h-100">
+                <div className="fs-3 mb-3 text-gold" style={{ color: 'var(--color-gold)' }}><i className="bi bi-heart-fill"></i></div>
+                <h5 className="font-serif fw-bold mb-2">Family Operated</h5>
+                <p className="small text-secondary lh-lg mb-0">
+                  Operated by a local family, we treat every guest like our own family. You will experience genuine Nepalese culture, care, and hospitality.
+                </p>
+              </div>
+            </div>
+            <div className="col-md-4 col-12">
+              <div className="card-luxury p-4 h-100">
+                <div className="fs-3 mb-3 text-gold" style={{ color: 'var(--color-gold)' }}><i className="bi bi-shop"></i></div>
+                <h5 className="font-serif fw-bold mb-2">Local Ingredients</h5>
+                <p className="small text-secondary lh-lg mb-0">
+                  Our kitchen focuses on organic farm-to-table cuisine. We harvest vegetables from our own garden and source rice, lentils, and tea locally.
+                </p>
+              </div>
+            </div>
+            <div className="col-md-4 col-12">
+              <div className="card-luxury p-4 h-100">
+                <div className="fs-3 mb-3 text-gold" style={{ color: 'var(--color-gold)' }}><i className="bi bi-compass-fill"></i></div>
+                <h5 className="font-serif fw-bold mb-2">Trekking Hub</h5>
+                <p className="small text-secondary lh-lg mb-0">
+                  Located directly on the Mardi Himal trail, we provide trekking maps, route advice, and guide services to ensure a safe and memorable trek.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 7. Customer Reviews */}
+      <section className="section-padding" style={{ backgroundColor: 'var(--bg-primary)' }}>
+        <div className="container text-center">
+          <h6 className="text-uppercase fw-semibold" style={{ color: 'var(--color-gold)', letterSpacing: '0.15em', fontSize: '0.75rem' }}>
+            Testimonials
+          </h6>
+          <h2 className="display-6 font-serif fw-bold my-2">Traveler Journals</h2>
+          <div className="gold-accent-line mb-5"></div>
+
+          <div className="row g-4 justify-content-center">
+            {testimonials.map(item => (
+              <div className="col-lg-5 col-12" key={item._id}>
+                <div className="testimonial-card h-100 d-flex flex-column justify-content-between p-4" style={{ backgroundColor: 'var(--bg-card)', border: '1px solid var(--border-color)', borderRadius: '4px' }}>
+                  <div>
+                    <p className="fst-italic lh-lg text-secondary small">
+                      "{item.review}"
+                    </p>
+                  </div>
+                  <div className="mt-3 d-flex align-items-center gap-3">
+                    <img 
+                      src={getAPIImageUrl(item.image) || 'https://img.icons8.com/office/40/user.png'} 
+                      alt={item.guestName} 
+                      className="rounded-circle" 
+                      style={{ width: '50px', height: '50px', objectFit: 'cover', border: '1px solid var(--color-gold)' }} 
+                    />
+                    <div className="text-start">
+                      <h6 className="mb-0 fw-bold">{item.guestName}</h6>
+                      <span className="small text-muted">{item.country}</span>
+                      <div className="mt-1" style={{ color: 'var(--color-gold)', fontSize: '0.75rem' }}>
+                        {Array.from({ length: item.rating }).map((_, i) => (
+                          <i className="bi bi-star-fill me-1" key={i}></i>
+                        ))}
                       </div>
                     </div>
                   </div>
-                ))}
+                </div>
               </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* 8. Contact CTA */}
+      <section className="section-padding" style={{ backgroundColor: 'var(--bg-secondary)' }}>
+        <div className="container">
+          <div className="p-5 text-center position-relative overflow-hidden" style={{ backgroundColor: 'var(--bg-card)', border: '1px solid var(--border-color)', borderRadius: '6px' }}>
+            <h6 className="text-uppercase fw-semibold" style={{ color: 'var(--color-gold)', letterSpacing: '0.15em', fontSize: '0.75rem' }}>
+              Plan Your Visit
+            </h6>
+            <h2 className="display-5 font-serif fw-bold my-3">Are You Ready to Experience Pitam Deurali?</h2>
+            <p className="small text-secondary mx-auto mb-4" style={{ maxWidth: '600px' }}>
+              Have questions about lodging availability, dining bookings, or trail conditions? Get in touch with us directly via phone, email, or WhatsApp.
+            </p>
+            <div className="d-flex flex-wrap justify-content-center gap-3 mt-4">
+              <a 
+                href={`https://wa.me/${settings?.whatsappNumber ? settings.whatsappNumber.replace(/[+\s-]/g, '') : '9779801234567'}`} 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="btn btn-success py-2.5 px-4 d-flex align-items-center gap-2"
+                style={{ border: 'none' }}
+              >
+                <i className="bi bi-whatsapp"></i> Chat on WhatsApp
+              </a>
+              <Link to="/contact" className="btn btn-blue py-2.5 px-4">
+                Contact Us Form
+              </Link>
+              <a 
+                href="https://www.google.com/maps/dir/?api=1&destination=Pitam+Deurali+Guest+House+and+Restaurant+Lumle+Nepal" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="btn btn-orange-outline py-2.5 px-4 d-flex align-items-center gap-2"
+              >
+                <i className="bi bi-map"></i> Get Directions
+              </a>
             </div>
           </div>
         </div>

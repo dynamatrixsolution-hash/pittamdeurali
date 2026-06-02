@@ -9,6 +9,17 @@ const HomepageCmsSchema = new mongoose.Schema(
       buttonText: { type: String, default: 'Explore Rooms' },
       buttonLink: { type: String, default: '/rooms' },
     },
+    heroSlides: [
+      {
+        title: { type: String, required: true },
+        subtitle: { type: String, required: true },
+        image: { type: String, required: true },
+        buttonText: { type: String, default: 'Explore' },
+        buttonLink: { type: String, default: '/rooms' },
+        order: { type: Number, default: 0 },
+        active: { type: Boolean, default: true }
+      }
+    ],
     welcome: {
       title: { type: String, default: 'Welcome to Sanctum Retreat Pokhara' },
       subtitle: { type: String, default: 'Experience Luxury Coexisting with Nature' },
@@ -22,10 +33,6 @@ const HomepageCmsSchema = new mongoose.Schema(
     servicesSection: {
       title: { type: String, default: 'Curated Guest Amenities' },
       subtitle: { type: String, default: 'Designed to rejuvenate mind, body, and spirit during your stay.' }
-    },
-    experiencesSection: {
-      title: { type: String, default: 'Pokhara Excursions' },
-      subtitle: { type: String, default: 'Bespoke adventures curated by our expert local guides.' }
     },
     testimonialsSection: {
       title: { type: String, default: 'Guest Reminiscences' },
