@@ -1,6 +1,24 @@
 import multer from 'multer';
 import path from 'path';
 import fs from 'fs';
+import dotenv from 'dotenv';
+import { v2 as cloudinary } from 'cloudinary';
+
+dotenv.config();
+
+const hasCloudinaryConfig = Boolean(
+  process.env.CLOUDINARY_CLOUD_NAME &&
+  process.env.CLOUDINARY_API_KEY &&
+  process.env.CLOUDINARY_API_SECRET
+);
+
+if (hasCloudinaryConfig) {
+  cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET
+  });
+}
 
 // Ensure the local uploads folder exists
 const uploadDir = './public/uploads';
@@ -19,28 +37,44 @@ const storage = multer.diskStorage({
   }
 });
 
-// File filter (accept images only)
+// File filter (accept images/videos only)
 const fileFilter = (req, file, cb) => {
-  const allowedTypes = /jpeg|jpg|png|webp|gif/;
-  const extName = allowedTypes.test(path.extname(file.originalname).toLowerCase());
-  const mimeType = allowedTypes.test(file.mimetype);
+  const allowedExts = /jpeg|jpg|png|webp|gif|mp4|mov|webm|avi|mkv/;
+  const allowedMime = /image\/|video\//;
+  const extName = allowedExts.test(path.extname(file.originalname).toLowerCase());
+  const mimeType = allowedMime.test(file.mimetype);
 
   if (extName && mimeType) {
     cb(null, true);
   } else {
-    cb(new Error('Only image files are allowed!'), false);
+    cb(new Error('Only image and video files are allowed!'), false);
   }
 };
 
 const upload = multer({
   storage: storage,
   fileFilter: fileFilter,
-  limits: { fileSize: 5 * 1024 * 1024 } // 5MB limit
+  limits: { fileSize: 100 * 1024 * 1024 } // 100MB limit for images/videos
 });
 
-// Helper/middleware to upload/save local image path
+// Helper/middleware to upload media to Cloudinary, or save local image path as fallback
 const handleImageUpload = async (file) => {
   if (!file) return null;
+
+  if (hasCloudinaryConfig) {
+    const resourceType = file.mimetype.startsWith('video/') ? 'video' : 'image';
+    const result = await cloudinary.uploader.upload(file.path, {
+      folder: 'pittamdeurali',
+      resource_type: resourceType
+    });
+
+    if (fs.existsSync(file.path)) {
+      fs.unlinkSync(file.path);
+    }
+
+    return { url: result.secure_url, publicId: result.public_id };
+  }
+
   return { url: `/uploads/${path.basename(file.path)}`, publicId: null };
 };
 

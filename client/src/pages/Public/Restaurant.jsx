@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import api from '../../services/api';
+import api, { getAPIImageUrl } from '../../services/api';
 
 const Restaurant = () => {
   const [categories, setCategories] = useState([]);
@@ -32,12 +32,6 @@ const Restaurant = () => {
     fetchMenuData();
   }, []);
 
-  const getAPIImageUrl = (url) => {
-    if (!url) return '';
-    if (url.startsWith('http')) return url;
-    const baseUrl = (import.meta.env.VITE_API_URL || 'http://localhost:5000/api').replace('/api', '');
-    return `${baseUrl}${url}`;
-  };
 
   const filteredItems = menuItems.filter(item => {
     const matchesSearch = item.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
@@ -127,7 +121,7 @@ const Restaurant = () => {
         <div className="col-lg-6 col-12">
           <div style={{ border: '1px solid var(--border-color)', padding: '10px', borderRadius: '4px' }}>
             <img 
-              src={getAPIImageUrl(restaurant?.coverImage) || "/uploads/image copy 6.png"} 
+              src={getAPIImageUrl(restaurant?.coverImage || "/uploads/image copy 6.png")} 
               alt="Cozy Dining Area" 
               className="img-fluid w-100"
               style={{ objectFit: 'cover', height: '360px', borderRadius: '2px' }}
@@ -175,7 +169,7 @@ const Restaurant = () => {
         <div className="col-lg-6 col-12">
           <div style={{ border: '1px solid var(--border-color)', padding: '10px', borderRadius: '4px' }}>
             <img 
-              src={restaurant?.galleryImages && restaurant.galleryImages.length > 0 ? getAPIImageUrl(restaurant.galleryImages[0]) : "/uploads/image copy 7.png"} 
+              src={getAPIImageUrl(restaurant?.galleryImages && restaurant.galleryImages.length > 0 ? restaurant.galleryImages[0] : "/uploads/image copy 7.png")} 
               alt="Traditional Nepali Dal Bhat" 
               className="img-fluid w-100"
               style={{ objectFit: 'cover', height: '360px', borderRadius: '2px' }}
@@ -253,7 +247,7 @@ const Restaurant = () => {
                 <div className="menu-item-card d-flex align-items-center gap-3 p-3 h-100">
                   <div style={{ width: '90px', height: '90px', flexShrink: 0 }}>
                     <img 
-                      src={getAPIImageUrl(item.image) || '/uploads/image.png'} 
+                      src={getAPIImageUrl(item.image || '/uploads/image.png')} 
                       alt={item.name} 
                       className="w-100 h-100"
                       style={{ objectFit: 'cover', borderRadius: '4px', border: '1px solid var(--border-color)' }}

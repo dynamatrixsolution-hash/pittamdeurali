@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import api from '../../services/api';
+import api, { getAPIImageUrl } from '../../services/api';
 
 const Treks = () => {
   const [treks, setTreks] = useState([]);
@@ -21,12 +21,6 @@ const Treks = () => {
     fetchTreks();
   }, []);
 
-  const getAPIImageUrl = (url) => {
-    if (!url) return '';
-    if (url.startsWith('http')) return url;
-    const baseUrl = (import.meta.env.VITE_API_URL || 'http://localhost:5000/api').replace('/api', '');
-    return `${baseUrl}${url}`;
-  };
 
   const getDifficultyBadge = (difficulty) => {
     switch (difficulty) {

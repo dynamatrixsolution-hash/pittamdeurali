@@ -7,7 +7,7 @@ This project is a full-stack hotel/guest-house website and CMS with:
 - Public site pages (home, rooms, gallery, services, treks, testimonials, blog, contact, restaurant, about).
 - Admin dashboard for content management.
 - Booking and inquiry management with status updates and pagination.
-- Image upload support via backend file handling.
+- Image/video upload support through Cloudinary in production.
 - MongoDB database for application data (content, bookings, settings, etc.).
 
 Repository structure:
@@ -29,18 +29,19 @@ Backend (`server`):
 
 - Node.js + Express
 - MongoDB + Mongoose
-- Multer for image uploads
+- Multer for upload parsing
+- Cloudinary for production media storage
 - JWT auth for admin-protected endpoints
 
-## Current Image Handling
+## Current Media Handling
 
-- The backend currently stores uploaded files in `server/public/uploads`.
-- API serves images from `/uploads/...`.
-- Cloudinary env keys are optional and can stay empty.
+- The backend uploads images/videos to Cloudinary when Cloudinary env keys are configured.
+- Cloudinary returns secure HTTPS URLs, which are stored in MongoDB.
+- If Cloudinary env keys are missing, the backend falls back to local `server/public/uploads`.
 
 Note:
-- This is local disk storage, not MongoDB binary storage.
-- On many cloud platforms, local disk is ephemeral. For production durability, use persistent storage or object storage.
+- MongoDB stores text/content/metadata and media URLs, not binary image/video data.
+- Do not rely on local disk storage in production cloud hosting.
 
 ## Environment Variables
 
@@ -50,13 +51,16 @@ Use this as baseline:
 
 ```env
 PORT=5000
-MONGO_URI=<your_mongodb_connection_string>
+MONGODB_URL=<your_mongodb_connection_string>
 JWT_SECRET=<your_strong_secret>
+CLIENT_URL=https://<your-frontend-domain>
+# Optional extra frontend origins:
+# CLIENT_URLS=https://www.<your-frontend-domain>,https://<preview-domain>
 
-# Optional cloudinary vars (leave empty if not used)
-CLOUDINARY_CLOUD_NAME=
-CLOUDINARY_API_KEY=
-CLOUDINARY_API_SECRET=
+# Cloudinary Settings
+CLOUDINARY_CLOUD_NAME=<your_cloud_name>
+CLOUDINARY_API_KEY=<your_api_key>
+CLOUDINARY_API_SECRET=<your_api_secret>
 ```
 
 ### Frontend (`client/.env`)
@@ -64,7 +68,7 @@ CLOUDINARY_API_SECRET=
 Create:
 
 ```env
-VITE_API_URL=https://<your-backend-domain>/api
+VITE_API_URL=https://pittamdeurali.onrender.com/api
 ```
 
 For local development:
@@ -103,7 +107,7 @@ Default local URLs:
 1. Create an Atlas cluster.
 2. Create DB user + password.
 3. Whitelist deployment IPs (or allow all for initial setup, then restrict).
-4. Copy connection string into `MONGO_URI`.
+4. Copy connection string into `MONGODB_URL`.
 
 ### 2) Backend Deployment
 
@@ -116,14 +120,19 @@ Steps:
 3. Start command: `npm start`
 4. Add env vars:
    - `PORT` (platform may auto-provide)
-   - `MONGO_URI`
+   - `MONGODB_URL`
    - `JWT_SECRET`
+   - `CLIENT_URL=https://<your-frontend-domain>`
+   - `CLIENT_URLS` if you need multiple allowed frontend domains
+   - `CLOUDINARY_CLOUD_NAME`
+   - `CLOUDINARY_API_KEY`
+   - `CLOUDINARY_API_SECRET`
 5. Verify health: `GET /` should return API running JSON.
 
 Important:
 
-- Current CORS is open (`origin: '*'`) for development convenience.
-- For production, restrict CORS to your frontend domain.
+- CORS allows local Vite during development.
+- For production, set `CLIENT_URL` to your deployed frontend domain.
 
 ### 3) Frontend Deployment
 
@@ -135,7 +144,7 @@ Steps:
 2. Build command: `npm run build`
 3. Output directory: `dist`
 4. Add env var:
-   - `VITE_API_URL=https://<your-backend-domain>/api`
+   - `VITE_API_URL=https://pittamdeurali.onrender.com/api`
 5. Redeploy after setting env.
 
 ## Go-Live Checklist
@@ -145,7 +154,7 @@ Steps:
 - [ ] Admin login works.
 - [ ] CMS updates persist in MongoDB.
 - [ ] Booking and inquiry forms submit successfully.
-- [ ] Uploaded images are accessible from production URLs.
+- [ ] Uploaded images/videos are accessible from Cloudinary HTTPS URLs.
 - [ ] CORS restricted to your frontend domain.
 - [ ] Strong JWT secret configured.
 - [ ] MongoDB backups enabled (Atlas backup policy).
@@ -156,7 +165,7 @@ Steps:
 - Add rate limiting and helmet middleware.
 - Add centralized logging and error tracking.
 - Add upload size/type validation on both client and server.
-- Move uploads to durable storage if your host has ephemeral disk.
+- Keep Cloudinary configured for durable media storage.
 
 ## Useful Scripts
 

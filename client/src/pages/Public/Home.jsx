@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import api from '../../services/api';
+import api, { getAPIImageUrl } from '../../services/api';
 import WeatherWidget from '../../components/WeatherWidget';
 
 const Home = () => {
@@ -45,12 +45,6 @@ const Home = () => {
     fetchData();
   }, []);
 
-  const getAPIImageUrl = (url) => {
-    if (!url) return '';
-    if (url.startsWith('http')) return url;
-    const baseUrl = (import.meta.env.VITE_API_URL || 'http://localhost:5000/api').replace('/api', '');
-    return `${baseUrl}${url}`;
-  };
 
   // Set up active slides from database or fall back to default slideshow
   const activeSlides = heroes
@@ -373,7 +367,7 @@ const Home = () => {
                   <>
                     <div className="col-6">
                       <img
-                        src={getAPIImageUrl(restaurant?.coverImage) || "/uploads/image copy 6.png"}
+                        src={getAPIImageUrl(restaurant?.coverImage || "/uploads/image copy 6.png")}
                         alt="Dining Area"
                         className="img-fluid w-100"
                         style={{ objectFit: 'cover', height: '280px', borderRadius: '4px', border: '1px solid var(--border-color)' }}
@@ -381,7 +375,7 @@ const Home = () => {
                     </div>
                     <div className="col-6">
                       <img
-                        src="/uploads/image copy 7.png"
+                        src={getAPIImageUrl("/uploads/image copy 7.png")}
                         alt="Traditional Dal Bhat"
                         className="img-fluid w-100"
                         style={{ objectFit: 'cover', height: '280px', borderRadius: '4px', border: '1px solid var(--border-color)' }}

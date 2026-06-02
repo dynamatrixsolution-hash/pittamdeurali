@@ -20,7 +20,10 @@ dotenv.config();
 
 const seedData = async () => {
   try {
-    await mongoose.connect(process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/hotel_pokhara');
+    if (!process.env.MONGODB_URL) {
+      throw new Error('MONGODB_URL is required');
+    }
+    await mongoose.connect(process.env.MONGODB_URL);
     console.log('Connected to MongoDB for seeding...');
 
     // Clear existing data
@@ -390,7 +393,7 @@ const seedData = async () => {
       { url: '/uploads/image copy 8.png', category: 'Surroundings', caption: 'Breathtaking morning view of the Annapurna peaks', order: 9 }
     ]);
     console.log('Seeded: Gallery images');
-    
+
     // 10. Seed Popular Treks
     await Trek.create([
       {

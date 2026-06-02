@@ -1,0 +1,6 @@
+
+> hotel-server@1.0.0 start
+> node server.js
+
+Server running in development mode on port 5000
+MongoDB Connected: ac-mxoqg3e-shard-00-01.58ji1rd.mongodb.net

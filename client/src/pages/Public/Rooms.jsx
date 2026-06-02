@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import api from '../../services/api';
+import api, { getAPIImageUrl } from '../../services/api';
 
 const Rooms = () => {
   const [rooms, setRooms] = useState([]);
@@ -31,12 +31,6 @@ const Rooms = () => {
     fetchRoomsAndSettings();
   }, []);
 
-  const getAPIImageUrl = (url) => {
-    if (!url) return '';
-    if (url.startsWith('http')) return url;
-    const baseUrl = (import.meta.env.VITE_API_URL || 'http://localhost:5000/api').replace('/api', '');
-    return `${baseUrl}${url}`;
-  };
 
   // Filter and sort logic
   let filteredRooms = [...rooms].filter(room => {

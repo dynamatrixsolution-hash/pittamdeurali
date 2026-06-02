@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import api from '../../services/api';
+import api, { getAPIImageUrl } from '../../services/api';
 
 const CmsTreks = () => {
   const [treks, setTreks] = useState([]);
@@ -121,12 +121,6 @@ const CmsTreks = () => {
     if (fileInput) fileInput.value = '';
   };
 
-  const getAPIImageUrl = (url) => {
-    if (!url) return '';
-    if (url.startsWith('http')) return url;
-    const baseUrl = (import.meta.env.VITE_API_URL || 'http://localhost:5000/api').replace('/api', '');
-    return `${baseUrl}${url}`;
-  };
 
   if (loading) {
     return <div className="text-center p-5 text-secondary"><div className="spinner-border spinner-luxury" /></div>;

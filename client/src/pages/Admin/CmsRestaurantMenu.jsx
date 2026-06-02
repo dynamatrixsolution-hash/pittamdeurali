@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import api from '../../services/api';
+import api, { getAPIImageUrl } from '../../services/api';
 
 const CmsRestaurantMenu = () => {
   const [categories, setCategories] = useState([]);
@@ -245,12 +245,6 @@ const CmsRestaurantMenu = () => {
   };
 
   // Helpers
-  const getAPIImageUrl = (url) => {
-    if (!url) return '';
-    if (url.startsWith('http')) return url;
-    const baseUrl = (import.meta.env.VITE_API_URL || 'http://localhost:5000/api').replace('/api', '');
-    return `${baseUrl}${url}`;
-  };
 
   const getCategoryName = (slug) => {
     const cat = categories.find(c => c.slug === slug);
@@ -439,7 +433,7 @@ const CmsRestaurantMenu = () => {
                         <tr key={item._id}>
                           <td className="py-2 px-4">
                             <img 
-                              src={getAPIImageUrl(item.image) || '/uploads/image.png'} 
+                              src={getAPIImageUrl(item.image || '/uploads/image.png')} 
                               alt="" 
                               style={{ width: '55px', height: '55px', objectFit: 'cover', borderRadius: '4px', border: '1px solid var(--border-color)' }}
                             />

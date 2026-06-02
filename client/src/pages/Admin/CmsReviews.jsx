@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import api from '../../services/api';
+import api, { getAPIImageUrl } from '../../services/api';
 
 const CmsReviews = () => {
   const [reviews, setReviews] = useState([]);
@@ -53,12 +53,6 @@ const CmsReviews = () => {
     }
   };
 
-  const getAPIImageUrl = (url) => {
-    if (!url) return '';
-    if (url.startsWith('http')) return url;
-    const baseUrl = (import.meta.env.VITE_API_URL || 'http://localhost:5000/api').replace('/api', '');
-    return `${baseUrl}${url}`;
-  };
 
   const filteredReviews = reviews.filter(item => {
     if (filterStatus === 'All') return true;
