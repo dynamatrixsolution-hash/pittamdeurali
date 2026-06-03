@@ -71,8 +71,45 @@ const ReviewModal = ({ isOpen, onClose }) => {
                     onChange={(e) => setReviewForm({...reviewForm, country: e.target.value})}
                   >
                     <option value="">Select your country</option>
-                    {['Nepal', 'India', 'United States', 'United Kingdom', 'Australia', 'Canada', 'Germany', 'France', 'China', 'Japan', 'Netherlands', 'Spain', 'Switzerland', 'Singapore', 'New Zealand', 'Poland', 'Italy', 'South Korea', 'Sweden', 'Norway', 'Denmark', 'Finland', 'Austria', 'Belgium', 'Ireland', 'Malaysia', 'Thailand', 'Brazil', 'Argentina', 'Mexico', 'South Africa', 'Israel', 'UAE', 'Other'].map(c => (
-                      <option key={c} value={c} style={{ backgroundColor: 'var(--bg-card)', color: 'var(--text-primary)' }}>{c}</option>
+                    {[
+                      { name: 'Nepal', flag: '🇳🇵' },
+                      { name: 'India', flag: '🇮🇳' },
+                      { name: 'United States', flag: '🇺🇸' },
+                      { name: 'United Kingdom', flag: '🇬🇧' },
+                      { name: 'Australia', flag: '🇦🇺' },
+                      { name: 'Canada', flag: '🇨🇦' },
+                      { name: 'Germany', flag: '🇩🇪' },
+                      { name: 'France', flag: '🇫🇷' },
+                      { name: 'China', flag: '🇨🇳' },
+                      { name: 'Japan', flag: '🇯🇵' },
+                      { name: 'Netherlands', flag: '🇳🇱' },
+                      { name: 'Spain', flag: '🇪🇸' },
+                      { name: 'Switzerland', flag: '🇨🇭' },
+                      { name: 'Singapore', flag: '🇸🇬' },
+                      { name: 'New Zealand', flag: '🇳🇿' },
+                      { name: 'Poland', flag: '🇵🇱' },
+                      { name: 'Italy', flag: '🇮🇹' },
+                      { name: 'South Korea', flag: '🇰🇷' },
+                      { name: 'Sweden', flag: '🇸🇪' },
+                      { name: 'Norway', flag: '🇳🇴' },
+                      { name: 'Denmark', flag: '🇩🇰' },
+                      { name: 'Finland', flag: '🇫🇮' },
+                      { name: 'Austria', flag: '🇦🇹' },
+                      { name: 'Belgium', flag: '🇧🇪' },
+                      { name: 'Ireland', flag: '🇮🇪' },
+                      { name: 'Malaysia', flag: '🇲🇾' },
+                      { name: 'Thailand', flag: '🇹🇭' },
+                      { name: 'Brazil', flag: '🇧🇷' },
+                      { name: 'Argentina', flag: '🇦🇷' },
+                      { name: 'Mexico', flag: '🇲🇽' },
+                      { name: 'South Africa', flag: '🇿🇦' },
+                      { name: 'Israel', flag: '🇮🇱' },
+                      { name: 'UAE', flag: '🇦🇪' },
+                      { name: 'Other', flag: '🏳️' }
+                    ].map(c => (
+                      <option key={c.name} value={c.name} style={{ backgroundColor: 'var(--bg-card)', color: 'var(--text-primary)' }}>
+                        {c.flag} {c.name}
+                      </option>
                     ))}
                   </select>
                 </div>

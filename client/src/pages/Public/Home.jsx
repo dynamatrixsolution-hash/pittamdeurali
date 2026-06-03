@@ -3,6 +3,53 @@ import { Link } from 'react-router-dom';
 import api, { getAPIImageUrl } from '../../services/api';
 import WeatherWidget from '../../components/WeatherWidget';
 
+const getCountryFlag = (country) => {
+  if (!country) return '';
+  const countryName = country.trim().toLowerCase();
+  switch (countryName) {
+    case 'nepal': return '🇳🇵';
+    case 'india': return '🇮🇳';
+    case 'united states':
+    case 'usa':
+    case 'us':
+      return '🇺🇸';
+    case 'united kingdom':
+    case 'uk':
+    case 'england':
+      return '🇬🇧';
+    case 'australia': return '🇦🇺';
+    case 'canada': return '🇨🇦';
+    case 'germany': return '🇩🇪';
+    case 'france': return '🇫🇷';
+    case 'china': return '🇨🇳';
+    case 'japan': return '🇯🇵';
+    case 'netherlands': return '🇳🇱';
+    case 'spain': return '🇪🇸';
+    case 'switzerland': return '🇨🇭';
+    case 'singapore': return '🇸🇬';
+    case 'new zealand': return '🇳🇿';
+    case 'poland': return '🇵🇱';
+    case 'italy': return '🇮🇹';
+    case 'south korea': return '🇰🇷';
+    case 'sweden': return '🇸🇪';
+    case 'norway': return '🇳🇴';
+    case 'denmark': return '🇩🇰';
+    case 'finland': return '🇫🇮';
+    case 'austria': return '🇦🇹';
+    case 'belgium': return '🇧🇪';
+    case 'ireland': return '🇮🇪';
+    case 'malaysia': return '🇲🇾';
+    case 'thailand': return '🇹🇭';
+    case 'brazil': return '🇧🇷';
+    case 'argentina': return '🇦🇷';
+    case 'mexico': return '🇲🇽';
+    case 'south africa': return '🇿🇦';
+    case 'israel': return '🇮🇱';
+    case 'uae': return '🇦🇪';
+    default: return '🏳️';
+  }
+};
+
 const Home = () => {
   const [cms, setCms] = useState(null);
   const [rooms, setRooms] = useState([]);
@@ -14,6 +61,36 @@ const Home = () => {
   const [loading, setLoading] = useState(true);
 
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
+  const [currentReviewIndex, setCurrentReviewIndex] = useState(0);
+  const [itemsPerSlide, setItemsPerSlide] = useState(window.innerWidth < 768 ? 1 : 2);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setItemsPerSlide(window.innerWidth < 768 ? 1 : 2);
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  const maxReviewIndex = Math.max(0, testimonials.length - itemsPerSlide);
+
+  useEffect(() => {
+    if (testimonials.length <= itemsPerSlide) return;
+    const interval = setInterval(() => {
+      setCurrentReviewIndex(prev => {
+        return prev >= maxReviewIndex ? 0 : prev + 1;
+      });
+    }, 5000);
+    return () => clearInterval(interval);
+  }, [testimonials.length, itemsPerSlide, maxReviewIndex]);
+
+  const handlePrevReview = () => {
+    setCurrentReviewIndex(prev => (prev > 0 ? prev - 1 : maxReviewIndex));
+  };
+
+  const handleNextReview = () => {
+    setCurrentReviewIndex(prev => (prev < maxReviewIndex ? prev + 1 : 0));
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -31,7 +108,7 @@ const Home = () => {
         if (cmsRes.success) setCms(cmsRes.data);
         if (roomsRes.success) setRooms(roomsRes.data.filter(r => r.featured));
         if (galleryRes.success) setGallery(galleryRes.data.slice(0, 6)); // Display up to 6 gallery images
-        if (testimonialsRes.success) setTestimonials(testimonialsRes.data.slice(0, 3));
+        if (testimonialsRes.success) setTestimonials(testimonialsRes.data.slice(0, 10));
         if (settingsRes.success) setSettings(settingsRes.data);
         if (heroesRes.success) setHeroes(heroesRes.data);
         if (restaurantRes.success) setRestaurant(restaurantRes.data);
@@ -464,44 +541,131 @@ const Home = () => {
       </section>
 
       {/* 7. Customer Reviews */}
-      <section className="section-padding" style={{ backgroundColor: 'var(--bg-primary)' }}>
-        <div className="container text-center">
+      <section className="section-padding" style={{ backgroundColor: 'var(--bg-primary)', overflow: 'hidden' }}>
+        <div className="container text-center position-relative">
           <h6 className="text-uppercase fw-semibold" style={{ color: 'var(--color-gold)', letterSpacing: '0.15em', fontSize: '0.75rem' }}>
             Testimonials
           </h6>
           <h2 className="display-6 font-serif fw-bold my-2">Traveler Journals</h2>
           <div className="gold-accent-line mb-5"></div>
 
-          <div className="row g-4 justify-content-center">
-            {testimonials.map(item => (
-              <div className="col-lg-5 col-12" key={item._id}>
-                <div className="testimonial-card h-100 d-flex flex-column justify-content-between p-4" style={{ backgroundColor: 'var(--bg-card)', border: '1px solid var(--border-color)', borderRadius: '4px' }}>
-                  <div>
-                    <p className="fst-italic lh-lg text-secondary small">
-                      "{item.review}"
-                    </p>
-                  </div>
-                  <div className="mt-3 d-flex align-items-center gap-3">
-                    <img
-                      src={getAPIImageUrl(item.image) || 'https://img.icons8.com/office/40/user.png'}
-                      alt={item.guestName}
-                      className="rounded-circle"
-                      style={{ width: '50px', height: '50px', objectFit: 'cover', border: '1px solid var(--color-gold)' }}
-                    />
-                    <div className="text-start">
-                      <h6 className="mb-0 fw-bold">{item.guestName}</h6>
-                      <span className="small text-muted">{item.country}</span>
-                      <div className="mt-1" style={{ color: 'var(--color-gold)', fontSize: '0.75rem' }}>
-                        {Array.from({ length: item.rating }).map((_, i) => (
-                          <i className="bi bi-star-fill me-1" key={i}></i>
-                        ))}
+          <div className="position-relative px-md-5">
+            {/* Slider track wrapper */}
+            <div style={{ overflow: 'hidden', width: '100%' }}>
+              <div 
+                className="d-flex" 
+                style={{ 
+                  transform: `translateX(-${currentReviewIndex * (100 / itemsPerSlide)}%)`, 
+                  transition: 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1)',
+                  width: '100%'
+                }}
+              >
+                {testimonials.map(item => (
+                  <div 
+                    key={item._id} 
+                    style={{ 
+                      flex: `0 0 ${100 / itemsPerSlide}%`,
+                      width: `${100 / itemsPerSlide}%`,
+                      padding: '0 12px',
+                      boxSizing: 'border-box' 
+                    }}
+                  >
+                    <div className="testimonial-card h-100 d-flex flex-column justify-content-between p-4" style={{ backgroundColor: 'var(--bg-card)', border: '1px solid var(--border-color)', borderRadius: '4px', textAlign: 'left' }}>
+                      <div>
+                        <p className="fst-italic lh-lg text-secondary small">
+                          "{item.review}"
+                        </p>
+                      </div>
+                      <div className="mt-3 d-flex align-items-center gap-3">
+                        <img
+                          src={getAPIImageUrl(item.image) || 'https://img.icons8.com/office/40/user.png'}
+                          alt={item.guestName}
+                          className="rounded-circle"
+                          style={{ width: '50px', height: '50px', objectFit: 'cover', border: '1px solid var(--color-gold)' }}
+                        />
+                        <div className="text-start">
+                          <h6 className="mb-0 fw-bold">{item.guestName}</h6>
+                          <span className="small text-muted d-flex align-items-center gap-1.5" style={{ display: 'inline-flex', gap: '6px' }}>
+                            <span style={{ fontSize: '1.1rem', lineHeight: '1' }}>{getCountryFlag(item.country)}</span> {item.country}
+                          </span>
+                          <div className="mt-1" style={{ color: 'var(--color-gold)', fontSize: '0.75rem' }}>
+                            {Array.from({ length: item.rating }).map((_, i) => (
+                              <i className="bi bi-star-fill me-1" key={i}></i>
+                            ))}
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
+                ))}
               </div>
-            ))}
+            </div>
+
+            {/* Slider arrows */}
+            {testimonials.length > itemsPerSlide && (
+              <>
+                <button
+                  onClick={handlePrevReview}
+                  className="btn btn-blue-outline d-none d-md-flex align-items-center justify-content-center"
+                  style={{
+                    position: 'absolute',
+                    top: '50%',
+                    left: '-20px',
+                    transform: 'translateY(-50%)',
+                    width: '40px',
+                    height: '40px',
+                    borderRadius: '50%',
+                    padding: 0,
+                    zIndex: 10
+                  }}
+                  aria-label="Previous Review"
+                >
+                  <i className="bi bi-chevron-left"></i>
+                </button>
+                <button
+                  onClick={handleNextReview}
+                  className="btn btn-blue-outline d-none d-md-flex align-items-center justify-content-center"
+                  style={{
+                    position: 'absolute',
+                    top: '50%',
+                    right: '-20px',
+                    transform: 'translateY(-50%)',
+                    width: '40px',
+                    height: '40px',
+                    borderRadius: '50%',
+                    padding: 0,
+                    zIndex: 10
+                  }}
+                  aria-label="Next Review"
+                >
+                  <i className="bi bi-chevron-right"></i>
+                </button>
+              </>
+            )}
           </div>
+
+          {/* Dots Indicator */}
+          {testimonials.length > itemsPerSlide && (
+            <div className="d-flex justify-content-center gap-2 mt-4">
+              {Array.from({ length: maxReviewIndex + 1 }).map((_, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => setCurrentReviewIndex(idx)}
+                  className={`hero-dot ${idx === currentReviewIndex ? 'active' : ''}`}
+                  style={{
+                    width: '8px',
+                    height: '8px',
+                    borderRadius: '50%',
+                    backgroundColor: idx === currentReviewIndex ? 'var(--color-gold)' : 'var(--border-color)',
+                    border: 'none',
+                    padding: 0,
+                    transition: 'var(--transition-smooth)'
+                  }}
+                  aria-label={`Go to slide ${idx + 1}`}
+                />
+              ))}
+            </div>
+          )}
         </div>
       </section>
 
