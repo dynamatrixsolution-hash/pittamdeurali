@@ -134,10 +134,10 @@ const Home = () => {
               <div className="container text-center">
                 <div className="row justify-content-center">
                   <div className="col-lg-10 col-12">
-                    <h1 className="display-4 fw-bold mb-4 font-serif text-white px-2" style={{ lineHeight: '1.2' }}>
+                    <h1 className="display-4 fw-bold mb-4 font-serif text-white px-2 hero-text-force-white" style={{ lineHeight: '1.2', textShadow: '1px 1px 6px rgba(0,0,0,0.7)' }}>
                       {slide.title}
                     </h1>
-                    <p className="fs-6 mb-5 lh-lg px-3" style={{ color: 'rgba(255, 255, 255, 0.9)', fontWeight: 300, maxWidth: '700px', margin: '0 auto 40px' }}>
+                    <p className="fs-6 mb-5 lh-lg px-3 text-white hero-text-force-white" style={{ fontWeight: 300, maxWidth: '700px', margin: '0 auto 40px', textShadow: '1px 1px 6px rgba(0,0,0,0.7)' }}>
                       {slide.subtitle}
                     </p>
                     <Link to={slide.buttonLink || '/rooms'} className="btn btn-orange py-3 px-5">

@@ -2,11 +2,13 @@ import React, { useContext, useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import { ThemeContext } from '../context/ThemeContext';
 import api from '../services/api';
+import ReviewModal from './ReviewModal';
 
 const Navbar = () => {
   const { isDarkMode, toggleTheme } = useContext(ThemeContext);
   const [hotelName, setHotelName] = useState('Sanctum Retreat');
   const [isOpen, setIsOpen] = useState(false);
+  const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
 
   useEffect(() => {
     const fetchSettings = async () => {
@@ -95,9 +97,21 @@ const Navbar = () => {
                 {isDarkMode ? <i className="bi bi-sun"></i> : <i className="bi bi-moon-stars-fill"></i>}
               </button>
             </li>
+            
+            {/* Review Button */}
+            <li className="nav-item ms-lg-3 my-2 my-lg-0 d-flex align-items-center">
+              <button 
+                className="btn btn-sm btn-orange" 
+                onClick={() => { setIsReviewModalOpen(true); closeMenu(); }}
+              >
+                Leave a Review
+              </button>
+            </li>
           </ul>
         </div>
       </div>
+      
+      <ReviewModal isOpen={isReviewModalOpen} onClose={() => setIsReviewModalOpen(false)} />
     </nav>
   );
 };

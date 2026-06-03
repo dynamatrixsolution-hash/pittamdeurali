@@ -8,25 +8,27 @@
   --bg-secondary: #1B1B1E;
   --bg-card: #222225;
   --text-primary: #FFFFFF;
-  --text-secondary: #D1D5DB; /* Enforce White / Light Gray text in Dark Mode */
-  --color-gold: #3E82BC; /* Map legacy gold to Mountain Blue */
+  --text-secondary: #D1D5DB;
+  /* Enforce White / Light Gray text in Dark Mode */
+  --color-gold: #3E82BC;
+  /* Map legacy gold to Mountain Blue */
   --color-gold-rgb: 62, 130, 188;
   --color-gold-hover: #5296D1;
   --border-color: #2D2D32;
   --input-bg: #1B1B1E;
   --nav-bg: rgba(18, 18, 20, 0.95);
-  
+
   /* Brand specific colors */
   --color-blue: #3E82BC;
   --color-green: #48A164;
   --color-orange: #E05A26;
   --color-orange-hover: #C94C1B;
-  
+
   /* Status Colors */
   --color-success: #10B981;
   --color-error: #EF4444;
   --color-warning: #F59E0B;
-  
+
   /* Use Poppins everywhere (even where .font-serif is applied) */
   --font-serif: 'Poppins', system-ui, -apple-system, sans-serif;
   --font-sans: 'Poppins', system-ui, -apple-system, sans-serif;
@@ -40,21 +42,24 @@
   --bg-primary: #FFFFFF;
   --bg-secondary: #F4F6F8;
   --bg-card: #FFFFFF;
-  --text-primary: #1f2937; /* Enforce Dark Charcoal in Light Mode */
-  --text-secondary: #374151; /* Enforce Dark Gray in Light Mode */
-  --color-gold: #1E4E79; /* Map legacy gold to Mountain Blue */
+  --text-primary: #1f2937;
+  /* Enforce Dark Charcoal in Light Mode */
+  --text-secondary: #374151;
+  /* Enforce Dark Gray in Light Mode */
+  --color-gold: #1E4E79;
+  /* Map legacy gold to Mountain Blue */
   --color-gold-rgb: 30, 78, 121;
   --color-gold-hover: #163C5E;
   --border-color: #E2E8F0;
   --input-bg: #FFFFFF;
   --nav-bg: rgba(255, 255, 255, 0.97);
-  
+
   /* Brand specific colors */
   --color-blue: #1E4E79;
   --color-green: #2E6F40;
   --color-orange: #E05A26;
   --color-orange-hover: #C94C1B;
-  
+
   /* Light Status Colors */
   --color-success: #059669;
   --color-error: #DC2626;
@@ -64,19 +69,29 @@
 /* Base Styles */
 body {
   background-color: var(--bg-primary);
-  color: var(--text-secondary) !important; /* Enforce body text as text-secondary */
+  color: var(--text-secondary) !important;
+  /* Enforce body text as text-secondary */
   font-family: var(--font-sans);
-  font-size: 16px; /* Target body text size */
-  font-weight: 400; /* Body poppins weight 400-500 */
+  font-size: 16px;
+  /* Target body text size */
+  font-weight: 400;
+  /* Body poppins weight 400-500 */
   line-height: 1.65;
   overflow-x: hidden;
   transition: background-color 0.4s ease, color 0.4s ease;
 }
 
-h1, h2, h3, h4, h5, h6, .font-serif {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.font-serif {
   font-family: var(--font-serif);
   color: var(--text-primary) !important;
-  font-weight: 700 !important; /* Headings: Font Weight 600–700 */
+  font-weight: 700 !important;
+  /* Headings: Font Weight 600–700 */
   letter-spacing: -0.015em;
   margin-bottom: 0.5rem;
 }
@@ -91,10 +106,17 @@ h1, h2, h3, h4, h5, h6, .font-serif {
   opacity: 0.85 !important;
 }
 
-p, li, label, input, select, textarea, span:not(.badge):not(.spinner-border):not(.navbar-toggler-icon) {
+p,
+li,
+label,
+input,
+select,
+textarea,
+span:not(.badge):not(.spinner-border):not(.navbar-toggler-icon) {
   color: var(--text-secondary) !important;
   font-size: 16px;
-  font-weight: 400; /* Poppins 400 */
+  font-weight: 400;
+  /* Poppins 400 */
 }
 
 /* Enforce dark text in light theme for specific components if needed */
@@ -104,22 +126,26 @@ p, li, label, input, select, textarea, span:not(.badge):not(.spinner-border):not
 
 /* Typography Sizing & Readability scaling */
 .display-4 {
-  font-size: clamp(2.25rem, 5vw, 4rem) !important; /* ~36px to 64px */
+  font-size: clamp(2.25rem, 5vw, 4rem) !important;
+  /* ~36px to 64px */
   line-height: 1.2 !important;
 }
 
 .display-5 {
-  font-size: clamp(1.85rem, 4vw, 3.2rem) !important; /* ~30px to 51px */
+  font-size: clamp(1.85rem, 4vw, 3.2rem) !important;
+  /* ~30px to 51px */
   line-height: 1.25 !important;
 }
 
 .display-6 {
-  font-size: clamp(1.65rem, 3.5vw, 2.5rem) !important; /* ~26px to 40px */
+  font-size: clamp(1.65rem, 3.5vw, 2.5rem) !important;
+  /* ~26px to 40px */
   line-height: 1.3 !important;
 }
 
 .lead {
-  font-size: clamp(1rem, 2vw, 1.125rem) !important; /* 16px to 18px */
+  font-size: clamp(1rem, 2vw, 1.125rem) !important;
+  /* 16px to 18px */
 }
 
 /* Ensure strong heading tags adopt color scheme */
@@ -128,7 +154,8 @@ p, li, label, input, select, textarea, span:not(.badge):not(.spinner-border):not
   font-weight: 700;
 }
 
-strong, b {
+strong,
+b {
   font-weight: 600 !important;
   color: var(--text-primary) !important;
 }
@@ -138,13 +165,16 @@ strong, b {
   width: 8px;
   height: 8px;
 }
+
 ::-webkit-scrollbar-track {
   background: var(--bg-primary);
 }
+
 ::-webkit-scrollbar-thumb {
   background: var(--border-color);
   border-radius: 4px;
 }
+
 ::-webkit-scrollbar-thumb:hover {
   background: var(--color-gold);
 }
@@ -242,7 +272,8 @@ strong, b {
 }
 
 .btn-green:hover {
-  background-color: #245832; /* Darker green */
+  background-color: #245832;
+  /* Darker green */
   border-color: #245832;
   transform: translateY(-1px);
 }
@@ -383,6 +414,7 @@ strong, b {
   justify-content: flex-end;
   margin-top: 4px;
 }
+
 .char-counter.error {
   color: var(--color-error) !important;
   font-weight: bold;
@@ -390,12 +422,14 @@ strong, b {
 
 /* Fix text visibility in Light Theme for Admin CMS */
 .light-theme .admin-layout .text-white:not(.btn):not(.badge) {
-  color: var(--text-primary) !important;
+  /* color: var(--text-primary) !important; */
 }
+
 .light-theme .admin-layout .bg-secondary {
   background-color: var(--bg-secondary) !important;
   color: var(--text-primary) !important;
 }
+
 .light-theme .admin-layout .border-secondary {
   border-color: var(--border-color) !important;
 }
@@ -420,7 +454,8 @@ strong, b {
   flex-direction: column;
   padding: 24px 0 16px 0;
   transition: var(--transition-smooth);
-  overflow: hidden; /* Prevent the main container from scrolling */
+  overflow: hidden;
+  /* Prevent the main container from scrolling */
 }
 
 .admin-sidebar-nav {
@@ -433,13 +468,16 @@ strong, b {
 .admin-sidebar-nav::-webkit-scrollbar {
   width: 5px;
 }
+
 .admin-sidebar-nav::-webkit-scrollbar-track {
   background: transparent;
 }
+
 .admin-sidebar-nav::-webkit-scrollbar-thumb {
   background: var(--border-color);
   border-radius: 4px;
 }
+
 .admin-sidebar-nav::-webkit-scrollbar-thumb:hover {
   background: var(--color-gold);
 }
@@ -465,14 +503,17 @@ strong, b {
   .admin-sidebar {
     transform: translateX(-100%);
   }
+
   .admin-sidebar.show {
     transform: translateX(0);
   }
+
   .admin-content {
     margin-left: 0;
     width: 100%;
     padding: 24px;
   }
+
   .admin-mobile-toggle {
     display: block !important;
   }
@@ -687,6 +728,7 @@ strong, b {
   text-align: center;
   color: var(--text-secondary);
 }
+
 .empty-state-icon {
   font-size: 3rem;
   color: var(--border-color);
@@ -835,9 +877,11 @@ strong, b {
     height: 38px;
     font-size: 0.85rem;
   }
+
   .hero-arrow-left {
     left: 10px;
   }
+
   .hero-arrow-right {
     right: 10px;
   }
@@ -912,9 +956,18 @@ strong, b {
 }
 
 @keyframes pulseHighlight {
-  0% { transform: scale(1); }
-  50% { transform: scale(1.05); color: #FF6B6B; }
-  100% { transform: scale(1); }
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.05);
+    color: #FF6B6B;
+  }
+
+  100% {
+    transform: scale(1);
+  }
 }
 
 .menu-badge-discount {
@@ -1082,9 +1135,11 @@ strong, b {
   .lightbox-nav-prev {
     left: 10px;
   }
+
   .lightbox-nav-next {
     right: 10px;
   }
+
   .lightbox-nav-btn {
     background: rgba(15, 15, 16, 0.85);
   }
@@ -1129,4 +1184,13 @@ strong, b {
 .form-control:focus {
   color: var(--text-primary) !important;
   background-color: var(--input-bg) !important;
+}
+
+.hero-slide-content h1,
+.hero-slide-content p,
+.hero-slide-content span,
+.hero-slide-content .text-white:not(.btn):not(.badge),
+.hero-slide-content .hero-text-force-white,
+.hero-text-force-white {
+  color: #ffffff !important;
 }
