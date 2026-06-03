@@ -2,6 +2,39 @@ import React, { useState, useEffect } from 'react';
 import api from '../../services/api';
 import WeatherWidget from '../../components/WeatherWidget';
 
+const COUNTRY_CODES = [
+  { code: '+977', name: 'NP (+977)' },
+  { code: '+91', name: 'IN (+91)' },
+  { code: '+1', name: 'US/CA (+1)' },
+  { code: '+44', name: 'UK (+44)' },
+  { code: '+61', name: 'AU (+61)' },
+  { code: '+49', name: 'DE (+49)' },
+  { code: '+33', name: 'FR (+33)' },
+  { code: '+86', name: 'CN (+86)' },
+  { code: '+81', name: 'JP (+81)' },
+  { code: '+31', name: 'NL (+31)' },
+  { code: '+34', name: 'ES (+34)' },
+  { code: '+41', name: 'CH (+41)' },
+  { code: '+65', name: 'SG (+65)' },
+  { code: '+64', name: 'NZ (+64)' },
+  { code: '+48', name: 'PL (+48)' },
+  { code: '+39', name: 'IT (+39)' },
+  { code: '+82', name: 'KR (+82)' },
+  { code: '+46', name: 'SE (+46)' },
+  { code: '+47', name: 'NO (+47)' },
+  { code: '+45', name: 'DK (+45)' },
+  { code: '+353', name: 'IE (+353)' },
+  { code: '+60', name: 'MY (+60)' },
+  { code: '+66', name: 'TH (+66)' },
+  { code: '+55', name: 'BR (+55)' },
+  { code: '+54', name: 'AR (+54)' },
+  { code: '+52', name: 'MX (+52)' },
+  { code: '+27', name: 'ZA (+27)' },
+  { code: '+971', name: 'AE (+971)' },
+  { code: '+966', name: 'SA (+966)' },
+  { code: '+7', name: 'RU (+7)' }
+];
+
 const Contact = () => {
   const [settings, setSettings] = useState({
     hotelName: 'New Pittam Deurali Guest House & Restaurant',
@@ -15,6 +48,7 @@ const Contact = () => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
+    countryCode: '+977',
     phone: '',
     guestsCount: 1,
     checkIn: '',
@@ -64,7 +98,13 @@ const Contact = () => {
     setSubmitting(true);
 
     try {
-      const res = await api.post('/inquiries', formData);
+      const submitData = {
+        ...formData,
+        phone: formData.phone ? `${formData.countryCode} ${formData.phone}` : ''
+      };
+      delete submitData.countryCode;
+
+      const res = await api.post('/inquiries', submitData);
 
       if (res.success) {
         setSuccessMsg('Your message inquiry has been logged successfully!');
@@ -76,6 +116,7 @@ I would like to inquire about availability and services.
 
 Guest Information:
 - Name: ${formData.name}
+- Phone: ${formData.phone ? `${formData.countryCode} ${formData.phone}` : 'Not specified'}
 - Guests: ${formData.guestsCount || '1'}
 - Check-in: ${formData.checkIn || 'Not specified'}
 - Check-out: ${formData.checkOut || 'Not specified'}
@@ -94,6 +135,7 @@ Thank you.`;
         setFormData({
           name: '',
           email: '',
+          countryCode: '+977',
           phone: '',
           guestsCount: 1,
           checkIn: '',
@@ -242,13 +284,30 @@ Thank you.`;
               <div className="row g-3">
                 <div className="col-md-6 col-12">
                   <label className="form-label-luxury">Phone Number</label>
-                  <input 
-                    type="tel" 
-                    name="phone" 
-                    className="form-control form-luxury" 
-                    value={formData.phone}
-                    onChange={handleChange} 
-                  />
+                  <div className="input-group">
+                    <select
+                      name="countryCode"
+                      className="form-select form-luxury"
+                      style={{ maxWidth: '120px', backgroundColor: 'var(--bg-primary)', color: 'var(--text-primary)', border: '1px solid var(--border-color)', borderRight: 'none', borderTopRightRadius: 0, borderBottomRightRadius: 0 }}
+                      value={formData.countryCode}
+                      onChange={handleChange}
+                    >
+                      {COUNTRY_CODES.map(item => (
+                        <option key={item.code} value={item.code} style={{ backgroundColor: 'var(--bg-card)', color: 'var(--text-primary)' }}>
+                          {item.name}
+                        </option>
+                      ))}
+                    </select>
+                    <input 
+                      type="tel" 
+                      name="phone" 
+                      className="form-control form-luxury" 
+                      style={{ borderTopLeftRadius: 0, borderBottomLeftRadius: 0 }}
+                      value={formData.phone}
+                      onChange={handleChange} 
+                      placeholder="Phone number"
+                    />
+                  </div>
                 </div>
                 <div className="col-md-6 col-12">
                   <label className="form-label-luxury">Number of Guests</label>
@@ -340,8 +399,8 @@ Thank you.`;
             <div className="d-flex flex-column gap-2">
               <button 
                 onClick={() => handleDirections('route')}
-                className="btn btn-orange w-100 py-3 text-uppercase font-serif fw-bold d-flex align-items-center justify-content-center gap-2"
-                style={{ fontSize: '0.85rem' }}
+                className="btn btn-orange w-100 d-flex align-items-center justify-content-center gap-2"
+                style={{ fontSize: '0.8rem', height: '46px' }}
               >
                 <i className="bi bi-map-fill"></i> Get Directions
               </button>
@@ -350,8 +409,8 @@ Thank you.`;
                 <div className="col-6">
                   <button 
                     onClick={() => handleDirections('marker')}
-                    className="btn btn-blue-outline w-100 py-2.5 d-flex align-items-center justify-content-center gap-2"
-                    style={{ fontSize: '0.75rem' }}
+                    className="btn btn-blue-outline w-100 d-flex align-items-center justify-content-center gap-2"
+                    style={{ fontSize: '0.8rem', height: '46px' }}
                   >
                     <i className="bi bi-geo-alt"></i> Open in Maps
                   </button>
@@ -359,8 +418,8 @@ Thank you.`;
                 <div className="col-6">
                   <button 
                     onClick={() => handleDirections('navigate')}
-                    className="btn btn-success w-100 py-2.5 text-white d-flex align-items-center justify-content-center gap-2"
-                    style={{ fontSize: '0.75rem', border: 'none' }}
+                    className="btn btn-green w-100 d-flex align-items-center justify-content-center gap-2"
+                    style={{ fontSize: '0.8rem', height: '46px' }}
                   >
                     <i className="bi bi-cursor-fill"></i> Navigate Now
                   </button>

@@ -63,7 +63,18 @@ const ReviewModal = ({ isOpen, onClose }) => {
                 </div>
                 <div className="mb-3">
                   <label className="form-label small text-secondary">Country</label>
-                  <input type="text" className="form-control" style={{ backgroundColor: 'var(--bg-primary)', color: 'var(--text-primary)', border: '1px solid var(--border-color)' }} required value={reviewForm.country} onChange={(e) => setReviewForm({...reviewForm, country: e.target.value})} />
+                  <select 
+                    className="form-select" 
+                    style={{ backgroundColor: 'var(--bg-primary)', color: 'var(--text-primary)', border: '1px solid var(--border-color)' }} 
+                    required 
+                    value={reviewForm.country} 
+                    onChange={(e) => setReviewForm({...reviewForm, country: e.target.value})}
+                  >
+                    <option value="">Select your country</option>
+                    {['Nepal', 'India', 'United States', 'United Kingdom', 'Australia', 'Canada', 'Germany', 'France', 'China', 'Japan', 'Netherlands', 'Spain', 'Switzerland', 'Singapore', 'New Zealand', 'Poland', 'Italy', 'South Korea', 'Sweden', 'Norway', 'Denmark', 'Finland', 'Austria', 'Belgium', 'Ireland', 'Malaysia', 'Thailand', 'Brazil', 'Argentina', 'Mexico', 'South Africa', 'Israel', 'UAE', 'Other'].map(c => (
+                      <option key={c} value={c} style={{ backgroundColor: 'var(--bg-card)', color: 'var(--text-primary)' }}>{c}</option>
+                    ))}
+                  </select>
                 </div>
                 <div className="mb-3">
                   <label className="form-label small text-secondary">Rating</label>
