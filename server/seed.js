@@ -20,10 +20,11 @@ dotenv.config();
 
 const seedData = async () => {
   try {
-    if (!process.env.MONGODB_URL) {
-      throw new Error('MONGODB_URL is required');
+    const dbUrl = process.env.MONGODB_URL || process.env.MONGO_URI;
+    if (!dbUrl) {
+      throw new Error('MONGODB_URL or MONGO_URI is required');
     }
-    await mongoose.connect(process.env.MONGODB_URL);
+    await mongoose.connect(dbUrl);
     console.log('Connected to MongoDB for seeding...');
 
     // Clear existing data
@@ -401,35 +402,48 @@ const seedData = async () => {
         image: '/uploads/image.png',
         difficulty: 'Hard',
         duration: '10 Days',
-        description: 'A legendary trek reaching the base camp of the majestic Annapurna I (8,091m). Experience rhododendron forests, Gurung villages, and a high-altitude sanctuary surrounded by giant peaks.'
+        description: 'A legendary trek reaching the base camp of the majestic Annapurna I (8,091m). Experience rhododendron forests, Gurung villages, and a high-altitude sanctuary surrounded by giant peaks.',
+        longDescription: 'The Annapurna Base Camp (ABC) Trek is one of the most popular and scenic treks in Nepal. It takes you deep into the Annapurna Sanctuary, a high-altitude glacial basin surrounded by a ring of eleven spectacular peaks, including Annapurna I (8,091m), Annapurna South, and Machapuchare (Fishtail). The journey starts through lush rhododendron forests and Gurung farming villages, gradually climbing along the Modi Khola river valley to the snow-covered base camps of Machapuchare and Annapurna.',
+        itinerary: 'Day 1: Drive Pokhara to Nayapul, Trek to Ghandruk (1,940m)\nDay 2: Trek Ghandruk to Chhomrong (2,170m)\nDay 3: Trek Chhomrong to Dovan (2,600m)\nDay 4: Trek Dovan to Deurali (3,230m)\nDay 5: Trek Deurali to Machapuchare Base Camp (3,700m)\nDay 6: Trek MBC to Annapurna Base Camp (4,130m) & Sunrise\nDay 7: Trek ABC to Bamboo (2,310m)\nDay 8: Trek Bamboo to Jhinu Danda Hot Springs (1,780m)\nDay 9: Trek Jhinu Danda to Siwai, Drive to Pokhara',
+        bestSeason: 'Sept - Nov (Autumn), March - May (Spring)',
+        maxElevation: '4,130m / 13,550ft',
+        startPoint: 'Nayapul / Ghandruk'
       },
       {
         name: 'Mardi Himal Trek',
         image: '/uploads/image copy 8.png',
         difficulty: 'Moderate',
         duration: '5-6 Days',
-        description: 'A hidden gem trek starting near Kande. Climb through pristine mossy forests to High Camp and the Mardi Himal Viewpoint (4,500m) for face-to-face views of Machapuchare (Fishtail).'
+        description: 'A hidden gem trek starting near Kande. Climb through pristine mossy forests to High Camp and the Mardi Himal Viewpoint (4,500m) for face-to-face views of Machapuchare (Fishtail).',
+        longDescription: 'The Mardi Himal Trek is an absolute gem that has gained popularity for its pristine trails, stunning forest ridges, and exceptionally close-up views of Mount Machapuchare (Fishtail). Starting from Kande, you will climb through dense oak and rhododendron forests to Pitam Deurali, then proceed along the ridge through Forest Camp and Low Camp to High Camp. The final morning push takes you to the Mardi Himal Viewpoint at 4,500 meters, offering unmatched views of the Annapurna South and Machapuchare peaks.',
+        itinerary: 'Day 1: Drive Pokhara to Kande, Trek to New Pittam Deurali (2,100m)\nDay 2: Trek Pitam Deurali to Forest Camp (2,520m)\nDay 3: Trek Forest Camp to Low Camp (2,970m)\nDay 4: Trek Low Camp to High Camp (3,580m)\nDay 5: Hike High Camp to Mardi Himal Viewpoint (4,500m) & back to Low Camp\nDay 6: Trek Low Camp to Siding Village, Drive to Pokhara',
+        bestSeason: 'Sept - Dec (Autumn), Feb - May (Spring)',
+        maxElevation: '4,500m / 14,760ft',
+        startPoint: 'Kande / Pitam Deurali'
       },
       {
         name: 'Poon Hill Trek',
         image: '/uploads/image copy.png',
         difficulty: 'Easy',
         duration: '3-4 Days',
-        description: 'The ultimate sunrise trek in Kaski. Climb to Poon Hill (3,210m) at dawn to see the Dhaulagiri and Annapurna ranges catch the first golden rays of sun.'
-      },
-      {
-        name: 'Ghorepani Trek',
-        image: '/uploads/image copy 2.png',
-        difficulty: 'Moderate',
-        duration: '4 Days',
-        description: 'Enjoy hiking through dense rhododendron groves, stone staircase pathways, and warm mountain village lodging. Includes a viewpoint hike to Poon Hill.'
+        description: 'The ultimate sunrise trek in Kaski. Climb to Poon Hill (3,210m) at dawn to see the Dhaulagiri and Annapurna ranges catch the first golden rays of sun.',
+        longDescription: 'The Ghorepani Poon Hill Trek is a classic, relatively short trek in the foothills of the Annapurna range. It is famous for its sunrise viewpoint at Poon Hill (3,210m), which offers a panoramic vista of over 20 peaks, including Dhaulagiri I (8,167m) and Annapurna I (8,091m). The trek winds through gorgeous Gurung and Magar villages, lush forests, and features stone staircase climbs, making it an excellent introduction to trekking in Nepal.',
+        itinerary: 'Day 1: Drive Pokhara to Nayapul, Trek to Tikhedhunga (1,540m)\nDay 2: Trek Tikhedhunga to Ghorepani (2,860m) via Ulleri stairs\nDay 3: Sunrise hike to Poon Hill (3,210m), Trek to Tadapani (2,630m)\nDay 4: Trek Tadapani to Ghandruk, Drive back to Pokhara',
+        bestSeason: 'Year-round (Autumn & Spring are best)',
+        maxElevation: '3,210m / 10,530ft',
+        startPoint: 'Nayapul / Tikhedhunga'
       },
       {
         name: 'Australian Camp Trek',
         image: '/uploads/image copy 4.png',
         difficulty: 'Easy',
         duration: '2 Days',
-        description: 'A gentle, family-friendly hike starting from Kande. Australian Camp offers flat grassy lawns and direct panoramic views of the entire Annapurna range, perfect for short weekend stays.'
+        description: 'A gentle, family-friendly hike starting from Kande. Australian Camp offers flat grassy lawns and direct panoramic views of the entire Annapurna range, perfect for short weekend stays.',
+        longDescription: 'For those with limited time or looking for an easy, family-friendly overnight hike, the Australian Camp Trek is the perfect choice. Beginning with a short drive to Kande, a gentle 1.5-hour hike through the forest brings you to the broad, grassy ridge of Australian Camp (2,060m). The campsite offers incredible panoramic views of Annapurna South, Machapuchare, and Hiunchuli. The next day, you can hike down through the village of Dhampus, enjoying local Gurung culture along the way.',
+        itinerary: 'Day 1: Drive Pokhara to Kande, Hike to Australian Camp (2,060m) - Sunset View\nDay 2: Hike Australian Camp to Dhampus (1,650m) to Phedi, Drive back to Pokhara',
+        bestSeason: 'Year-round',
+        maxElevation: '2,060m / 6,750ft',
+        startPoint: 'Kande'
       }
     ]);
     // 12. Create Hero Slides

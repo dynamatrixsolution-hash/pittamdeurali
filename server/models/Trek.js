@@ -24,6 +24,26 @@ const TrekSchema = new mongoose.Schema(
     description: {
       type: String,
       required: [true, 'Please add trek description'],
+    },
+    longDescription: {
+      type: String,
+      default: '',
+    },
+    itinerary: {
+      type: String,
+      default: '',
+    },
+    bestSeason: {
+      type: String,
+      default: '',
+    },
+    maxElevation: {
+      type: String,
+      default: '',
+    },
+    startPoint: {
+      type: String,
+      default: '',
     }
   },
   {

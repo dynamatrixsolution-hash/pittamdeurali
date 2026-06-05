@@ -9,7 +9,7 @@ import { getAllRooms, getRoomBySlug, createRoom, updateRoom, deleteRoom } from '
 import { getGalleryImages, uploadGalleryImage, updateGalleryImage, deleteGalleryImage, reorderGallery } from '../controllers/galleryController.js';
 import { createBooking, getBookings, updateBookingStatus, deleteBooking, createInquiry, getInquiries, updateInquiryStatus, deleteInquiry } from '../controllers/bookingController.js';
 import { getServices, createService, updateService, deleteService } from '../controllers/serviceController.js';
-import { getTreks, createTrek, updateTrek, deleteTrek } from '../controllers/trekController.js';
+import { getTreks, createTrek, updateTrek, deleteTrek, getTrekById } from '../controllers/trekController.js';
 import { submitReview, getApprovedReviews, getAllReviews, updateReviewStatus, deleteReview } from '../controllers/reviewController.js';
 import { getRestaurant, updateRestaurant, addGalleryImages, deleteRestaurantGalleryImage } from '../controllers/restaurantController.js';
 import { getAboutData, updateAboutData, addFamilyMember, updateFamilyMember, deleteFamilyMember } from '../controllers/aboutController.js';
@@ -107,6 +107,7 @@ router.delete('/about/family/:id', protect, deleteFamilyMember);
 
 // --- Trek Routes ---
 router.get('/treks', getTreks);
+router.get('/treks/:id', getTrekById);
 router.post('/treks', protect, upload.single('image'), createTrek);
 router.put('/treks/:id', protect, upload.single('image'), updateTrek);
 router.delete('/treks/:id', protect, deleteTrek);

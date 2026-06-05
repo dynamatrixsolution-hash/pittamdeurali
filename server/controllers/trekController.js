@@ -20,7 +20,7 @@ export const getTreks = async (req, res) => {
 // @access  Private
 export const createTrek = async (req, res) => {
   try {
-    const { name, difficulty, duration, description } = req.body;
+    const { name, difficulty, duration, description, longDescription, itinerary, bestSeason, maxElevation, startPoint } = req.body;
     if (!name || !difficulty || !duration || !description) {
       return res.status(400).json({ success: false, message: 'Please fill all required fields' });
     }
@@ -38,6 +38,11 @@ export const createTrek = async (req, res) => {
       difficulty,
       duration,
       description,
+      longDescription: longDescription || '',
+      itinerary: itinerary || '',
+      bestSeason: bestSeason || '',
+      maxElevation: maxElevation || '',
+      startPoint: startPoint || '',
       image: imageUrl,
     });
 
@@ -57,7 +62,7 @@ export const updateTrek = async (req, res) => {
       return res.status(404).json({ success: false, message: 'Trek not found' });
     }
 
-    const { name, difficulty, duration, description } = req.body;
+    const { name, difficulty, duration, description, longDescription, itinerary, bestSeason, maxElevation, startPoint } = req.body;
     
     let imageUrl = trek.image;
     if (req.file) {
@@ -82,6 +87,11 @@ export const updateTrek = async (req, res) => {
     if (difficulty) trek.difficulty = difficulty;
     if (duration) trek.duration = duration;
     if (description) trek.description = description;
+    trek.longDescription = longDescription !== undefined ? longDescription : trek.longDescription;
+    trek.itinerary = itinerary !== undefined ? itinerary : trek.itinerary;
+    trek.bestSeason = bestSeason !== undefined ? bestSeason : trek.bestSeason;
+    trek.maxElevation = maxElevation !== undefined ? maxElevation : trek.maxElevation;
+    trek.startPoint = startPoint !== undefined ? startPoint : trek.startPoint;
     trek.image = imageUrl;
 
     const updated = await trek.save();
@@ -116,6 +126,21 @@ export const deleteTrek = async (req, res) => {
 
     await Trek.findByIdAndDelete(req.params.id);
     res.json({ success: true, message: 'Trek deleted successfully' });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+};
+
+// @desc    Get single trek by ID
+// @route   GET /api/treks/:id
+// @access  Public
+export const getTrekById = async (req, res) => {
+  try {
+    const trek = await Trek.findById(req.params.id);
+    if (!trek) {
+      return res.status(404).json({ success: false, message: 'Trek not found' });
+    }
+    res.json({ success: true, data: trek });
   } catch (error) {
     res.status(500).json({ success: false, message: error.message });
   }

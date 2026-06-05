@@ -13,6 +13,11 @@ const CmsTreks = () => {
   const [difficulty, setDifficulty] = useState('Moderate');
   const [duration, setDuration] = useState('');
   const [description, setDescription] = useState('');
+  const [longDescription, setLongDescription] = useState('');
+  const [itinerary, setItinerary] = useState('');
+  const [bestSeason, setBestSeason] = useState('');
+  const [maxElevation, setMaxElevation] = useState('');
+  const [startPoint, setStartPoint] = useState('');
   const [file, setFile] = useState(null);
 
   const fetchTreks = async () => {
@@ -53,6 +58,11 @@ const CmsTreks = () => {
     formData.append('difficulty', difficulty);
     formData.append('duration', duration);
     formData.append('description', description);
+    formData.append('longDescription', longDescription);
+    formData.append('itinerary', itinerary);
+    formData.append('bestSeason', bestSeason);
+    formData.append('maxElevation', maxElevation);
+    formData.append('startPoint', startPoint);
     if (file) {
       formData.append('image', file);
     }
@@ -92,6 +102,11 @@ const CmsTreks = () => {
     setDifficulty(trek.difficulty);
     setDuration(trek.duration);
     setDescription(trek.description);
+    setLongDescription(trek.longDescription || '');
+    setItinerary(trek.itinerary || '');
+    setBestSeason(trek.bestSeason || '');
+    setMaxElevation(trek.maxElevation || '');
+    setStartPoint(trek.startPoint || '');
     setFile(null);
   };
 
@@ -116,6 +131,11 @@ const CmsTreks = () => {
     setDifficulty('Moderate');
     setDuration('');
     setDescription('');
+    setLongDescription('');
+    setItinerary('');
+    setBestSeason('');
+    setMaxElevation('');
+    setStartPoint('');
     setFile(null);
     const fileInput = document.getElementById('trekFile');
     if (fileInput) fileInput.value = '';
@@ -170,9 +190,34 @@ const CmsTreks = () => {
               )}
             </div>
 
-            <div className="mb-4">
+            <div className="mb-3">
               <label className="form-label-luxury">Description *</label>
-              <textarea className="form-control form-luxury" rows="4" value={description} onChange={e => setDescription(e.target.value)} placeholder="Provide trail checkpoints, elevation details..." required></textarea>
+              <textarea className="form-control form-luxury" rows="3" value={description} onChange={e => setDescription(e.target.value)} placeholder="Provide short preview summary..." required></textarea>
+            </div>
+
+            <div className="mb-3">
+              <label className="form-label-luxury">Best Season</label>
+              <input type="text" className="form-control form-luxury" value={bestSeason} onChange={e => setBestSeason(e.target.value)} placeholder="e.g. Sept - Nov, March - May" />
+            </div>
+
+            <div className="mb-3">
+              <label className="form-label-luxury">Max Elevation</label>
+              <input type="text" className="form-control form-luxury" value={maxElevation} onChange={e => setMaxElevation(e.target.value)} placeholder="e.g. 4,200m / 13,780ft" />
+            </div>
+
+            <div className="mb-3">
+              <label className="form-label-luxury">Starting Point</label>
+              <input type="text" className="form-control form-luxury" value={startPoint} onChange={e => setStartPoint(e.target.value)} placeholder="e.g. New Pittam Deurali / Kande" />
+            </div>
+
+            <div className="mb-3">
+              <label className="form-label-luxury">Long Detailed Description</label>
+              <textarea className="form-control form-luxury" rows="4" value={longDescription} onChange={e => setLongDescription(e.target.value)} placeholder="Provide detailed background, flora/fauna, etc..."></textarea>
+            </div>
+
+            <div className="mb-4">
+              <label className="form-label-luxury">Itinerary (Day-by-Day)</label>
+              <textarea className="form-control form-luxury" rows="6" value={itinerary} onChange={e => setItinerary(e.target.value)} placeholder="e.g.&#10;Day 1: Pokhara to Deurali&#10;Day 2: Deurali to Forest Camp&#10;..."></textarea>
             </div>
 
             <div className="d-flex gap-2">

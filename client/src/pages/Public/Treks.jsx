@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import api, { getAPIImageUrl } from '../../services/api';
 import trekMap from '../../assets/trek-map.jpg';
 
@@ -123,7 +124,14 @@ const Treks = () => {
                         </p>
                       </div>
                       
-                      <div className="border-top pt-3 mt-3" style={{ borderColor: 'var(--border-color)' }}>
+                      <div className="border-top pt-3 mt-3 d-flex flex-column gap-2" style={{ borderColor: 'var(--border-color)' }}>
+                        <Link 
+                          to={`/treks/${trek._id}`}
+                          className="btn btn-blue w-100 text-center py-2 text-decoration-none"
+                          style={{ fontSize: '0.8rem' }}
+                        >
+                          View Itinerary & Map
+                        </Link>
                         <a 
                           href={`https://wa.me/9779801234567?text=Hi,%20I'm%20interested%20in%20arranging%20a%20guide%20and%20trekking%20details%20for%20the%20${encodeURIComponent(trek.name)}.`}
                           target="_blank"

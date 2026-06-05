@@ -12,6 +12,7 @@ import Rooms from './pages/Public/Rooms';
 import RoomDetail from './pages/Public/RoomDetail';
 import Gallery from './pages/Public/Gallery';
 import Treks from './pages/Public/Treks';
+import TrekDetail from './pages/Public/TrekDetail';
 import Restaurant from './pages/Public/Restaurant';
 import Blog from './pages/Public/Blog';
 import Testimonials from './pages/Public/Testimonials';
@@ -51,6 +52,7 @@ function App() {
             <Route path="/rooms/:slug" element={<RoomDetail />} />
             <Route path="/gallery" element={<Gallery />} />
             <Route path="/treks" element={<Treks />} />
+            <Route path="/treks/:id" element={<TrekDetail />} />
             <Route path="/restaurant" element={<Restaurant />} />
             <Route path="/blog" element={<Blog />} />
             <Route path="/testimonials" element={<Testimonials />} />
