@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import api, { getAPIImageUrl } from '../../services/api';
+import trekMap from '../../assets/trek-map.jpg';
 
 const Treks = () => {
   const [treks, setTreks] = useState([]);
@@ -65,54 +66,87 @@ const Treks = () => {
         </div>
       </div>
 
-      {/* Treks Grid */}
-      <div className="row g-4 justify-content-center text-start">
-        {treks.map(trek => (
-          <div className="col-lg-4 col-md-6" key={trek._id}>
-            <div className="card-luxury h-100 d-flex flex-column justify-content-between">
-              <div>
-                <div style={{ height: '240px', overflow: 'hidden', position: 'relative' }}>
-                  <img 
-                    src={getAPIImageUrl(trek.image)} 
-                    className="w-100 h-100" 
-                    style={{ objectFit: 'cover' }} 
-                    alt={trek.name}
-                  />
-                  <div className="position-absolute top-3 start-3">
-                    {getDifficultyBadge(trek.difficulty)}
-                  </div>
-                </div>
-                <div className="p-4">
-                  <h4 className="font-serif fw-bold mb-2 text-white">{trek.name}</h4>
-                  <div className="d-flex align-items-center text-secondary small mb-3">
-                    <i className="bi bi-clock me-2 text-gold" style={{ color: 'var(--color-gold)' }}></i>
-                    <span>Duration: <strong>{trek.duration}</strong></span>
-                  </div>
-                  <p className="small text-secondary lh-lg mb-0">{trek.description}</p>
-                </div>
-              </div>
-              
-              <div className="px-4 pb-4">
-                <div className="border-top pt-3" style={{ borderColor: 'var(--border-color)' }}>
-                  <a 
-                    href={`https://wa.me/9779801234567?text=Hi,%20I'm%20interested%20in%20arranging%20a%20guide%20and%20trekking%20details%20for%20the%20${encodeURIComponent(trek.name)}.`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="btn btn-blue-outline w-100 text-center py-2 text-decoration-none"
-                  >
-                    Inquire Details
-                  </a>
-                </div>
-              </div>
+      {/* Left/Right Column Layout */}
+      <div className="row g-5">
+        {/* Left Column: Trekking Map */}
+        <div className="col-lg-6 col-12">
+          <div className="sticky-lg-top" style={{ top: '100px', zIndex: 5 }}>
+            <h4 className="font-serif fw-bold mb-3 text-white">Trekking Route Map</h4>
+            <div style={{ border: '1px solid var(--border-color)', padding: '12px', borderRadius: '8px', backgroundColor: 'var(--bg-card)' }}>
+              <img 
+                src={trekMap} 
+                className="img-fluid w-100" 
+                style={{ objectFit: 'contain', borderRadius: '4px', maxHeight: '550px' }} 
+                alt="Trekking Routes Approach Map"
+              />
+            </div>
+            <div className="mt-4 p-4 card-luxury">
+              <h5 className="font-serif fw-bold text-white mb-2">
+                <i className="bi bi-info-circle me-2 text-gold" style={{ color: 'var(--color-gold)' }}></i>
+                About the Routes
+              </h5>
+              <p className="small text-secondary lh-lg mb-0" style={{ fontSize: '0.9rem' }}>
+                Two scenic approach routes from Pokhara converge at Pothana and continue together to New Pittam Deurali Guest House & Restaurant and Deurali. From Deurali, the trek continues onward toward Mardi Himal or Annapurna Base Camp.
+              </p>
             </div>
           </div>
-        ))}
+        </div>
 
-        {treks.length === 0 && (
-          <div className="col-12 text-center my-5 text-secondary py-5">
-            <h5 className="font-serif text-secondary">No trekking routes registered yet.</h5>
+        {/* Right Column: Popular Treks List */}
+        <div className="col-lg-6 col-12">
+          <h4 className="font-serif fw-bold mb-3 text-white">Featured Treks</h4>
+          <div className="row g-4">
+            {treks.map(trek => (
+              <div className="col-12" key={trek._id}>
+                <div className="card-luxury h-100 overflow-hidden">
+                  <div className="row g-0 h-100">
+                    <div className="col-md-5 col-12" style={{ minHeight: '200px', position: 'relative' }}>
+                      <img 
+                        src={getAPIImageUrl(trek.image)} 
+                        className="w-100 h-100" 
+                        style={{ objectFit: 'cover' }} 
+                        alt={trek.name}
+                      />
+                      <div className="position-absolute top-3 start-3">
+                        {getDifficultyBadge(trek.difficulty)}
+                      </div>
+                    </div>
+                    <div className="col-md-7 col-12 p-4 d-flex flex-column justify-content-between">
+                      <div>
+                        <h5 className="font-serif fw-bold mb-2 text-white">{trek.name}</h5>
+                        <div className="d-flex align-items-center text-secondary small mb-2">
+                          <i className="bi bi-clock me-2 text-gold" style={{ color: 'var(--color-gold)' }}></i>
+                          <span>Duration: <strong>{trek.duration}</strong></span>
+                        </div>
+                        <p className="small text-secondary lh-lg mb-0" style={{ display: '-webkit-box', WebkitLineClamp: 3, WebkitBoxOrient: 'vertical', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                          {trek.description}
+                        </p>
+                      </div>
+                      
+                      <div className="border-top pt-3 mt-3" style={{ borderColor: 'var(--border-color)' }}>
+                        <a 
+                          href={`https://wa.me/9779801234567?text=Hi,%20I'm%20interested%20in%20arranging%20a%20guide%20and%20trekking%20details%20for%20the%20${encodeURIComponent(trek.name)}.`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="btn btn-blue-outline w-100 text-center py-2 text-decoration-none"
+                          style={{ fontSize: '0.8rem' }}
+                        >
+                          Inquire Details
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+
+            {treks.length === 0 && (
+              <div className="col-12 text-center my-5 text-secondary py-5">
+                <h5 className="font-serif text-secondary">No trekking routes registered yet.</h5>
+              </div>
+            )}
           </div>
-        )}
+        </div>
       </div>
     </div>
   );

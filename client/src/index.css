@@ -1194,3 +1194,83 @@ b {
 .hero-text-force-white {
   color: #ffffff !important;
 }
+
+/* Weather Section Theme Shield (forces dark theme styling in both light and dark modes) */
+.weather-section-dark-override {
+  --bg-primary: #121214 !important;
+  --bg-secondary: #1B1B1E !important;
+  --bg-card: #222225 !important;
+  --text-primary: #FFFFFF !important;
+  --text-secondary: #D1D5DB !important;
+  --color-gold: #FBBF24 !important;
+  --border-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+/* Ensure all text inside the dark-override section uses the dark theme values */
+.weather-section-dark-override h2,
+.weather-section-dark-override h5,
+.weather-section-dark-override h6,
+.weather-section-dark-override p,
+.weather-section-dark-override span:not(.visually-hidden),
+.weather-section-dark-override div,
+.weather-section-dark-override strong {
+  color: #ffffff !important;
+}
+
+/* Specific text opacity overrides for premium contrast */
+.weather-section-dark-override .text-muted,
+.weather-section-dark-override .text-secondary,
+.weather-section-dark-override .small.text-secondary,
+.weather-section-dark-override p.small {
+  color: rgba(255, 255, 255, 0.7) !important;
+}
+
+/* Glassmorphism Weather Widget Styles */
+.weather-widget-glass {
+  background: rgba(15, 22, 36, 0.65) !important; /* Deep slate semi-transparent */
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 16px !important;
+  box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.5) !important;
+}
+
+/* Glass Widget Header & Panels */
+.weather-widget-glass .p-4.border-bottom {
+  background-color: rgba(0, 0, 0, 0.15) !important;
+  border-bottom-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+.weather-widget-glass .px-4.py-3 {
+  background-color: rgba(0, 0, 0, 0.25) !important;
+  border-bottom-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+.weather-widget-glass .p-4:not(.border-bottom) {
+  background-color: transparent !important;
+}
+
+/* Forecast Grid Cards */
+.weather-widget-glass .row-cols-2 .col > div {
+  background-color: rgba(255, 255, 255, 0.03) !important;
+  border: 1px solid rgba(255, 255, 255, 0.07) !important;
+  border-radius: 8px !important;
+  transition: var(--transition-smooth);
+}
+
+.weather-widget-glass .row-cols-2 .col > div:hover {
+  background-color: rgba(255, 255, 255, 0.06) !important;
+  border-color: rgba(255, 255, 255, 0.12) !important;
+  transform: translateY(-2px);
+}
+
+/* Make all icons inside the weather widget pure white as in the screenshot */
+.weather-widget-glass .text-gold,
+.weather-widget-glass .fs-1.text-gold,
+.weather-widget-glass .fs-3.text-gold,
+.weather-widget-glass .text-warning,
+.weather-widget-glass .text-info,
+.weather-widget-glass .text-primary,
+.weather-widget-glass i.bi {
+  color: #ffffff !important;
+}

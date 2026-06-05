@@ -100,7 +100,7 @@ const WeatherWidget = () => {
 
   if (loading) {
     return (
-      <div className="card-luxury p-5 text-center text-secondary">
+      <div className="card-luxury weather-widget-glass p-5 text-center text-secondary">
         <div className="spinner-border spinner-luxury mb-3" role="status">
           <span className="visually-hidden">Loading...</span>
         </div>
@@ -111,7 +111,7 @@ const WeatherWidget = () => {
 
   if (error || !weather) {
     return (
-      <div className="card-luxury p-4 text-center text-secondary">
+      <div className="card-luxury weather-widget-glass p-4 text-center text-secondary">
         <div className="fs-3 text-warning mb-2"><i className="bi bi-exclamation-triangle"></i></div>
         <p className="small mb-0">{error || 'Weather forecast currently unavailable. Check your connection.'}</p>
       </div>
@@ -121,7 +121,7 @@ const WeatherWidget = () => {
   const currentDetails = getWeatherDetails(weather.current.weather_code, weather.current.is_day);
 
   return (
-    <div className="card-luxury overflow-hidden w-100 fade-in-up">
+    <div className="card-luxury weather-widget-glass overflow-hidden w-100 fade-in-up">
       {/* Current Weather Header */}
       <div className="p-4 border-bottom" style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--bg-secondary)' }}>
         <div className="row g-4 align-items-center">

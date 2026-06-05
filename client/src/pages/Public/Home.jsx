@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import api, { getAPIImageUrl } from '../../services/api';
 import WeatherWidget from '../../components/WeatherWidget';
+import weatherBg from '../../assets/weather-bg.png';
+import trekMap from '../../assets/trek-map.jpg';
 
 const getCountryFlag = (country) => {
   if (!country) return '';
@@ -297,18 +299,28 @@ const Home = () => {
       </section>
 
       {/* Live Weather Section */}
-      <section className="section-padding" style={{ backgroundColor: 'var(--bg-secondary)', borderBottom: '1px solid var(--border-color)' }}>
+      <section 
+        className="section-padding position-relative overflow-hidden weather-section-dark-override" 
+        style={{ 
+          backgroundImage: `linear-gradient(rgba(18, 18, 20, 0.75), rgba(18, 18, 20, 0.75)), url(${weatherBg})`, 
+          backgroundSize: 'cover', 
+          backgroundPosition: 'center', 
+          backgroundRepeat: 'no-repeat',
+          backgroundAttachment: 'fixed',
+          borderBottom: '1px solid var(--border-color)' 
+        }}
+      >
         <div className="container">
           <div className="row justify-content-center text-center mb-5">
             <div className="col-lg-8 col-11">
-              <h6 className="text-uppercase fw-semibold" style={{ color: 'var(--color-gold)', letterSpacing: '0.15em', fontSize: '0.75rem' }}>
+              <h6 className="text-uppercase fw-semibold" style={{ color: '#ffffff', letterSpacing: '0.15em', fontSize: '0.75rem' }}>
                 Climate & Weather
               </h6>
-              <h2 className="display-6 font-serif fw-bold my-2" style={{ color: 'var(--text-primary)' }}>
+              <h2 className="display-6 font-serif fw-bold my-2" style={{ color: '#ffffff' }}>
                 Live Pitam Deurali Weather
               </h2>
-              <div className="gold-accent-line"></div>
-              <p className="small text-secondary mb-4">
+              <div className="gold-accent-line" style={{ backgroundColor: '#FBBF24' }}></div>
+              <p className="small mb-4" style={{ color: 'rgba(255, 255, 255, 0.85)' }}>
                 Real-time meteorological conditions and 5-day mountain weather forecasts directly from the viewpoint summit (~2,100m).
               </p>
             </div>
@@ -666,6 +678,38 @@ const Home = () => {
               ))}
             </div>
           )}
+        </div>
+      </section>
+
+      {/* Trekking Route Map Section */}
+      <section className="section-padding" style={{ backgroundColor: 'var(--bg-secondary)', borderBottom: '1px solid var(--border-color)' }}>
+        <div className="container">
+          <div className="row justify-content-center text-center mb-5">
+            <div className="col-lg-8 col-11">
+              <h6 className="text-uppercase fw-semibold" style={{ color: 'var(--color-gold)', letterSpacing: '0.15em', fontSize: '0.75rem' }}>
+                Explore Routes
+              </h6>
+              <h2 className="display-6 font-serif fw-bold my-2" style={{ color: 'var(--text-primary)' }}>
+                Trekking Routes & Approach Maps
+              </h2>
+              <div className="gold-accent-line"></div>
+              <p className="small text-secondary mb-4">
+                Two scenic approach routes from Pokhara converge at Pothana and continue together to New Pittam Deurali Guest House & Restaurant and Deurali. From Deurali, the trek continues onward toward Mardi Himal or Annapurna Base Camp.
+              </p>
+            </div>
+          </div>
+          <div className="row justify-content-center">
+            <div className="col-lg-10 col-12 text-center">
+              <div style={{ border: '1px solid var(--border-color)', padding: '12px', borderRadius: '8px', backgroundColor: 'var(--bg-card)' }}>
+                <img
+                  src={trekMap}
+                  alt="Trekking Routes Approach Map"
+                  className="img-fluid w-100"
+                  style={{ objectFit: 'contain', borderRadius: '4px', maxHeight: '650px' }}
+                />
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
