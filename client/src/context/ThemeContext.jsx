@@ -9,9 +9,8 @@ export const ThemeProvider = ({ children }) => {
     if (savedTheme) {
       return savedTheme === 'dark';
     }
-    return true; // Default to luxury dark theme as it aligns with luxury boutique styling
+    return false; // Default to light mode
   });
-
   useEffect(() => {
     const root = document.documentElement;
     if (isDarkMode) {

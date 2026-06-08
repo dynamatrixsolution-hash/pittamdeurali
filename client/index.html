@@ -33,6 +33,20 @@
         }
       }(window.location));
     </script>
+
+    <!-- Theme Initializer script to prevent theme flash -->
+    <script type="text/javascript">
+      (function() {
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark') {
+          document.documentElement.classList.add('dark-theme');
+          document.documentElement.classList.remove('light-theme');
+        } else {
+          document.documentElement.classList.add('light-theme');
+          document.documentElement.classList.remove('dark-theme');
+        }
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>
