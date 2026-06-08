@@ -24,12 +24,21 @@ const allowedOrigins = new Set([
   'http://localhost:5173',
   'http://127.0.0.1:5173',
   'https://pittamdeurali.vercel.app',
+  'https://dynamatrixsolution-hash.github.io',
   ...configuredOrigins,
 ]);
 
 app.use(cors({
   origin(origin, callback) {
-    if (!origin || allowedOrigins.has(origin.replace(/\/$/, ''))) {
+    if (!origin) {
+      return callback(null, true);
+    }
+    const sanitizedOrigin = origin.replace(/\/$/, '');
+    if (allowedOrigins.has(sanitizedOrigin)) {
+      return callback(null, true);
+    }
+    // Allow any github.io subdomains dynamically
+    if (/^https?:\/\/[a-zA-Z0-9_-]+\.github\.io$/.test(sanitizedOrigin)) {
       return callback(null, true);
     }
 

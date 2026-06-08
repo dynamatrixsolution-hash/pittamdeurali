@@ -117,7 +117,7 @@ const Dashboard = () => {
       <aside className={`admin-sidebar ${isSidebarOpen ? 'show' : ''}`}>
         <div className="px-4 mb-4 admin-sidebar-brand d-flex align-items-center gap-2">
           <img 
-            src="/logo.png" 
+            src={`${import.meta.env.BASE_URL}logo.png`} 
             alt="New Pittam Deurali Logo" 
             style={{ height: '32px', width: 'auto', objectFit: 'contain' }} 
           />

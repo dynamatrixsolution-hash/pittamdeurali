@@ -42,7 +42,7 @@ const Login = () => {
       <div className="p-5" style={{ width: '100%', maxWidth: '420px', backgroundColor: 'var(--bg-card)', border: '1px solid var(--border-color)' }}>
         <div className="text-center mb-4">
           <img 
-            src="/logo.png" 
+            src={`${import.meta.env.BASE_URL}logo.png`} 
             alt="New Pittam Deurali Logo" 
             style={{ height: '75px', width: 'auto', objectFit: 'contain', marginBottom: '16px' }} 
           />
