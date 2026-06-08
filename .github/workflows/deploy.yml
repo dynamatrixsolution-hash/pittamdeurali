@@ -37,3 +37,4 @@ jobs:
       with:
         folder: client/dist
         branch: gh-pages
+        cname: pittamdeuraliguesthouse.com

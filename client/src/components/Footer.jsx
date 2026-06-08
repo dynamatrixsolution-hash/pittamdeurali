@@ -35,7 +35,7 @@ const Footer = () => {
           <div className="col-lg-5 col-md-6">
             <div className="d-flex align-items-center gap-2 mb-3">
               <img
-                src={`${import.meta.env.BASE_URL}logo.png`}
+                src="/logo.png"
                 alt="New Pittam Deurali Logo"
                 style={{ height: '40px', width: 'auto', objectFit: 'contain' }}
               />

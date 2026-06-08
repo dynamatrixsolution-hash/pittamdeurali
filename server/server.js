@@ -25,6 +25,8 @@ const allowedOrigins = new Set([
   'http://127.0.0.1:5173',
   'https://pittamdeurali.vercel.app',
   'https://dynamatrixsolution-hash.github.io',
+  'https://pittamdeuraliguesthouse.com',
+  'https://www.pittamdeuraliguesthouse.com',
   ...configuredOrigins,
 ]);
 

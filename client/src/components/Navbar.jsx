@@ -31,7 +31,7 @@ const Navbar = () => {
       <div className="container">
         <NavLink className="navbar-brand font-serif fw-bold fs-4 text-decoration-none d-flex align-items-center" to="/" onClick={closeMenu} style={{ color: 'var(--color-gold)' }}>
           <img 
-            src={`${import.meta.env.BASE_URL}logo.png`} 
+            src="/logo.png" 
             alt="New Pittam Deurali Logo" 
             style={{ height: '44px', width: 'auto', objectFit: 'contain' }} 
           />
