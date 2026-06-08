@@ -7,14 +7,12 @@ const Testimonials = () => {
   const [submitting, setSubmitting] = useState(false);
   const [successMsg, setSuccessMsg] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
-
   // Form states
   const [guestName, setGuestName] = useState('');
   const [country, setCountry] = useState('');
   const [rating, setRating] = useState(5);
   const [reviewText, setReviewText] = useState('');
   const [guestImage, setGuestImage] = useState(null);
-
   const fetchReviews = async () => {
     try {
       const res = await api.get('/reviews/approved');
@@ -27,32 +25,25 @@ const Testimonials = () => {
       setLoading(false);
     }
   };
-
   useEffect(() => {
     fetchReviews();
   }, []);
-
   const handleFileChange = (e) => {
     setGuestImage(e.target.files[0]);
   };
-
   // Form Field Validation Check
   const isNameValid = guestName.length >= 3 && guestName.length <= 50;
   const isReviewValid = reviewText.length >= 20 && reviewText.length <= 400;
   const isFormValid = isNameValid && isReviewValid;
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     setSuccessMsg('');
     setErrorMsg('');
-
     if (!isFormValid) {
       setErrorMsg('Please ensure inputs conform to validation limits.');
       return;
     }
-
     setSubmitting(true);
-
     try {
       const data = new FormData();
       data.append('guestName', guestName);
@@ -62,7 +53,6 @@ const Testimonials = () => {
       if (guestImage) {
         data.append('image', guestImage);
       }
-
       const res = await api.post('/reviews', data, {
         headers: { 'Content-Type': 'multipart/form-data' }
       });
@@ -81,8 +71,6 @@ const Testimonials = () => {
       setSubmitting(false);
     }
   };
-
-
   if (loading) {
     return (
       <div className="d-flex justify-content-center align-items-center" style={{ height: '70vh', color: 'var(--color-gold)' }}>
@@ -92,7 +80,6 @@ const Testimonials = () => {
       </div>
     );
   }
-
   return (
     <div className="container py-5 fade-in-up">
       <div className="row justify-content-center text-center mb-5">
@@ -107,7 +94,6 @@ const Testimonials = () => {
           </p>
         </div>
       </div>
-
       <div className="row g-5">
         {/* Reviews List */}
         <div className="col-lg-7">
@@ -129,7 +115,6 @@ const Testimonials = () => {
                 <p className="small text-secondary lh-lg mb-0">"{item.review}"</p>
               </div>
             ))}
-
             {reviews.length === 0 && (
               <div className="text-center my-4 text-secondary">
                 <h5 className="font-serif">No reviews yet. Be the first to share!</h5>
@@ -137,7 +122,6 @@ const Testimonials = () => {
             )}
           </div>
         </div>
-
         {/* Submit Form Sidebar */}
         <div className="col-lg-5">
           <div className="p-4" style={{ backgroundColor: 'var(--bg-secondary)', border: '1px solid var(--border-color)', borderRadius: '4px' }}>
