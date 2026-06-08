@@ -91,7 +91,7 @@ const Dashboard = () => {
 
   const handleLogout = () => {
     localStorage.removeItem('adminToken');
-    localStorage.removeItem('adminUser');
+    localStorage.removeItem('adminUser'); 
     // REDIRECT TO HOME PAGE /
     navigate('/');
   };
