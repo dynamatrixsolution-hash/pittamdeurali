@@ -64,5 +64,12 @@ const SettingsSchema = new mongoose.Schema(
   }
 );
 
+SettingsSchema.pre('save', function(next) {
+  if (this.isModified('phone')) {
+    this.whatsappNumber = this.phone.replace(/[+\s\-()]/g, '');
+  }
+  next();
+});
+
 const Settings = mongoose.model('Settings', SettingsSchema);
 export default Settings;

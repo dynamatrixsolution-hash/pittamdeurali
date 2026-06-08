@@ -6,6 +6,9 @@ import trekMap from '../../assets/trek-map.jpg';
 const Treks = () => {
   const [treks, setTreks] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [settings, setSettings] = useState({
+    whatsappNumber: '9779801234567'
+  });
 
   useEffect(() => {
     const fetchTreks = async () => {
@@ -20,7 +23,18 @@ const Treks = () => {
         setLoading(false);
       }
     };
+    const fetchSettings = async () => {
+      try {
+        const res = await api.get('/settings');
+        if (res.success && res.data) {
+          setSettings(res.data);
+        }
+      } catch (err) {
+        console.error('Error loading settings:', err);
+      }
+    };
     fetchTreks();
+    fetchSettings();
   }, []);
 
 
@@ -48,6 +62,8 @@ const Treks = () => {
       </div>
     );
   }
+
+  const cleanWhatsappNumber = settings?.whatsappNumber ? settings.whatsappNumber.replace(/[+\s-]/g, '') : '9779801234567';
 
   return (
     <div className="container py-5 fade-in-up">
@@ -133,7 +149,7 @@ const Treks = () => {
                           View Itinerary & Map
                         </Link>
                         <a 
-                          href={`https://wa.me/9779801234567?text=Hi,%20I'm%20interested%20in%20arranging%20a%20guide%20and%20trekking%20details%20for%20the%20${encodeURIComponent(trek.name)}.`}
+                          href={`https://wa.me/${cleanWhatsappNumber}?text=Hi,%20I'm%20interested%20in%20arranging%20a%20guide%20and%20trekking%20details%20for%20the%20${encodeURIComponent(trek.name)}.`}
                           target="_blank"
                           rel="noopener noreferrer"
                           className="btn btn-blue-outline w-100 text-center py-2 text-decoration-none"

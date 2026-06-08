@@ -41,10 +41,19 @@ const CmsSettings = ({ mode }) => {
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
-    setSettings({ 
-      ...settings, 
-      [name]: type === 'checkbox' ? checked : value 
-    });
+    if (name === 'phone') {
+      const cleaned = value.replace(/[+\s\-()]/g, '');
+      setSettings({ 
+        ...settings, 
+        phone: value,
+        whatsappNumber: cleaned
+      });
+    } else {
+      setSettings({ 
+        ...settings, 
+        [name]: type === 'checkbox' ? checked : value 
+      });
+    }
   };
 
   // --- Strict Validations ---
