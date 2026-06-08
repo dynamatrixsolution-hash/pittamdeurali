@@ -42,7 +42,7 @@ const PublicLayout = () => {
 function App() {
   return (
     <ThemeProvider>
-      <Router>
+      <Router basename={import.meta.env.BASE_URL}>
         <Routes>
           {/* Public Routes */}
           <Route element={<PublicLayout />}>
