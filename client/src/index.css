@@ -777,7 +777,6 @@ b {
   text-align: center;
   color: var(--text-secondary);
 }
-
 .empty-state-icon {
   font-size: 3rem;
   color: var(--border-color);
