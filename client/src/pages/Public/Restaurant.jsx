@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import api, { getAPIImageUrl } from '../../services/api';
+import SEO from '../../components/SEO';
 
 const Restaurant = () => {
   const [categories, setCategories] = useState([]);
@@ -94,6 +95,19 @@ const Restaurant = () => {
 
   return (
     <div className="container py-5 fade-in-up">
+      <SEO 
+        title="Local Restaurant & Dining | Pitam Deurali Guest House"
+        description="Enjoy delicious Nepali Dal Bhat and international cuisine at Pitam Deurali Restaurant in Pothana. Fuel up for your Mardi Himal and Annapurna trekking."
+        keywords={[
+          "Pothana Restaurant", "Dhampus Dining", "Best Dal Bhat in Pothana", "Mardi Himal Trek Food", 
+          "Deurali Guest House Restaurant", "Annapurna Trek Lodge Food", "Trekking Lodge Nepal Restaurant", 
+          "Local Organic Food Kaski", "Nepalese Cuisine Pothana", "Breakfast in Dhampus", 
+          "Trekker Friendly Lodge Dining", "Mountain View Restaurant Pokhara", "Stay in Pothana Food", 
+          "Pokhara Trekking Stay Restaurant", "Gandaki Province Traditional Food", "Family Guest House Nepal Restaurant", 
+          "Deurali Coffee Shop", "Himalayan Organic Dining"
+        ]}
+        slug="/restaurant"
+      />
       <div className="row justify-content-center text-center mb-5">
         <div className="col-lg-8 col-12">
           <h6 className="text-uppercase fw-semibold" style={{ color: 'var(--color-gold)', letterSpacing: '0.15em', fontSize: '0.75rem' }}>

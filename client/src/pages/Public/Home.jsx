@@ -4,6 +4,7 @@ import api, { getAPIImageUrl } from '../../services/api';
 import WeatherWidget from '../../components/WeatherWidget';
 import weatherBg from '../../assets/weather-bg.png';
 import trekMap from '../../assets/trek-map.jpg';
+import SEO from '../../components/SEO';
 
 const getCountryFlag = (country) => {
   if (!country) return '';
@@ -200,6 +201,20 @@ const Home = () => {
 
   return (
     <div className="fade-in-up">
+      <SEO 
+        title="Pitam Deurali Guest House | Mountain Lodge in Pothana"
+        description="Stay at Pitam Deurali Guest House in Pothana. Enjoy stunning Himalayan views, cozy rooms, and delicious local food near Mardi Himal Trek and Dhampus."
+        keywords={[
+          "Pitam Deurali Guest House", "Pothana Guest House", "Deurali Guest House", "Hotel in Pothana", 
+          "Stay in Pothana", "Guest House near Mardi Himal Trek", "Mardi Himal Accommodation", 
+          "Annapurna Trek Lodge", "Trekking Lodge Nepal", "Hotel near Australian Camp", 
+          "Pokhara Trekking Stay", "Mountain View Hotel Pokhara", "Dhampus Village Stay", 
+          "Annapurna Conservation Area Lodge", "Kaski Nepal Lodge", "Gandaki Province Trekking Stay", 
+          "Budget Hotel Dhampus", "Himalayan View Accommodation", "Family Guest House Nepal", 
+          "Trekker Friendly Lodge"
+        ]}
+        slug="/"
+      />
       {/* 1. Hero Slideshow Section */}
       <section className="hero-slider">
         {slidesToRender.map((slide, idx) => (

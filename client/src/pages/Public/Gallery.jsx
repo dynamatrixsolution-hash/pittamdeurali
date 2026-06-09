@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import api, { getAPIImageUrl } from '../../services/api';
+import SEO from '../../components/SEO';
 
 const Gallery = () => {
   const [images, setImages] = useState([]);
@@ -154,6 +155,19 @@ const Gallery = () => {
 
   return (
     <div className="container py-5 fade-in-up">
+      <SEO 
+        title="Photos & Gallery | Pitam Deurali Guest House Pothana"
+        description="Browse beautiful photos of Pitam Deurali Guest House, Mardi Himal Trek, Dhampus Village, and stunning Annapurna mountain views from our lodge in Nepal."
+        keywords={[
+          "Pothana Gallery", "Mardi Himal Photos", "Dhampus Village Gallery", "Pitam Deurali Guest House Photos", 
+          "Himalayan View Gallery", "Annapurna Trek Lodge Pictures", "Deurali Guest House Gallery", 
+          "Hotel in Pothana Photos", "Hotel in Dhampus Pictures", "Stay in Pothana Gallery", 
+          "Australian Camp Photos", "Trekking Lodge Nepal Gallery", "Best Guest House in Dhampus Photos", 
+          "Pokhara Trekking Stay Gallery", "Kaski Nepal Scenery", "Gandaki Province Trek Photos", 
+          "Nepal Mountain Lodge Pictures", "Annapurna Sunrise Photos"
+        ]}
+        slug="/gallery"
+      />
       {/* Page Header */}
       <div className="row justify-content-center text-center mb-4">
         <div className="col-lg-8 col-11">

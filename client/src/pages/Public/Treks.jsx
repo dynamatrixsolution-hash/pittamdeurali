@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import api, { getAPIImageUrl } from '../../services/api';
 import trekMap from '../../assets/trek-map.jpg';
+import SEO from '../../components/SEO';
 
 const Treks = () => {
   const [treks, setTreks] = useState([]);
@@ -67,6 +68,20 @@ const Treks = () => {
 
   return (
     <div className="container py-5 fade-in-up">
+      <SEO 
+        title="Trekking & Activities | Pitam Deurali Lodge Pothana"
+        description="Explore popular treks and activities near Pothana, including Mardi Himal Trek, Australian Camp hike, and Dhampus Village walks from our Guest House."
+        keywords={[
+          "Guest House near Mardi Himal Trek", "Mardi Himal Trekking Stay", "Hotel near Australian Camp", 
+          "Annapurna Trek Lodge Activities", "Dhampus Village Hikes", "Pothana Trekking Guide", 
+          "Deurali Guest House Treks", "Trekking Lodge Nepal Activities", "Stay in Pothana Hikes", 
+          "Best Guest House in Dhampus Guided Walks", "Pokhara Trekking Stay Routes", "Annapurna Conservation Area Activities", 
+          "Kaski Nepal Trekking Trails", "Family Guest House Nepal Tours", "Budget Hotel Dhampus Day Hikes", 
+          "Gandaki Province Hiking Trails", "Pothana to Forest Camp Trek", "Landruk Trek Stay", 
+          "Jhinu Hot Springs Trek", "Australian Camp Day Hikes"
+        ]}
+        slug="/treks"
+      />
       {/* Page Header */}
       <div className="row justify-content-center text-center mb-5">
         <div className="col-lg-8 col-11">

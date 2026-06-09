@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import api from '../../services/api';
 import WeatherWidget from '../../components/WeatherWidget';
+import SEO from '../../components/SEO';
 
 const COUNTRY_CODES = [
   { code: '+977', name: 'NP (+977)' },
@@ -181,6 +182,19 @@ Thank you.`;
 
   return (
     <div className="container py-5 fade-in-up">
+      <SEO 
+        title="Contact Pitam Deurali Guest House | Pothana Lodge"
+        description="Get in touch with Pitam Deurali Guest House in Pothana, Dhampus. Find our phone number, email, map directions, and book your stay in Kaski, Nepal."
+        keywords={[
+          "Contact Pitam Deurali Guest House", "Pothana Guest House Contact Number", "Deurali Guest House Phone", 
+          "Hotel in Pothana Address", "Hotel in Dhampus Map", "Stay in Pothana Inquiry", 
+          "Mardi Himal Accommodation Contact", "Annapurna Trek Lodge Email", "Best Guest House in Dhampus Contact", 
+          "Booking Inquiry Pothana", "Gandaki Province Lodge Phone", "Kaski Nepal Hotel Contact", 
+          "Family Guest House Nepal Contact", "Budget Hotel Dhampus Directions", "Pokhara Trekking Stay Email", 
+          "Deurali Guest House Address", "Pokhara to Pothana Route Help"
+        ]}
+        slug="/contact"
+      />
       {/* Page Header */}
       <div className="row justify-content-center text-center mb-5">
         <div className="col-lg-8 col-11">

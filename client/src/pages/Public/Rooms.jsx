@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import api, { getAPIImageUrl } from '../../services/api';
+import SEO from '../../components/SEO';
 
 const Rooms = () => {
   const [rooms, setRooms] = useState([]);
@@ -57,6 +58,20 @@ const Rooms = () => {
 
   return (
     <div className="container py-5 fade-in-up">
+      <SEO 
+        title="Cozy Rooms & Accommodation | Pitam Deurali Guest House"
+        description="Explore clean, budget-friendly rooms at Pitam Deurali Guest House in Pothana. Relax with hot showers, cozy beds, and beautiful Himalayan mountain views."
+        keywords={[
+          "Pothana Guest House Rooms", "Mardi Himal Accommodation", "Deurali Guest House Rooms", 
+          "Hotel in Pothana Rooms", "Budget Hotel Dhampus", "Stay in Pothana Rooms", 
+          "Trekking Lodge Nepal Rooms", "Best Guest House in Dhampus", "Hotel near Australian Camp", 
+          "Himalayan View Accommodation", "Double Room Pothana", "Single Room Dhampus", 
+          "Trekker Friendly Lodge Rooms", "Family Guest House Nepal Rooms", "Pokhara Trekking Stay Rooms", 
+          "Annapurna Region Hotel Rooms", "Hot Shower Lodge Pothana", "Kaski Nepal Rooms", 
+          "Pokhara Mountain View Rooms", "Backpacker Rooms Pothana"
+        ]}
+        slug="/rooms"
+      />
       <div className="row justify-content-center text-center mb-5">
         <div className="col-lg-8 col-11">
           <h6 className="text-uppercase fw-semibold" style={{ color: 'var(--color-gold)', letterSpacing: '0.15em', fontSize: '0.75rem' }}>

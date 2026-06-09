@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import api, { getAPIImageUrl } from '../../services/api';
+import SEO from '../../components/SEO';
 
 const About = () => {
   const [about, setAbout] = useState(null);
@@ -45,6 +46,19 @@ const About = () => {
 
   return (
     <div className="container py-5 fade-in-up">
+      <SEO 
+        title="About Pitam Deurali Guest House | Pothana Trek Lodge"
+        description="Discover the story of Pitam Deurali Guest House, a family-run mountain lodge in Pothana offering comfortable rooms and hospitality for Annapurna trekkers."
+        keywords={[
+          "About Pitam Deurali", "Pitam Deurali Guest House Story", "Pothana Guest House History", 
+          "Deurali Guest House Team", "Annapurna Trek Lodge About", "Trekking Accommodation Nepal", 
+          "Family Guest House Nepal", "Trekker Friendly Lodge", "Stay in Pothana Kaski", 
+          "Dhampus Lodging History", "Gandaki Province Hospitality", "Mountain Lodge Owners Nepal", 
+          "Mardi Himal Guest House About", "Local Sherpa Hospitality", "Pokhara Trekking Stay History", 
+          "Annapurna Conservation Area Hotel", "Budget Hotel Dhampus Profile", "Deurali Lodging History"
+        ]}
+        slug="/about"
+      />
       {/* 1. Header Section */}
       <div className="row justify-content-center text-center mb-5">
         <div className="col-lg-8">

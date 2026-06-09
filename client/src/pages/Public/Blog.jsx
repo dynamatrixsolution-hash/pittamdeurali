@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import api, { getAPIImageUrl } from '../../services/api';
+import SEO from '../../components/SEO';
 
 const Blog = () => {
   const [blogs, setBlogs] = useState([]);
@@ -48,6 +49,19 @@ const Blog = () => {
 
   return (
     <div className="container py-5 fade-in-up">
+      <SEO 
+        title="Trekking Blog & Guides | Pitam Deurali Guest House"
+        description="Read expert travel guides, trekking tips, and local stories from Pothana, Dhampus, Mardi Himal, and the beautiful Annapurna Conservation Area in Nepal."
+        keywords={[
+          "Pothana Trekking Blog", "Mardi Himal Trek Guide", "Dhampus Travel Stories", "Deurali Guest House Blog", 
+          "Annapurna Region Travel Tips", "Trekking Lodge Nepal Blog", "Stay in Pothana Blog", 
+          "Best Guest House in Dhampus Articles", "Himalayan Trekking Packing List", "Pokhara Trekking Stay Blog", 
+          "Family Guest House Nepal Travel Tips", "Kaski Nepal Travel Guide", "Gandaki Province Trekking Stories", 
+          "Budget Hotel Dhampus Blog", "Annapurna Conservation Area Blog", "Australian Camp Travel Guide", 
+          "Winter Trekking Mardi Himal", "Pothana Village Travel Tips"
+        ]}
+        slug="/blog"
+      />
       {readingArticle ? (
         // Detailed Article View
         <div style={{ maxWidth: '800px', margin: '0 auto' }}>
