@@ -503,6 +503,22 @@ b {
   display: none;
 }
 
+.admin-menu-toggle-btn {
+  color: var(--text-primary) !important;
+  background-color: transparent !important;
+  border: none !important;
+  padding: 4px 8px !important;
+  cursor: pointer;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition-smooth);
+}
+
+.admin-menu-toggle-btn:hover {
+  color: var(--color-gold) !important;
+}
+
 @media (max-width: 991.98px) {
   .admin-mobile-header {
     display: flex !important;

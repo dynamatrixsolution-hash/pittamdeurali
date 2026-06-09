@@ -114,7 +114,7 @@ const Dashboard = () => {
           <h5 className="font-serif fw-bold m-0" style={{ color: 'var(--color-gold)', fontSize: '0.95rem' }}>Deurali CMS</h5>
         </div>
         <button 
-          className="admin-menu-toggle-btn btn text-white border-0 p-1" 
+          className="admin-menu-toggle-btn btn border-0 p-1" 
           onClick={() => setIsSidebarOpen(!isSidebarOpen)}
           aria-label="Toggle Navigation Menu"
         >
