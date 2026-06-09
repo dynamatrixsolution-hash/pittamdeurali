@@ -499,40 +499,87 @@ b {
 }
 
 /* Sidebar Toggle for Mobile Devices */
+.admin-mobile-header {
+  display: none;
+}
+
 @media (max-width: 991.98px) {
+  .admin-mobile-header {
+    display: flex !important;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 20px;
+    background-color: var(--bg-secondary);
+    border-bottom: 1px solid var(--border-color);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 56px;
+    z-index: 1005;
+  }
+
+  .admin-mobile-header img {
+    height: 28px;
+    width: auto;
+  }
+
   .admin-sidebar {
     transform: translateX(-100%);
+    top: 0; /* Cover the whole height for a cleaner modal look */
+    height: 100vh;
+    z-index: 1010;
   }
 
   .admin-sidebar.show {
     transform: translateX(0);
   }
 
+  .admin-sidebar-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(2px);
+    z-index: 1009;
+  }
+
   .admin-content {
     margin-left: 0;
     width: 100%;
-    padding: 24px;
-  }
-
-  .admin-mobile-toggle {
-    display: block !important;
+    margin-top: 56px; /* Offset the mobile top navbar */
+    padding: 24px 16px !important;
   }
 }
 
-.admin-mobile-toggle {
-  display: none;
-  position: fixed;
-  bottom: 20px;
-  left: 20px;
-  z-index: 1010;
-  background-color: var(--color-gold);
-  color: #FFFFFF;
-  border: none;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  box-shadow: var(--box-shadow-md);
-  font-size: 1.25rem;
+/* Stacking section headers and filter bars on mobile devices */
+@media (max-width: 767.98px) {
+  .admin-content .d-flex.justify-content-between.align-items-center.mb-4,
+  .admin-content .d-flex.justify-content-between.align-items-center.mb-5 {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 16px !important;
+    width: 100% !important;
+  }
+
+  .admin-content .d-flex.justify-content-between.align-items-center.mb-4 > *,
+  .admin-content .d-flex.justify-content-between.align-items-center.mb-5 > * {
+    width: 100% !important;
+  }
+
+  .admin-content .d-flex.gap-2 {
+    width: 100% !important;
+    flex-wrap: wrap !important;
+  }
+
+  .admin-content .d-flex.gap-2 > button,
+  .admin-content .d-flex.gap-2 > a,
+  .admin-content .d-flex.gap-2 > div {
+    flex: 1 1 auto !important;
+    width: auto !important;
+  }
 }
 
 .admin-sidebar-link {
@@ -628,13 +675,15 @@ b {
 .table-luxury {
   border: 1px solid var(--border-color);
   border-radius: 6px;
-  overflow: hidden;
+  overflow-x: auto;
   background-color: var(--bg-card);
+  -webkit-overflow-scrolling: touch;
 }
 
 .table-luxury table {
   margin-bottom: 0;
   border-collapse: separate;
+  min-width: 750px; /* Force minimum width to prevent column squeezing on mobile */
 }
 
 .table-luxury th {

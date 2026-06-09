@@ -103,15 +103,32 @@ const Dashboard = () => {
 
   return (
     <div className="admin-layout">
-      {/* Mobile Toggle Button */}
-      <button 
-        className="admin-mobile-toggle" 
-        onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-        title="Toggle Sidebar"
-        aria-label="Toggle Navigation Sidebar"
-      >
-        {isSidebarOpen ? <i className="bi bi-x-lg"></i> : <i className="bi bi-list"></i>}
-      </button>
+      {/* Mobile Top Navbar */}
+      <header className="admin-mobile-header">
+        <div className="d-flex align-items-center gap-2">
+          <img 
+            src="/logo.png" 
+            alt="New Pittam Deurali Logo" 
+            style={{ height: '28px', width: 'auto', objectFit: 'contain' }} 
+          />
+          <h5 className="font-serif fw-bold m-0" style={{ color: 'var(--color-gold)', fontSize: '0.95rem' }}>Deurali CMS</h5>
+        </div>
+        <button 
+          className="admin-menu-toggle-btn btn text-white border-0 p-1" 
+          onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+          aria-label="Toggle Navigation Menu"
+        >
+          {isSidebarOpen ? <i className="bi bi-x-lg fs-4"></i> : <i className="bi bi-list fs-4"></i>}
+        </button>
+      </header>
+
+      {/* Sidebar Backdrop Overlay */}
+      {isSidebarOpen && (
+        <div 
+          className="admin-sidebar-backdrop" 
+          onClick={() => setIsSidebarOpen(false)}
+        ></div>
+      )}
 
       {/* Fixed Left Sidebar */}
       <aside className={`admin-sidebar ${isSidebarOpen ? 'show' : ''}`}>
