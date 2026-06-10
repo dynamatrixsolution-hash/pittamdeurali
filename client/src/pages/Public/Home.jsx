@@ -214,6 +214,47 @@ const Home = () => {
           "Trekker Friendly Lodge"
         ]}
         slug="/"
+        schema={{
+          "@context": "https://schema.org",
+          "@type": "LodgingBusiness",
+          "name": settings?.hotelName || "New Pitam Deurali Guest House & Restaurant",
+          "image": "https://pittamdeuraliguesthouse.com/logo.png",
+          "@id": "https://pittamdeuraliguesthouse.com/#lodging",
+          "url": "https://pittamdeuraliguesthouse.com",
+          "telephone": settings?.phone || "+977-9801234567",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": settings?.address || "Potham village, Deurali, Dhampus, Kaski",
+            "addressLocality": "Kaski",
+            "addressRegion": "Gandaki Province",
+            "postalCode": "33700",
+            "addressCountry": "NP"
+          },
+          "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": 28.3125,
+            "longitude": 83.8432
+          },
+          "openingHoursSpecification": {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": [
+              "Monday",
+              "Tuesday",
+              "Wednesday",
+              "Thursday",
+              "Friday",
+              "Saturday",
+              "Sunday"
+            ],
+            "opens": "00:00",
+            "closes": "23:59"
+          },
+          "sameAs": [
+            settings?.facebookUrl || "https://facebook.com/newpittamdeurali",
+            settings?.instagramUrl || "https://instagram.com/newpittamdeurali"
+          ],
+          "priceRange": "$$"
+        }}
       />
       {/* 1. Hero Slideshow Section */}
       <section className="hero-slider">

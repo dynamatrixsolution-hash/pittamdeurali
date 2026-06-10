@@ -9,7 +9,8 @@ const SEO = ({
   ogTitle,
   ogDescription,
   twitterTitle,
-  twitterDescription
+  twitterDescription,
+  schema
 }) => {
   const siteUrl = 'https://pittamdeuraliguesthouse.com';
   const canonicalUrl = `${siteUrl}${slug}`;
@@ -24,6 +25,7 @@ const SEO = ({
     <Helmet>
       {/* Basic Metadata */}
       <title>{displayTitle}</title>
+      <meta name="google-site-verification" content="Goe2bkmKNDmwhEqbmR8Uk9Yb-Gx1s_9T0hf6zx6l-y8" />
       {description && <meta name="description" content={description} />}
       {keywordsString && <meta name="keywords" content={keywordsString} />}
       <link rel="canonical" href={canonicalUrl} />
@@ -41,6 +43,13 @@ const SEO = ({
       <meta name="twitter:title" content={twitterTitle || ogTitle || displayTitle} />
       {description && <meta name="twitter:description" content={twitterDescription || ogDescription || description} />}
       <meta name="twitter:image" content={`${siteUrl}/logo.png`} />
+
+      {/* Structured Schema Data */}
+      {schema && (
+        <script type="application/ld+json">
+          {JSON.stringify(schema)}
+        </script>
+      )}
     </Helmet>
   );
 };
