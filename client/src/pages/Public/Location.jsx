@@ -5,13 +5,13 @@ const Location = () => {
   return (
     <div className="container py-5 fade-in-up">
       <SEO 
-        title="Location & Map | Pitam Deurali Guest House Pothana"
-        description="Find detailed maps, transport guides, and directions to Pitam Deurali Guest House in Pothana, Deurali. Easily accessible from Pokhara and Dhampus."
+        title="Location & Map | New Pittam Deurali Guest House and Restaurant"
+        description="Find detailed maps, transport guides, and directions to New Pittam Deurali Guest House and Restaurant in Pittam Deurali. Easily accessible from Pokhara and Dhampus."
         keywords={[
-          "Pothana Guest House Location", "How to reach Pothana", "Deurali Guest House Map",
-          "Hotel in Pothana Location", "Hotel in Dhampus Map", "Guest House near Mardi Himal Route",
-          "Hotel near Australian Camp Map", "Stay in Pothana Directions", "Best Guest House in Dhampus Location",
-          "Pokhara Trekking Stay Map", "Annapurna Region Hotel Location", "Gandaki Province Pothana Map",
+          "New Pittam Deurali Guest House", "Pittam Deurali Location", "Deurali Guest House Map",
+          "Hotel in Pittam Deurali Location", "Hotel in Dhampus Map", "Guest House near Mardi Himal Route",
+          "Hotel near Australian Camp Map", "Stay in Deurali Directions", "Best Guest House in Lumle Location",
+          "Pokhara Trekking Stay Map", "Annapurna Region Hotel Location", "Gandaki Province Deurali Map",
           "Kaski Nepal Trekking Hub", "Family Guest House Nepal Location", "Budget Hotel Dhampus Location"
         ]}
         slug="/location"
@@ -25,7 +25,7 @@ const Location = () => {
           <h1 className="display-4 font-serif fw-bold my-2">Our Location</h1>
           <div className="gold-accent-line"></div>
           <p className="lead text-secondary" style={{ fontSize: '1rem' }}>
-            Situated on the beautiful ridge-top of Pothana/Deurali, Nepal, offering panoramic Himalayan views and a perfect rest point for trekkers.
+            Situated on the beautiful ridge-top of Pittam Deurali, Nepal, offering panoramic Himalayan views and a perfect rest point for trekkers.
           </p>
         </div>
       </div>
@@ -41,7 +41,7 @@ const Location = () => {
                 <div className="fs-4 text-gold mt-1"><i className="bi bi-geo-alt"></i></div>
                 <div>
                   <h6 className="fw-bold mb-1">Address</h6>
-                  <p className="small text-muted mb-0">Pothana Village, Deurali, Dhampus, Kaski, Gandaki Province, Nepal</p>
+                  <p className="small text-muted mb-0">Pittam Deurali, Lumle 33700, Kaski, Nepal</p>
                 </div>
               </div>
 
@@ -49,7 +49,7 @@ const Location = () => {
                 <div className="fs-4 text-gold mt-1"><i className="bi bi-telephone"></i></div>
                 <div>
                   <h6 className="fw-bold mb-1">Phone Inquiry</h6>
-                  <p className="small text-muted mb-0">+977 980-1234567</p>
+                  <p className="small text-muted mb-0">+977 9866061995</p>
                 </div>
               </div>
 
@@ -65,7 +65,7 @@ const Location = () => {
                 <div className="fs-4 text-gold mt-1"><i className="bi bi-compass"></i></div>
                 <div>
                   <h6 className="fw-bold mb-1">Coordinates</h6>
-                  <p className="small text-muted mb-0">28.3125° N, 83.8432° E (Pothana Ridge)</p>
+                  <p className="small text-muted mb-0">28.3254° N, 83.8291° E (Pittam Deurali)</p>
                 </div>
               </div>
             </div>
@@ -83,8 +83,8 @@ const Location = () => {
         <div className="col-lg-7">
           <div className="card-luxury p-3 h-100" style={{ minHeight: '400px' }}>
             <iframe 
-              title="Pitam Deurali Guest House Location Map"
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14050.419145620803!2d83.8322797!3d28.3105741!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3995eb81ad6f32e9%3A0xe5a3bb406cf6836!2sPothana!5e0!3m2!1sen!2snp!4v1717900000000!5m2!1sen!2snp" 
+              title="New Pittam Deurali Guest House and Restaurant Location Map"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3512.6961448834926!2d83.82687381502476!3d28.325437499999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3995efb8c329d831%3A0xf432096954be174b!2sNew%20Pittam%20Deurali%20Guest%20House%20and%20Restaurant!5e0!3m2!1sen!2snp!4v1717900000000!5m2!1sen!2snp" 
               width="100%" 
               height="100%" 
               style={{ border: 0, minHeight: '380px', borderRadius: '4px' }} 

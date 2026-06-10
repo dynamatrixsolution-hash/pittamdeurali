@@ -202,8 +202,8 @@ const Home = () => {
   return (
     <div className="fade-in-up">
       <SEO 
-        title="Pitam Deurali Guest House | Mountain Lodge in Pothana"
-        description="Stay at Pitam Deurali Guest House in Pothana. Enjoy stunning Himalayan views, cozy rooms, and delicious local food near Mardi Himal Trek and Dhampus."
+        title="New Pittam Deurali Guest House and Restaurant | Mountain Lodge & Local Dining"
+        description="Stay at New Pittam Deurali Guest House and Restaurant. Enjoy stunning Himalayan views, cozy rooms, and delicious local food near Mardi Himal Trek and Dhampus."
         keywords={[
           "Pitam Deurali Guest House", "Pothana Guest House", "Deurali Guest House", "Hotel in Pothana", 
           "Stay in Pothana", "Guest House near Mardi Himal Trek", "Mardi Himal Accommodation", 
@@ -217,14 +217,14 @@ const Home = () => {
         schema={{
           "@context": "https://schema.org",
           "@type": "LodgingBusiness",
-          "name": settings?.hotelName || "New Pitam Deurali Guest House & Restaurant",
+          "name": settings?.hotelName || "New Pittam Deurali Guest House and Restaurant",
           "image": "https://pittamdeuraliguesthouse.com/logo.png",
           "@id": "https://pittamdeuraliguesthouse.com/#lodging",
           "url": "https://pittamdeuraliguesthouse.com",
-          "telephone": settings?.phone || "+977-9801234567",
+          "telephone": settings?.phone || "+977-9866061995",
           "address": {
             "@type": "PostalAddress",
-            "streetAddress": settings?.address || "Potham village, Deurali, Dhampus, Kaski",
+            "streetAddress": settings?.address || "Pittam Deurali, Lumle 33700, Kaski",
             "addressLocality": "Kaski",
             "addressRegion": "Gandaki Province",
             "postalCode": "33700",
@@ -232,8 +232,8 @@ const Home = () => {
           },
           "geo": {
             "@type": "GeoCoordinates",
-            "latitude": 28.3125,
-            "longitude": 83.8432
+            "latitude": 28.3254375,
+            "longitude": 83.8290625
           },
           "openingHoursSpecification": {
             "@type": "OpeningHoursSpecification",

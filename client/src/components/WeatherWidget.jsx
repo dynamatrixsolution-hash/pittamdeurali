@@ -6,8 +6,8 @@ const WeatherWidget = () => {
   const [error, setError] = useState(null);
 
   // Pitam Deurali Coordinates
-  const lat = 28.33183;
-  const lon = 83.82475;
+  const lat = 28.3254375;
+  const lon = 83.8290625;
 
   useEffect(() => {
     const fetchWeather = async () => {

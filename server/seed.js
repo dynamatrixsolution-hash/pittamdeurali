@@ -56,12 +56,12 @@ const seedData = async () => {
 
     // 2. Create Global Settings
     await Settings.create({
-      hotelName: 'New Pittam Deurali Guest House & Restaurant',
+      hotelName: 'New Pittam Deurali Guest House and Restaurant',
       address: 'Pittam Deurali, Lumle 33700, Kaski, Nepal',
-      phone: '+977-9801234567',
+      phone: '+977-9866061995',
       email: 'stay@newpittamdeurali.com',
-      whatsappNumber: '9779801234567',
-      googleMapIframe: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3512.522204907997!2d83.82256137530612!3d28.330925975829672!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3995ebdc4ec5418b%3A0xe54e60ef2b1c6096!2sPitam%20Deurali!5e0!3m2!1sen!2snp!4v1717200000000!5m2!1sen!2snp',
+      whatsappNumber: '9779866061995',
+      googleMapIframe: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3512.6961448834926!2d83.82687381502476!3d28.325437499999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3995efb8c329d831%3A0xf432096954be174b!2sNew%20Pittam%20Deurali%20Guest%20House%20and%20Restaurant!5e0!3m2!1sen!2snp!4v1717900000000!5m2!1sen!2snp',
       facebookUrl: 'https://facebook.com/newpittamdeurali',
       instagramUrl: 'https://instagram.com/newpittamdeurali',
       tripAdvisorUrl: 'https://tripadvisor.com',
