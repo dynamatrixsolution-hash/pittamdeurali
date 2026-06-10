@@ -85,7 +85,10 @@ const Footer = () => {
               </li>
               <li>
                 <i className="bi bi-telephone-fill me-2" style={{ color: 'var(--color-gold)' }}></i>
-                {settings.phone}
+                <a href={`tel:${settings.phone}`} className="text-decoration-none text-reset hover-gold">{settings.phone}</a>,{' '}
+                <a href="tel:9866061995" className="text-decoration-none text-reset hover-gold">9866061995</a>,{' '}
+                <a href="tel:9814157732" className="text-decoration-none text-reset hover-gold">9814157732</a>,{' '}
+                <a href="tel:9819163263" className="text-decoration-none text-reset hover-gold">9819163263</a>
               </li>
               <li>
                 <i className="bi bi-envelope-fill me-2" style={{ color: 'var(--color-gold)' }}></i>
