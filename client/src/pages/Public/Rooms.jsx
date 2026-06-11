@@ -59,28 +59,50 @@ const Rooms = () => {
   return (
     <div className="container py-5 fade-in-up">
       <SEO 
-        title="Cozy Rooms & Accommodation | Pitam Deurali Guest House"
-        description="Explore clean, budget-friendly rooms at Pitam Deurali Guest House in Pothana. Relax with hot showers, cozy beds, and beautiful Himalayan mountain views."
+        title="Cozy Rooms & Accommodation | New Pittam Deurali Guest House and Restaurant"
+        description="Explore the best hotel, lodging, and homestay rooms in Pittam Deurali, Lumle. Relax with hot running showers, warm beds, and direct Annapurna views."
         keywords={[
-          "Pothana Guest House Rooms", "Mardi Himal Accommodation", "Deurali Guest House Rooms", 
-          "Hotel in Pothana Rooms", "Budget Hotel Dhampus", "Stay in Pothana Rooms", 
+          "Best Hotel in Pittam Deurali", "Best Place to Stay in Pittam Deurali", "Pittam Deurali Accommodation", 
+          "Hotel in Pittam Deurali Rooms", "Budget Hotel Dhampus", "Stay in Deurali Rooms", 
           "Trekking Lodge Nepal Rooms", "Best Guest House in Dhampus", "Hotel near Australian Camp", 
-          "Himalayan View Accommodation", "Double Room Pothana", "Single Room Dhampus", 
+          "Himalayan View Accommodation", "Double Room Pittam Deurali", "Single Room Dhampus", 
           "Trekker Friendly Lodge Rooms", "Family Guest House Nepal Rooms", "Pokhara Trekking Stay Rooms", 
-          "Annapurna Region Hotel Rooms", "Hot Shower Lodge Pothana", "Kaski Nepal Rooms", 
-          "Pokhara Mountain View Rooms", "Backpacker Rooms Pothana"
+          "Annapurna Region Hotel Rooms", "Hot Shower Lodge Pittam Deurali", "Kaski Nepal Rooms", 
+          "Pokhara Mountain View Rooms", "Backpacker Rooms Pittam Deurali"
         ]}
         slug="/rooms"
+        schema={{
+          "@context": "https://schema.org",
+          "@type": "Hotel",
+          "name": "New Pittam Deurali Guest House and Restaurant Lodging",
+          "image": "https://pittamdeuraliguesthouse.com/logo.png",
+          "url": "https://pittamdeuraliguesthouse.com/rooms",
+          "telephone": settings?.phone || "+977-9866061995",
+          "priceRange": "$$",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": settings?.address || "Pittam Deurali, Lumle 33700",
+            "addressLocality": "Kaski",
+            "addressRegion": "Gandaki Province",
+            "postalCode": "33700",
+            "addressCountry": "NP"
+          },
+          "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": 28.3254375,
+            "longitude": 83.8290625
+          }
+        }}
       />
       <div className="row justify-content-center text-center mb-5">
         <div className="col-lg-8 col-11">
           <h6 className="text-uppercase fw-semibold" style={{ color: 'var(--color-gold)', letterSpacing: '0.15em', fontSize: '0.75rem' }}>
             Rooms
           </h6>
-          <h1 className="display-4 font-serif fw-bold my-2">Cozy Rooms & Lodging</h1>
+          <h1 className="display-4 font-serif fw-bold my-2">Best Hotel & Lodging in Pittam Deurali</h1>
           <div className="gold-accent-line"></div>
           <p className="lead text-secondary" style={{ fontSize: '1rem' }}>
-            Comfortable double rooms, family cabins, and hiker accommodations designed for a warm, restful stay on your trekking journey.
+            Experience the best guest house and homestay rooms in Pittam Deurali, Dhampus. Clean double rooms, family suites, and cozy accommodations with hot water and mountain views.
           </p>
         </div>
       </div>

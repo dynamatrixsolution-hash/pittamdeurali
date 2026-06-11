@@ -769,6 +769,72 @@ const Home = () => {
         </div>
       </section>
 
+      {/* Pittam Deurali Travel FAQ & Local Guide */}
+      <section className="section-padding" style={{ backgroundColor: 'var(--bg-primary)', borderBottom: '1px solid var(--border-color)' }}>
+        <div className="container">
+          <div className="row justify-content-center text-center mb-5">
+            <div className="col-lg-8 col-11">
+              <h6 className="text-uppercase fw-semibold" style={{ color: 'var(--color-gold)', letterSpacing: '0.15em', fontSize: '0.75rem' }}>
+                Local Travel Guide
+              </h6>
+              <h2 className="display-6 font-serif fw-bold my-2" style={{ color: 'var(--text-primary)' }}>
+                Pittam Deurali Travel FAQ
+              </h2>
+              <div className="gold-accent-line"></div>
+              <p className="small text-secondary">
+                Planning your trek in Dhampus, Pothana, or Mardi Himal? Read answers to common traveler questions.
+              </p>
+            </div>
+          </div>
+          
+          <div className="row g-4 justify-content-center">
+            <div className="col-md-6 col-12">
+              <div className="card-luxury p-4 h-100">
+                <h4 className="font-serif fw-bold mb-3" style={{ color: 'var(--color-gold)', fontSize: '1.15rem' }}>
+                  What is the best hotel or guest house in Pittam Deurali?
+                </h4>
+                <p className="small text-secondary lh-lg mb-0">
+                  <strong>New Pittam Deurali Guest House and Restaurant</strong> is widely recognized as the premier place to stay in Pittam Deurali. We offer comfortable wood-insulated rooms, reliable hot showers, cozy blankets, and direct, panoramic views of the Annapurna and Dhaulagiri mountain ranges, making it a perfect rest stop for Mardi Himal trekkers.
+                </p>
+              </div>
+            </div>
+            
+            <div className="col-md-6 col-12">
+              <div className="card-luxury p-4 h-100">
+                <h4 className="font-serif fw-bold mb-3" style={{ color: 'var(--color-gold)', fontSize: '1.15rem' }}>
+                  Where can I find the best restaurant and food in Pitam Deurali?
+                </h4>
+                <p className="small text-secondary lh-lg mb-0">
+                  Our family kitchen at <strong>New Pittam Deurali Restaurant</strong> serves the best local dining in Kaski. We specialize in organic Nepali Dal Bhat, local seasonal curries, and handmade dumplings, all prepared over a traditional wood-fired stove using fresh produce harvested directly from our own garden.
+                </p>
+              </div>
+            </div>
+
+            <div className="col-md-6 col-12">
+              <div className="card-luxury p-4 h-100">
+                <h4 className="font-serif fw-bold mb-3" style={{ color: 'var(--color-gold)', fontSize: '1.15rem' }}>
+                  Are there cozy homestays in Pitam Deurali, Dhampus, or Pothana?
+                </h4>
+                <p className="small text-secondary lh-lg mb-0">
+                  Yes, New Pittam Deurali Guest House operates as a warm, family-run homestay. Trekkers and families can experience authentic Nepalese hospitality, relax by the evening fireplace in the dining hall, and share stories with the local hosts.
+                </p>
+              </div>
+            </div>
+
+            <div className="col-md-6 col-12">
+              <div className="card-luxury p-4 h-100">
+                <h4 className="font-serif fw-bold mb-3" style={{ color: 'var(--color-gold)', fontSize: '1.15rem' }}>
+                  How do I reach New Pittam Deurali Guest House and Restaurant?
+                </h4>
+                <p className="small text-secondary lh-lg mb-0">
+                  We are situated on the ridge at coordinates 28.3254° N, 83.8291° E. You can drive from Pokhara to Kande (45 mins) and trek up for 2 hours, or hike from Dhampus Village via Pothana (2.5 hours) along beautiful forest trails.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* 8. Contact CTA */}
       <section className="section-padding" style={{ backgroundColor: 'var(--bg-secondary)' }}>
         <div className="container">
@@ -794,7 +860,7 @@ const Home = () => {
                 Contact Us Form
               </Link>
               <a
-                href="https://www.google.com/maps/dir/?api=1&destination=Pitam+Deurali+Guest+House+and+Restaurant+Lumle+Nepal"
+                href="https://www.google.com/maps/dir/?api=1&destination=New+Pittam+Deurali+Guest+House+and+Restaurant+Lumle+Nepal"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn btn-orange text-white text-decoration-none"

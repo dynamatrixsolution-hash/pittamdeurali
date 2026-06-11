@@ -96,17 +96,40 @@ const Restaurant = () => {
   return (
     <div className="container py-5 fade-in-up">
       <SEO 
-        title="Local Restaurant & Dining | Pitam Deurali Guest House"
-        description="Enjoy delicious Nepali Dal Bhat and international cuisine at Pitam Deurali Restaurant in Pothana. Fuel up for your Mardi Himal and Annapurna trekking."
+        title="Local Restaurant & Dining | New Pittam Deurali Guest House and Restaurant"
+        description="Enjoy the best restaurant experience in Pittam Deurali, Lumle. Savor wood-fired organic Nepali Dal Bhat and international dining with stunning Himalayan views."
         keywords={[
-          "Pothana Restaurant", "Dhampus Dining", "Best Dal Bhat in Pothana", "Mardi Himal Trek Food", 
+          "Best Restaurant in Pittam Deurali", "Pittam Deurali Restaurant", "Dhampus Dining", "Best Dal Bhat in Dhampus", "Mardi Himal Trek Food", 
           "Deurali Guest House Restaurant", "Annapurna Trek Lodge Food", "Trekking Lodge Nepal Restaurant", 
-          "Local Organic Food Kaski", "Nepalese Cuisine Pothana", "Breakfast in Dhampus", 
-          "Trekker Friendly Lodge Dining", "Mountain View Restaurant Pokhara", "Stay in Pothana Food", 
+          "Local Organic Food Kaski", "Nepalese Cuisine Lumle", "Breakfast in Dhampus", 
+          "Trekker Friendly Lodge Dining", "Mountain View Restaurant Pokhara", "Pittam Deurali food", 
           "Pokhara Trekking Stay Restaurant", "Gandaki Province Traditional Food", "Family Guest House Nepal Restaurant", 
-          "Deurali Coffee Shop", "Himalayan Organic Dining"
+          "Himalayan Organic Dining"
         ]}
         slug="/restaurant"
+        schema={{
+          "@context": "https://schema.org",
+          "@type": "Restaurant",
+          "name": "New Pittam Deurali Restaurant",
+          "image": "https://pittamdeuraliguesthouse.com/logo.png",
+          "url": "https://pittamdeuraliguesthouse.com/restaurant",
+          "telephone": settings?.phone || "+977-9866061995",
+          "priceRange": "$$",
+          "servesCuisine": ["Nepali", "Dal Bhat", "Wood-fired Organic Meals", "International"],
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": settings?.address || "Pittam Deurali, Lumle 33700",
+            "addressLocality": "Kaski",
+            "addressRegion": "Gandaki Province",
+            "postalCode": "33700",
+            "addressCountry": "NP"
+          },
+          "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": 28.3254375,
+            "longitude": 83.8290625
+          }
+        }}
       />
       <div className="row justify-content-center text-center mb-5">
         <div className="col-lg-8 col-12">
@@ -116,7 +139,7 @@ const Restaurant = () => {
           <h1 className="display-4 font-serif fw-bold my-2">{restaurant?.title || 'New Pittam Deurali Restaurant'}</h1>
           <div className="gold-accent-line"></div>
           <p className="lead text-secondary" style={{ fontSize: '1rem' }}>
-            Savor authentic wood-fired Nepali cuisine, freshly harvested garden vegetables, and warm hospitality at our ridge-top dining hall.
+            Savor authentic wood-fired Nepali cuisine, freshly harvested garden vegetables, and warm hospitality at New Pittam Deurali Restaurant — widely considered the best restaurant in Pittam Deurali, Dhampus, and the surrounding trekking routes.
           </p>
         </div>
       </div>
@@ -124,7 +147,7 @@ const Restaurant = () => {
       {/* Overview & Food Philosophy */}
       <div className="row align-items-center g-5 mb-5">
         <div className="col-lg-6 col-12">
-          <h3 className="font-serif fw-bold mb-3">A True Family Kitchen</h3>
+          <h3 className="font-serif fw-bold mb-3">Best Restaurant in Pittam Deurali - A True Family Kitchen</h3>
           <p className="lh-lg text-secondary" style={{ fontSize: '0.95rem' }}>
             {restaurant?.description || 'At New Pittam Deurali Guest House & Restaurant, dining is at the heart of our hospitality. Our family kitchen prepares every meal over a traditional wood-fired stove, imparting a rich, authentic smoky flavor to local dishes. We serve wholesome, fresh meals designed to re-energize trekkers who have walked the forest trails from Kande or are continuing to Mardi Himal.'}
           </p>
