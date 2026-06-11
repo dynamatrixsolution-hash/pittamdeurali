@@ -33,7 +33,6 @@ const Restaurant = () => {
     fetchMenuData();
   }, []);
 
-
   const filteredItems = menuItems.filter(item => {
     const matchesSearch = item.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
                           (item.description && item.description.toLowerCase().includes(searchQuery.toLowerCase()));
@@ -235,11 +234,9 @@ const Restaurant = () => {
           </div>
         </div>
       )}
-
       {/* Interactive Food Menu Section */}
       <div className="pt-5 mt-5 border-top border-secondary">
         <h2 className="font-serif fw-bold text-center mb-4">Our Food & Kitchen Menu</h2>
-        
         {/* Search Bar */}
         <div className="menu-search-bar mb-4">
           <div className="input-group">
