@@ -5,6 +5,7 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import WhatsAppButton from './components/WhatsAppButton';
 import ProtectedRoute from './components/ProtectedRoute';
+import SEO from './components/SEO/SEO';
 
 // Context Providers
 import { ThemeProvider } from './context/ThemeContext';
@@ -37,6 +38,12 @@ const PageLoader = () => (
 const PublicLayout = () => {
   return (
     <>
+      <SEO 
+        title="Pitam Deurali Guest House | Mountain Lodge in Pothana"
+        description="Stay at Pitam Deurali Guest House in Pothana. Enjoy stunning Himalayan views, cozy rooms, and delicious local food near Mardi Himal Trek and Dhampus."
+        url="/"
+        type="WebSite"
+      />
       <Navbar />
       <div style={{ minHeight: '80vh' }}>
         <Outlet />

@@ -98,10 +98,21 @@ const Navbar = () => {
               </button>
             </li>
             
+            {/* Booking CTA Button */}
+            <li className="nav-item ms-lg-3 my-2 my-lg-0 d-flex align-items-center">
+              <NavLink 
+                className="btn btn-sm btn-primary fw-bold px-3 py-2" 
+                to="/booking" 
+                onClick={closeMenu}
+              >
+                Book Now
+              </NavLink>
+            </li>
+            
             {/* Review Button */}
             <li className="nav-item ms-lg-3 my-2 my-lg-0 d-flex align-items-center">
               <button 
-                className="btn btn-sm btn-orange" 
+                className="btn btn-sm btn-outline-orange" 
                 onClick={() => { setIsReviewModalOpen(true); closeMenu(); }}
               >
                 Leave a Review
