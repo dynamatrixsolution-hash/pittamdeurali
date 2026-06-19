@@ -47,10 +47,11 @@ const About = () => {
   return (
     <div className="container py-5 fade-in-up">
       <SEO 
-        title="About Pitam Deurali Guest House | Pothana Trek Lodge"
-        description="Discover the story of Pitam Deurali Guest House, a family-run mountain lodge in Pothana offering comfortable rooms and hospitality for Annapurna trekkers."
+        title="About Us | Pothana, Dhampus & Mardi Trek Lodge History"
+        description="Discover the story of New Pittam Deurali Guest House, a family-run mountain lodge in Pothana offering comfortable rooms and hospitality for Annapurna & Mardi Trek hikers."
         keywords={[
-          "About Pitam Deurali", "Pitam Deurali Guest House Story", "Pothana Guest House History", 
+          "About Pitam Deurali", "Pittam Deurali Guest House", "Pothana Guest House History", 
+          "Dhampus Guest House", "Mardi Trek Lodge About", "Pittam Deurali Accommodation", 
           "Deurali Guest House Team", "Annapurna Trek Lodge About", "Trekking Accommodation Nepal", 
           "Family Guest House Nepal", "Trekker Friendly Lodge", "Stay in Pothana Kaski", 
           "Dhampus Lodging History", "Gandaki Province Hospitality", "Mountain Lodge Owners Nepal", 

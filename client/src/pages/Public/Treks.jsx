@@ -69,16 +69,17 @@ const Treks = () => {
   return (
     <div className="container py-5 fade-in-up">
       <SEO 
-        title="Trekking & Activities | Pitam Deurali Lodge Pothana"
-        description="Explore popular treks and activities near Pothana, including Mardi Himal Trek, Australian Camp hike, and Dhampus Village walks from our Guest House."
+        title="Trekking & Activities | Pothana, Dhampus & Mardi Trek Lodge"
+        description="Explore popular treks and activities near Pothana, including Mardi Himal Trek, Australian Camp hike, and Dhampus Village walks from New Pittam Deurali Guest House."
         keywords={[
-          "Guest House near Mardi Himal Trek", "Mardi Himal Trekking Stay", "Hotel near Australian Camp", 
-          "Annapurna Trek Lodge Activities", "Dhampus Village Hikes", "Pothana Trekking Guide", 
-          "Deurali Guest House Treks", "Trekking Lodge Nepal Activities", "Stay in Pothana Hikes", 
-          "Best Guest House in Dhampus Guided Walks", "Pokhara Trekking Stay Routes", "Annapurna Conservation Area Activities", 
-          "Kaski Nepal Trekking Trails", "Family Guest House Nepal Tours", "Budget Hotel Dhampus Day Hikes", 
-          "Gandaki Province Hiking Trails", "Pothana to Forest Camp Trek", "Landruk Trek Stay", 
-          "Jhinu Hot Springs Trek", "Australian Camp Day Hikes"
+          "Pittam Deurali Guest House", "Pothana Guest House", "Dhampus Guest House", "Mardi Trek Lodge", 
+          "Mardi Trek Guest House", "Guest House near Mardi Himal Trek", "Mardi Himal Trekking Stay", 
+          "Hotel near Australian Camp", "Annapurna Trek Lodge Activities", "Dhampus Village Hikes", 
+          "Pothana Trekking Guide", "Deurali Guest House Treks", "Trekking Lodge Nepal Activities", 
+          "Stay in Pothana Hikes", "Best Guest House in Dhampus Guided Walks", "Pokhara Trekking Stay Routes", 
+          "Annapurna Conservation Area Activities", "Kaski Nepal Trekking Trails", "Family Guest House Nepal Tours", 
+          "Budget Hotel Dhampus Day Hikes", "Gandaki Province Hiking Trails", "Pothana to Forest Camp Trek", 
+          "Landruk Trek Stay", "Jhinu Hot Springs Trek", "Australian Camp Day Hikes"
         ]}
         slug="/treks"
       />

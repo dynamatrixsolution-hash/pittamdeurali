@@ -202,13 +202,14 @@ const Home = () => {
   return (
     <div className="fade-in-up">
       <SEO 
-        title="New Pittam Deurali Guest House and Restaurant | Mountain Lodge & Local Dining"
-        description="Stay at New Pittam Deurali Guest House and Restaurant. Enjoy stunning Himalayan views, cozy rooms, and delicious local food near Mardi Himal Trek and Dhampus."
+        title="New Pittam Deurali Guest House and Restaurant | Pothana, Dhampus & Mardi Trek Lodging"
+        description="Stay at New Pittam Deurali Guest House and Restaurant. Enjoy stunning Himalayan views, cozy rooms, and delicious local food near Mardi Himal Trek, Pothana, and Dhampus."
         keywords={[
-          "Pitam Deurali Guest House", "Pothana Guest House", "Deurali Guest House", "Hotel in Pothana", 
-          "Stay in Pothana", "Guest House near Mardi Himal Trek", "Mardi Himal Accommodation", 
-          "Annapurna Trek Lodge", "Trekking Lodge Nepal", "Hotel near Australian Camp", 
-          "Pokhara Trekking Stay", "Mountain View Hotel Pokhara", "Dhampus Village Stay", 
+          "Pittam Deurali Guest House", "Pitam Deurali Guest House", "Pothana Guest House", "Deurali Guest House", 
+          "Hotel in Pothana", "Stay in Pothana", "Pothana Pittam Deurali", "Dhampus Guest House", 
+          "Hotel in Dhampus", "Dhampus Village Stay", "Mardi Trek Lodge", "Mardi Trek Guest House", 
+          "Mardi Himal Trek Accommodation", "Mardi Himal Trek Lodge", "Annapurna Trek Lodge", "Trekking Lodge Nepal", 
+          "Hotel near Australian Camp", "Pokhara Trekking Stay", "Mountain View Hotel Pokhara", 
           "Annapurna Conservation Area Lodge", "Kaski Nepal Lodge", "Gandaki Province Trekking Stay", 
           "Budget Hotel Dhampus", "Himalayan View Accommodation", "Family Guest House Nepal", 
           "Trekker Friendly Lodge"
