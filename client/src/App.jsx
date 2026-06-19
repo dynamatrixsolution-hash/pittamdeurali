@@ -24,6 +24,13 @@ const Contact = lazy(() => import('./pages/Public/Contact'));
 const Services = lazy(() => import('./pages/Public/Services'));
 const Location = lazy(() => import('./pages/Public/Location'));
 const Booking = lazy(() => import('./pages/Public/Booking'));
+const PothanaGuide = lazy(() => import('./pages/Public/PothanaGuide'));
+const DhampusGuide = lazy(() => import('./pages/Public/DhampusGuide'));
+const AustralianCampGuide = lazy(() => import('./pages/Public/AustralianCampGuide'));
+const MardiHimalAccommodation = lazy(() => import('./pages/Public/MardiHimalAccommodation'));
+const AnnapurnaTrekLodge = lazy(() => import('./pages/Public/AnnapurnaTrekLodge'));
+const KandeToPothana = lazy(() => import('./pages/Public/KandeToPothana'));
+const PokharaToPothana = lazy(() => import('./pages/Public/PokharaToPothana'));
 const Login = lazy(() => import('./pages/Admin/Login'));
 const Dashboard = lazy(() => import('./pages/Admin/Dashboard'));
 
@@ -77,6 +84,13 @@ function App() {
                 <Route path="/services" element={<Services />} />
                 <Route path="/location" element={<Location />} />
                 <Route path="/booking" element={<Booking />} />
+                <Route path="/pothana-accommodation-guide" element={<PothanaGuide />} />
+                <Route path="/dhampus-travel-guide" element={<DhampusGuide />} />
+                <Route path="/australian-camp-guide" element={<AustralianCampGuide />} />
+                <Route path="/mardi-himal-trek-accommodation" element={<MardiHimalAccommodation />} />
+                <Route path="/annapurna-trek-lodge" element={<AnnapurnaTrekLodge />} />
+                <Route path="/kande-to-pothana-trek-guide" element={<KandeToPothana />} />
+                <Route path="/pokhara-to-pothana-travel-guide" element={<PokharaToPothana />} />
               </Route>
 
               {/* Admin Authentication */}
