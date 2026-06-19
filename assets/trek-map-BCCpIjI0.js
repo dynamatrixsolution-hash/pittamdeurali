@@ -1,0 +1,1 @@
+var e=`/assets/trek-map-CXqo6JJq.jpg`;export{e as t};
