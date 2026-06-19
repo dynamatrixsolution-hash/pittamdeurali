@@ -199,170 +199,11 @@ const Home = () => {
     image: '/uploads/image copy.png'
   };
 
-  // Build rich dynamic structured schemas for search engines & AI bots
-  const hotelSchema = {
-    "@context": "https://schema.org",
-    "@type": "Hotel",
-    "name": settings?.hotelName || "New Pitam Deurali Guest House and Restaurant",
-    "description": welcome.description,
-    "image": "https://pittamdeuraliguesthouse.com/logo.png",
-    "@id": "https://pittamdeuraliguesthouse.com/#hotel",
-    "url": "https://pittamdeuraliguesthouse.com",
-    "telephone": settings?.phone || "+977-9866061995",
-    "email": settings?.email || "stay@pittamdeuraliguesthouse.com",
-    "address": {
-      "@type": "PostalAddress",
-      "streetAddress": settings?.address || "Pittam Deurali, Lumle 33700, Kaski",
-      "addressLocality": "Kaski",
-      "addressRegion": "Gandaki Province",
-      "postalCode": "33700",
-      "addressCountry": "NP"
-    },
-    "geo": {
-      "@type": "GeoCoordinates",
-      "latitude": 28.3254375,
-      "longitude": 83.8290625
-    },
-    "openingHoursSpecification": {
-      "@type": "OpeningHoursSpecification",
-      "dayOfWeek": [
-        "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"
-      ],
-      "opens": "00:00",
-      "closes": "23:59"
-    },
-    "sameAs": [
-      settings?.facebookUrl || "https://facebook.com/newpittamdeurali",
-      settings?.instagramUrl || "https://instagram.com/newpittamdeurali"
-    ],
-    "priceRange": "$$"
-  };
-
-  const localBusinessSchema = {
-    "@context": "https://schema.org",
-    "@type": "LocalBusiness",
-    "name": settings?.hotelName || "New Pitam Deurali Guest House and Restaurant",
-    "image": "https://pittamdeuraliguesthouse.com/logo.png",
-    "@id": "https://pittamdeuraliguesthouse.com/#localbusiness",
-    "url": "https://pittamdeuraliguesthouse.com",
-    "telephone": settings?.phone || "+977-9866061995",
-    "address": {
-      "@type": "PostalAddress",
-      "streetAddress": settings?.address || "Pittam Deurali, Lumle 33700, Kaski",
-      "addressLocality": "Kaski",
-      "addressRegion": "Gandaki Province",
-      "postalCode": "33700",
-      "addressCountry": "NP"
-    },
-    "geo": {
-      "@type": "GeoCoordinates",
-      "latitude": 28.3254375,
-      "longitude": 83.8290625
-    },
-    "priceRange": "$$"
-  };
-
-  const organizationSchema = {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    "name": settings?.hotelName || "New Pitam Deurali Guest House and Restaurant",
-    "url": "https://pittamdeuraliguesthouse.com",
-    "logo": "https://pittamdeuraliguesthouse.com/logo.png",
-    "sameAs": [
-      settings?.facebookUrl || "https://facebook.com/newpittamdeurali",
-      settings?.instagramUrl || "https://instagram.com/newpittamdeurali"
-    ]
-  };
-
-  const websiteSchema = {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    "name": settings?.hotelName || "New Pitam Deurali Guest House and Restaurant",
-    "url": "https://pittamdeuraliguesthouse.com"
-  };
-
-  const faqSchema = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "What is the best hotel or guest house in Pittam Deurali?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "New Pittam Deurali Guest House and Restaurant is widely recognized as the premier place to stay in Pittam Deurali. We offer comfortable wood-insulated rooms, reliable hot showers, cozy blankets, and direct, panoramic views of the Annapurna and Dhaulagiri mountain ranges, making it a perfect rest stop for Mardi Himal trekkers."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Does the guest house have hot water showers?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Yes, we provide reliable hot water showers (both gas and solar-powered) for all trekking guests to relax after their long day of hiking."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Is there Wi-Fi available at Pittam Deurali Guest House?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Yes, we offer high-speed Wi-Fi access throughout the property so guests can stay connected with family and check weather conditions."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Can I book a room via WhatsApp?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Yes! We have a dedicated WhatsApp booking channel at +977-9866061995 for instant reservations and inquiries."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How far is Pittam Deurali from Kande?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "It is approximately a 1.5 to 2-hour scenic uphill hike from the Kande trailhead through beautiful rhododendron forests."
-        }
-      }
-    ]
-  };
-
-  if (testimonials && testimonials.length > 0) {
-    const totalRating = testimonials.reduce((acc, t) => acc + (t.rating || 5), 0);
-    const averageRating = (totalRating / testimonials.length).toFixed(1);
-    hotelSchema.aggregateRating = {
-      "@type": "AggregateRating",
-      "ratingValue": averageRating,
-      "reviewCount": testimonials.length
-    };
-    hotelSchema.review = testimonials.slice(0, 5).map(t => ({
-      "@type": "Review",
-      "author": {
-        "@type": "Person",
-        "name": t.guestName
-      },
-      "reviewRating": {
-        "@type": "Rating",
-        "ratingValue": t.rating || 5
-      },
-      "reviewBody": t.review
-    }));
-  }
-
-  const dynamicSchemas = [
-    hotelSchema,
-    localBusinessSchema,
-    organizationSchema,
-    websiteSchema,
-    faqSchema
-  ];
-
   return (
     <div className="fade-in-up">
       <SEO 
-        title="Pitam Deurali Guest House | Mountain Lodge in Pothana"
-        description="Stay at Pitam Deurali Guest House in Pothana. Enjoy stunning Himalayan views, cozy rooms, and delicious local food near Mardi Himal Trek and Dhampus."
+        title="New Pittam Deurali Guest House and Restaurant | Mountain Lodge & Local Dining"
+        description="Stay at New Pittam Deurali Guest House and Restaurant. Enjoy stunning Himalayan views, cozy rooms, and delicious local food near Mardi Himal Trek and Dhampus."
         keywords={[
           "Pitam Deurali Guest House", "Pothana Guest House", "Deurali Guest House", "Hotel in Pothana", 
           "Stay in Pothana", "Guest House near Mardi Himal Trek", "Mardi Himal Accommodation", 
@@ -370,15 +211,50 @@ const Home = () => {
           "Pokhara Trekking Stay", "Mountain View Hotel Pokhara", "Dhampus Village Stay", 
           "Annapurna Conservation Area Lodge", "Kaski Nepal Lodge", "Gandaki Province Trekking Stay", 
           "Budget Hotel Dhampus", "Himalayan View Accommodation", "Family Guest House Nepal", 
-          "Trekker Friendly Lodge", "Best Guest House in Pothana", "Where to Stay in Pothana",
-          "Where to Stay in Dhampus", "Best Overnight Stop Mardi Himal Trek", 
-          "Best Accommodation Between Kande and Forest Camp", "Tea House Near Australian Camp",
-          "Himalayan Sunrise View Hotel Pothana", "Annapurna Panorama View Lodge", 
-          "Best Trek Stop Near Pokhara", "Traditional Nepali Guest House Pothana", 
-          "Eco Friendly Lodge Annapurna Region"
+          "Trekker Friendly Lodge"
         ]}
         slug="/"
-        schema={dynamicSchemas}
+        schema={{
+          "@context": "https://schema.org",
+          "@type": "LodgingBusiness",
+          "name": settings?.hotelName || "New Pittam Deurali Guest House and Restaurant",
+          "image": "https://pittamdeuraliguesthouse.com/logo.png",
+          "@id": "https://pittamdeuraliguesthouse.com/#lodging",
+          "url": "https://pittamdeuraliguesthouse.com",
+          "telephone": settings?.phone || "+977-9866061995",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": settings?.address || "Pittam Deurali, Lumle 33700, Kaski",
+            "addressLocality": "Kaski",
+            "addressRegion": "Gandaki Province",
+            "postalCode": "33700",
+            "addressCountry": "NP"
+          },
+          "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": 28.3254375,
+            "longitude": 83.8290625
+          },
+          "openingHoursSpecification": {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": [
+              "Monday",
+              "Tuesday",
+              "Wednesday",
+              "Thursday",
+              "Friday",
+              "Saturday",
+              "Sunday"
+            ],
+            "opens": "00:00",
+            "closes": "23:59"
+          },
+          "sameAs": [
+            settings?.facebookUrl || "https://facebook.com/newpittamdeurali",
+            settings?.instagramUrl || "https://instagram.com/newpittamdeurali"
+          ],
+          "priceRange": "$$"
+        }}
       />
       {/* 1. Hero Slideshow Section */}
       <section className="hero-slider">
@@ -393,15 +269,9 @@ const Home = () => {
               <div className="container text-center">
                 <div className="row justify-content-center">
                   <div className="col-lg-10 col-12">
-                    {idx === 0 ? (
-                      <h1 className="display-4 fw-bold mb-4 font-serif text-white px-2 hero-text-force-white" style={{ lineHeight: '1.2', textShadow: '1px 1px 6px rgba(0,0,0,0.7)' }}>
-                        {slide.title}
-                      </h1>
-                    ) : (
-                      <h2 className="display-4 fw-bold mb-4 font-serif text-white px-2 hero-text-force-white" style={{ lineHeight: '1.2', textShadow: '1px 1px 6px rgba(0,0,0,0.7)' }}>
-                        {slide.title}
-                      </h2>
-                    )}
+                    <h1 className="display-4 fw-bold mb-4 font-serif text-white px-2 hero-text-force-white" style={{ lineHeight: '1.2', textShadow: '1px 1px 6px rgba(0,0,0,0.7)' }}>
+                      {slide.title}
+                    </h1>
                     <p className="fs-6 mb-5 lh-lg px-3 text-white hero-text-force-white" style={{ fontWeight: 300, maxWidth: '700px', margin: '0 auto 40px', textShadow: '1px 1px 6px rgba(0,0,0,0.7)' }}>
                       {slide.subtitle}
                     </p>

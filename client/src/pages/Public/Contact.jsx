@@ -191,11 +191,7 @@ Thank you.`;
           "Mardi Himal Accommodation Contact", "Annapurna Trek Lodge Email", "Best Guest House in Lumle Contact", 
           "Booking Inquiry Pittam Deurali", "Gandaki Province Lodge Phone", "Kaski Nepal Hotel Contact", 
           "Family Guest House Nepal Contact", "Budget Hotel Dhampus Directions", "Pokhara Trekking Stay Email", 
-          "Deurali Guest House Address", "Pokhara to Deurali Route Help",
-          "Book Hotel in Pothana", "Book Guest House in Dhampus", "Book Mardi Himal Accommodation", 
-          "Reserve Trekking Lodge Nepal", "Online Booking Pothana Guest House", "Hotel Reservation Dhampus", 
-          "Book Stay Near Australian Camp", "Best Guest House Booking Annapurna Trek", 
-          "Reserve Room Near Mardi Himal Trek", "Direct Booking Trekking Lodge Nepal"
+          "Deurali Guest House Address", "Pokhara to Deurali Route Help"
         ]}
         slug="/contact"
       />

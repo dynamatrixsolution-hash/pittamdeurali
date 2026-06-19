@@ -55,10 +55,7 @@ const About = () => {
           "Family Guest House Nepal", "Trekker Friendly Lodge", "Stay in Pothana Kaski", 
           "Dhampus Lodging History", "Gandaki Province Hospitality", "Mountain Lodge Owners Nepal", 
           "Mardi Himal Guest House About", "Local Sherpa Hospitality", "Pokhara Trekking Stay History", 
-          "Annapurna Conservation Area Hotel", "Budget Hotel Dhampus Profile", "Deurali Lodging History",
-          "Pothana Village Stay", "Dhampus Village Stay", "Australian Camp Guest House", 
-          "Annapurna Trek Lodge", "Annapurna Trek Guest House", "Traditional Nepali Guest House Pothana", 
-          "Eco Friendly Lodge Annapurna Region", "Pothana Trekker Accommodation"
+          "Annapurna Conservation Area Hotel", "Budget Hotel Dhampus Profile", "Deurali Lodging History"
         ]}
         slug="/about"
       />

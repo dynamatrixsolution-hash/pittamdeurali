@@ -78,17 +78,7 @@ const Treks = () => {
           "Best Guest House in Dhampus Guided Walks", "Pokhara Trekking Stay Routes", "Annapurna Conservation Area Activities", 
           "Kaski Nepal Trekking Trails", "Family Guest House Nepal Tours", "Budget Hotel Dhampus Day Hikes", 
           "Gandaki Province Hiking Trails", "Pothana to Forest Camp Trek", "Landruk Trek Stay", 
-          "Jhinu Hot Springs Trek", "Australian Camp Day Hikes",
-          "Mardi Himal Trek Accommodation", "Mardi Himal Trek Guest House", "Mardi Himal Trek Lodge", 
-          "Mardi Himal Trek Hotel", "Best Lodge on Mardi Himal Trek", "Stay During Mardi Himal Trek", 
-          "Tea House Mardi Himal Trek", "Budget Accommodation Mardi Himal Trek", "Family Lodge Mardi Himal Trek", 
-          "Overnight Stay Mardi Himal Trek", "Mardi Himal Trek Route Accommodation", "Mardi Himal Trek Stopover", 
-          "Mardi Himal Trek Room Booking", "Best Guest House Mardi Himal Route", "Trekker Friendly Lodge Mardi Himal", 
-          "Pothana Mardi Himal Trek Lodge", "Dhampus Mardi Himal Accommodation", "Dhampus Annapurna Trek Lodge", 
-          "Annapurna Trek Lodge", "Annapurna Accommodation", "Annapurna Trek Guest House", 
-          "Annapurna Base Camp Route Lodge", "Annapurna Trek Stay", "Annapurna Trek Hotel", 
-          "Trekking Lodge Annapurna Region", "Best Lodge Annapurna Trek", "Family Accommodation Annapurna", 
-          "Budget Trekking Lodge Nepal"
+          "Jhinu Hot Springs Trek", "Australian Camp Day Hikes"
         ]}
         slug="/treks"
       />

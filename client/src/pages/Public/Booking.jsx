@@ -137,66 +137,6 @@ Thank you.`;
     );
   }
 
-  const organizationSchema = {
-    "@context": "https://schema.org",
-    "@type": "Organization",
-    "name": settings?.hotelName || "New Pitam Deurali Guest House and Restaurant",
-    "url": "https://pittamdeuraliguesthouse.com",
-    "logo": "https://pittamdeuraliguesthouse.com/logo.png"
-  };
-
-  const bookingFaqSchema = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "How can I reserve a room at Pitam Deurali Guest House?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "You can fill out the reservation inquiry form on this booking page or send an instant message on WhatsApp to +977-9866061995 to check live availability and secure your booking."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "What details do I need to provide for a booking?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Please provide your full name, email, phone number (preferably WhatsApp-enabled), check-in/out dates, the number of guests in your party, and your preferred room type."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Is there a cancellation fee for booking modifications?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "We offer flexible cancellation and booking modifications. Please let us know at least 24-48 hours in advance if your trekking plans change so we can adjust our room occupancy accordingly."
-        }
-      }
-    ]
-  };
-
-  const breadcrumbSchema = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-      {
-        "@type": "ListItem",
-        "position": 1,
-        "name": "Home",
-        "item": "https://pittamdeuraliguesthouse.com/"
-      },
-      {
-        "@type": "ListItem",
-        "position": 2,
-        "name": "Booking",
-        "item": "https://pittamdeuraliguesthouse.com/booking"
-      }
-    ]
-  };
-
-  const dynamicBookingSchemas = [organizationSchema, bookingFaqSchema, breadcrumbSchema];
-
   return (
     <div className="container py-5 fade-in-up">
       <SEO 
@@ -207,14 +147,9 @@ Thank you.`;
           "Hotel in Pothana Rates", "Hotel in Dhampus Booking", "Stay in Pothana Online Booking",
           "Mardi Himal Accommodation Reservation", "Annapurna Trek Lodge Rates", "Best Guest House in Dhampus Booking",
           "Budget Hotel Dhampus Rates", "Pokhara Trekking Stay Reservation", "Himalayan View Accommodation Booking",
-          "Family Guest House Nepal Reservation", "Trekker Friendly Lodge Booking", "Gandaki Province Lodge Reservation",
-          "Book Hotel in Pothana", "Book Guest House in Dhampus", "Book Mardi Himal Accommodation", 
-          "Reserve Trekking Lodge Nepal", "Online Booking Pothana Guest House", "Hotel Reservation Dhampus", 
-          "Book Stay Near Australian Camp", "Best Guest House Booking Annapurna Trek", 
-          "Reserve Room Near Mardi Himal Trek", "Direct Booking Trekking Lodge Nepal"
+          "Family Guest House Nepal Reservation", "Trekker Friendly Lodge Booking", "Gandaki Province Lodge Reservation"
         ]}
         slug="/booking"
-        schema={dynamicBookingSchemas}
       />
 
       <div className="row justify-content-center text-center mb-5">

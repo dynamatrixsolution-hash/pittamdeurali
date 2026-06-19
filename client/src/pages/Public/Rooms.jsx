@@ -68,16 +68,7 @@ const Rooms = () => {
           "Himalayan View Accommodation", "Double Room Pittam Deurali", "Single Room Dhampus", 
           "Trekker Friendly Lodge Rooms", "Family Guest House Nepal Rooms", "Pokhara Trekking Stay Rooms", 
           "Annapurna Region Hotel Rooms", "Hot Shower Lodge Pittam Deurali", "Kaski Nepal Rooms", 
-          "Pokhara Mountain View Rooms", "Backpacker Rooms Pittam Deurali",
-          "Pothana Accommodation", "Dhampus Accommodation", "Australian Camp Accommodation", 
-          "Mardi Himal Trek Accommodation", "Annapurna Accommodation", "Budget Hotel Pothana", 
-          "Family Hotel Pothana", "Mountain View Hotel Pothana", "Pothana Room Booking", 
-          "Dhampus Room Booking", "Mardi Himal Trek Room Booking", "Where to Stay in Pothana", 
-          "Where to Stay in Dhampus", "Mountain View Rooms in Pothana", "Trekker Friendly Accommodation Nepal", 
-          "Affordable Accommodation Mardi Himal Trek", "Pothana Trek Stop", "Lodge Near Pothana", 
-          "Tea House in Pothana", "Pothana Village Stay", "Overnight Stay in Pothana", 
-          "Pothana Mardi Himal Trek Lodge", "Best Stay in Pothana Nepal", "Pothana Annapurna Trek Accommodation", 
-          "Cheap Hotel Pothana", "Pothana Trekker Accommodation"
+          "Pokhara Mountain View Rooms", "Backpacker Rooms Pittam Deurali"
         ]}
         slug="/rooms"
         schema={{

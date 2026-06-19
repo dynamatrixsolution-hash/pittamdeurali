@@ -12,16 +12,7 @@ const Location = () => {
           "Hotel in Pittam Deurali Location", "Hotel in Dhampus Map", "Guest House near Mardi Himal Route",
           "Hotel near Australian Camp Map", "Stay in Deurali Directions", "Best Guest House in Lumle Location",
           "Pokhara Trekking Stay Map", "Annapurna Region Hotel Location", "Gandaki Province Deurali Map",
-          "Kaski Nepal Trekking Hub", "Family Guest House Nepal Location", "Budget Hotel Dhampus Location",
-          "Kande Accommodation", "Kande Guest House", "Kande Trekking Lodge", "Hotel Near Kande", 
-          "Stay Near Kande", "Pokhara Trekking Accommodation", "Pokhara Trek Lodge", "Pokhara Mountain View Hotel", 
-          "Kaski Trekking Lodge", "Gandaki Province Accommodation", "Himalayan View Accommodation Nepal", 
-          "Nepal Trekking Accommodation", "Trekking Lodge Nepal", "Mountain Guest House Nepal", 
-          "Best Trekking Hotel Nepal", "Hotel Near Australian Camp", "Australian Camp Accommodation", 
-          "Australian Camp Guest House", "Australian Camp Trekking Lodge", "Stay Near Australian Camp", 
-          "Lodge Near Australian Camp", "Budget Accommodation Australian Camp", "Best Hotel Near Australian Camp", 
-          "Australian Camp Trek Stop", "Overnight Stay Near Australian Camp", "Australian Camp View Hotel", 
-          "Annapurna View Accommodation", "Himalayan View Lodge Australian Camp"
+          "Kaski Nepal Trekking Hub", "Family Guest House Nepal Location", "Budget Hotel Dhampus Location"
         ]}
         slug="/location"
       />
