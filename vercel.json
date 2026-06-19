@@ -1,0 +1,12 @@
+{
+  "installCommand": "cd client && npm install",
+  "buildCommand": "cd client && npm run build",
+  "outputDirectory": "client/dist",
+  "cleanUrls": true,
+  "rewrites": [
+    {
+      "source": "/((?!api|uploads|robots\\.txt|sitemap\\.xml|assets|.*\\..*$).*)",
+      "destination": "/index.html"
+    }
+  ]
+}

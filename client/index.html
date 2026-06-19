@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <!-- SEO Metadata -->
+    <title>New Pittam Deurali Guest House and Restaurant | Mountain Lodging & Local Dining</title>
+    <meta name="google-site-verification" content="Goe2bkmKNDmwhEqbmR8Uk9Yb-Gx1s_9T0hf6zx6l-y8" />
+    <meta name="description" content="Welcome to New Pittam Deurali Guest House and Restaurant in Pittam Deurali, Lumle. Cozy family-run lodging, wood-fired organic meals, and direct Himalayan mountain views." />
+    <meta name="keywords" content="New Pittam Deurali Guest House and Restaurant, Pittam Deurali, lodging, Kaski, Annapurna trekking lodge, organic kitchen, Pitam Deurali accommodation, restaurant, guest house Lumle" />
+    <meta name="author" content="New Pittam Deurali Guest House and Restaurant" />
+
+    <!-- Google Fonts: Poppins (All Typography) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Pannellum 360 Viewer CDN -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.css"/>
+    <script type="text/javascript" defer src="https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.js"></script>
+
+    <!-- SPA Github Pages routing handler -->
+    <script type="text/javascript">
+      (function(l) {
+        if (l.search[1] === '/' ) {
+          var decoded = l.search.slice(1).split('&').map(function(s) {
+            return s.replace(/~and~/g, '&')
+          }).join('?');
+          window.history.replaceState(null, null,
+              l.pathname.slice(0, -1) + decoded + l.hash
+          );
+        }
+      }(window.location));
+    </script>
+
+    <!-- Theme Initializer script to prevent theme flash -->
+    <script type="text/javascript">
+      (function() {
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark') {
+          document.documentElement.classList.add('dark-theme');
+          document.documentElement.classList.remove('light-theme');
+        } else {
+          document.documentElement.classList.add('light-theme');
+          document.documentElement.classList.remove('dark-theme');
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

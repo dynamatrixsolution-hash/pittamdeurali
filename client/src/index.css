@@ -1,0 +1,1340 @@
+@import 'bootstrap/dist/css/bootstrap.min.css';
+@import 'bootstrap-icons/font/bootstrap-icons.css';
+
+/* Professional Design Tokens */
+:root {
+  /* Default: Dark Theme (Charcoal, Mountain Blue, Forest Green, Sunrise Orange) */
+  --bg-primary: #121214;
+  --bg-secondary: #1B1B1E;
+  --bg-card: #222225;
+  --text-primary: #FFFFFF;
+  --text-secondary: #D1D5DB;
+  /* Enforce White / Light Gray text in Dark Mode */
+  --color-gold: #3E82BC;
+  /* Map legacy gold to Mountain Blue */
+  --color-gold-rgb: 62, 130, 188;
+  --color-gold-hover: #5296D1;
+  --border-color: #2D2D32;
+  --input-bg: #1B1B1E;
+  --nav-bg: rgba(18, 18, 20, 0.95);
+
+  /* Brand specific colors */
+  --color-blue: #3E82BC;
+  --color-green: #48A164;
+  --color-orange: #E05A26;
+  --color-orange-hover: #C94C1B;
+
+  /* Status Colors */
+  --color-success: #10B981;
+  --color-error: #EF4444;
+  --color-warning: #F59E0B;
+
+  /* Use Poppins everywhere (even where .font-serif is applied) */
+  --font-serif: 'Poppins', system-ui, -apple-system, sans-serif;
+  --font-sans: 'Poppins', system-ui, -apple-system, sans-serif;
+  --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --box-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --box-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.light-theme {
+  /* Light Theme (White background, Mountain Blue, Forest Green, Sunrise Orange) */
+  --bg-primary: #FFFFFF;
+  --bg-secondary: #F4F6F8;
+  --bg-card: #FFFFFF;
+  --text-primary: #1f2937;
+  /* Enforce Dark Charcoal in Light Mode */
+  --text-secondary: #374151;
+  /* Enforce Dark Gray in Light Mode */
+  --color-gold: #1E4E79;
+  /* Map legacy gold to Mountain Blue */
+  --color-gold-rgb: 30, 78, 121;
+  --color-gold-hover: #163C5E;
+  --border-color: #E2E8F0;
+  --input-bg: #FFFFFF;
+  --nav-bg: rgba(255, 255, 255, 0.97);
+
+  /* Brand specific colors */
+  --color-blue: #1E4E79;
+  --color-green: #2E6F40;
+  --color-orange: #E05A26;
+  --color-orange-hover: #C94C1B;
+
+  /* Light Status Colors */
+  --color-success: #059669;
+  --color-error: #DC2626;
+  --color-warning: #D97706;
+}
+
+/* Base Styles */
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-secondary) !important;
+  /* Enforce body text as text-secondary */
+  font-family: var(--font-sans);
+  font-size: 16px;
+  /* Target body text size */
+  font-weight: 400;
+  /* Body poppins weight 400-500 */
+  line-height: 1.65;
+  overflow-x: hidden;
+  transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.font-serif {
+  font-family: var(--font-serif);
+  color: var(--text-primary) !important;
+  font-weight: 700 !important;
+  /* Headings: Font Weight 600–700 */
+  letter-spacing: -0.015em;
+  margin-bottom: 0.5rem;
+}
+
+/* Accessibility & High Contrast Override */
+.text-secondary {
+  color: var(--text-secondary) !important;
+}
+
+.text-muted {
+  color: var(--text-secondary) !important;
+  opacity: 0.85 !important;
+}
+
+p,
+li,
+label,
+input,
+select,
+textarea,
+span:not(.badge):not(.spinner-border):not(.navbar-toggler-icon) {
+  color: var(--text-secondary) !important;
+  font-size: 16px;
+  font-weight: 400;
+  /* Poppins 400 */
+}
+
+/* Enforce dark text in light theme for specific components if needed */
+.text-white:not(.btn):not(.badge) {
+  color: var(--text-primary) !important;
+}
+
+/* Typography Sizing & Readability scaling */
+.display-4 {
+  font-size: clamp(2.25rem, 5vw, 4rem) !important;
+  /* ~36px to 64px */
+  line-height: 1.2 !important;
+}
+
+.display-5 {
+  font-size: clamp(1.85rem, 4vw, 3.2rem) !important;
+  /* ~30px to 51px */
+  line-height: 1.25 !important;
+}
+
+.display-6 {
+  font-size: clamp(1.65rem, 3.5vw, 2.5rem) !important;
+  /* ~26px to 40px */
+  line-height: 1.3 !important;
+}
+
+.lead {
+  font-size: clamp(1rem, 2vw, 1.125rem) !important;
+  /* 16px to 18px */
+}
+
+/* Ensure strong heading tags adopt color scheme */
+.section-heading {
+  color: var(--text-primary) !important;
+  font-weight: 700;
+}
+
+strong,
+b {
+  font-weight: 600 !important;
+  color: var(--text-primary) !important;
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-gold);
+}
+
+/* Spacing & Layout */
+.section-padding {
+  padding: 80px 0;
+}
+
+@media (max-width: 768px) {
+  .section-padding {
+    padding: 50px 0;
+  }
+}
+
+.gold-accent-line {
+  width: 50px;
+  height: 2px;
+  background-color: var(--color-gold);
+  margin: 16px auto;
+}
+
+.gold-accent-line.left {
+  margin: 16px 0;
+}
+
+/* Buttons (Stripe / Aman Resorts minimalism) */
+.btn-luxury,
+.btn-blue {
+  background-color: var(--color-blue);
+  color: #FFFFFF !important;
+  border: 1px solid var(--color-blue);
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 10px 24px;
+  border-radius: 4px;
+  box-shadow: var(--box-shadow-sm);
+  transition: var(--transition-smooth);
+}
+
+.btn-luxury:hover,
+.btn-blue:hover {
+  background-color: var(--color-gold-hover);
+  border-color: var(--color-gold-hover);
+  transform: translateY(-1px);
+}
+
+.btn-luxury:disabled,
+.btn-blue:disabled {
+  background-color: var(--border-color) !important;
+  border-color: var(--border-color) !important;
+  color: var(--text-secondary) !important;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.btn-luxury-outline,
+.btn-blue-outline {
+  background-color: transparent;
+  color: var(--color-blue) !important;
+  border: 1px solid var(--border-color);
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 10px 24px;
+  border-radius: 4px;
+  transition: var(--transition-smooth);
+}
+
+.btn-luxury-outline:hover,
+.btn-blue-outline:hover {
+  border-color: var(--color-blue);
+  color: var(--color-blue) !important;
+}
+
+/* Secondary Button: Forest Green */
+.btn-green {
+  background-color: var(--color-green);
+  color: #FFFFFF !important;
+  border: 1px solid var(--color-green);
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 10px 24px;
+  border-radius: 4px;
+  box-shadow: var(--box-shadow-sm);
+  transition: var(--transition-smooth);
+}
+
+.btn-green:hover {
+  background-color: #245832;
+  /* Darker green */
+  border-color: #245832;
+  transform: translateY(-1px);
+}
+
+.btn-green-outline {
+  background-color: transparent;
+  color: var(--color-green) !important;
+  border: 1px solid var(--border-color);
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 10px 24px;
+  border-radius: 4px;
+  transition: var(--transition-smooth);
+}
+
+.btn-green-outline:hover {
+  border-color: var(--color-green);
+  color: var(--color-green) !important;
+}
+
+/* CTA Button: Sunrise Orange */
+.btn-orange {
+  background-color: var(--color-orange);
+  color: #FFFFFF !important;
+  border: 1px solid var(--color-orange);
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 10px 24px;
+  border-radius: 4px;
+  box-shadow: var(--box-shadow-sm);
+  transition: var(--transition-smooth);
+}
+
+.btn-orange:hover {
+  background-color: var(--color-orange-hover);
+  border-color: var(--color-orange-hover);
+  transform: translateY(-1px);
+}
+
+.btn-orange-outline {
+  background-color: transparent;
+  color: var(--color-orange) !important;
+  border: 1px solid var(--border-color);
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 10px 24px;
+  border-radius: 4px;
+  transition: var(--transition-smooth);
+}
+
+.btn-orange-outline:hover {
+  border-color: var(--color-orange);
+  color: var(--color-orange) !important;
+}
+
+/* Cards (Notion Simplicity) */
+.card-luxury {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  box-shadow: var(--box-shadow-sm);
+  transition: var(--transition-smooth);
+}
+
+.card-luxury:hover {
+  box-shadow: var(--box-shadow-md);
+  border-color: var(--color-gold);
+}
+
+/* Navigation Custom Styling */
+.navbar-luxury {
+  background-color: var(--nav-bg) !important;
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border-color);
+  padding: 15px 0;
+  transition: var(--transition-smooth);
+}
+
+.nav-link-luxury {
+  color: var(--text-primary) !important;
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+  font-weight: 500;
+  padding: 8px 16px !important;
+  border-radius: 4px;
+  transition: var(--transition-smooth);
+}
+
+.nav-link-luxury:hover,
+.nav-link-luxury.active {
+  color: var(--color-gold) !important;
+  background-color: rgba(197, 168, 128, 0.08);
+}
+
+/* Forms Styling (Stripe Aesthetics) */
+.form-luxury {
+  background-color: var(--input-bg);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  padding: 10px 14px;
+  font-size: 0.875rem;
+  box-shadow: var(--box-shadow-sm);
+  transition: var(--transition-smooth);
+}
+
+.form-luxury:focus {
+  background-color: var(--input-bg);
+  color: var(--text-primary);
+  border-color: var(--color-gold);
+  box-shadow: 0 0 0 2px rgba(197, 168, 128, 0.15);
+  outline: none;
+}
+
+.form-label-luxury {
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+/* Real-time Character Counter */
+.char-counter {
+  font-size: 0.7rem;
+  color: var(--text-secondary);
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 4px;
+}
+
+.char-counter.error {
+  color: var(--color-error) !important;
+  font-weight: bold;
+}
+
+/* Fix text visibility in Light Theme for Admin CMS */
+.light-theme .admin-layout .text-white:not(.btn):not(.badge) {
+  /* color: var(--text-primary) !important; */
+}
+
+.light-theme .admin-layout .bg-secondary {
+  background-color: var(--bg-secondary) !important;
+  color: var(--text-primary) !important;
+}
+
+.light-theme .admin-layout .border-secondary {
+  border-color: var(--border-color) !important;
+}
+
+/* Fixed Sidebar Layout */
+.admin-layout {
+  display: flex;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+.admin-sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 260px;
+  background-color: var(--bg-secondary);
+  border-right: 1px solid var(--border-color);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  padding: 24px 0 16px 0;
+  transition: var(--transition-smooth);
+  overflow: hidden;
+  /* Prevent the main container from scrolling */
+}
+
+.admin-sidebar-nav {
+  flex-grow: 1;
+  overflow-y: auto;
+  padding: 12px 0;
+}
+
+/* Slim scrollbar for premium sidebar styling */
+.admin-sidebar-nav::-webkit-scrollbar {
+  width: 5px;
+}
+
+.admin-sidebar-nav::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.admin-sidebar-nav::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 4px;
+}
+
+.admin-sidebar-nav::-webkit-scrollbar-thumb:hover {
+  background: var(--color-gold);
+}
+
+.admin-sidebar-brand {
+  flex-shrink: 0;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.admin-content {
+  margin-left: 260px;
+  width: calc(100% - 260px);
+  flex-grow: 1;
+  padding: 40px;
+  background-color: var(--bg-primary);
+  min-height: 100vh;
+  overflow-y: auto;
+}
+
+/* Sidebar Toggle for Mobile Devices */
+.admin-mobile-header {
+  display: none;
+}
+
+.admin-menu-toggle-btn {
+  color: var(--text-primary) !important;
+  background-color: transparent !important;
+  border: none !important;
+  padding: 4px 8px !important;
+  cursor: pointer;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition-smooth);
+}
+
+.admin-menu-toggle-btn:hover {
+  color: var(--color-gold) !important;
+}
+
+@media (max-width: 991.98px) {
+  .admin-mobile-header {
+    display: flex !important;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 20px;
+    background-color: var(--bg-secondary);
+    border-bottom: 1px solid var(--border-color);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 56px;
+    z-index: 1005;
+  }
+
+  .admin-mobile-header img {
+    height: 28px;
+    width: auto;
+  }
+
+  .admin-sidebar {
+    transform: translateX(-100%);
+    top: 0; /* Cover the whole height for a cleaner modal look */
+    height: 100vh;
+    z-index: 1010;
+  }
+
+  .admin-sidebar.show {
+    transform: translateX(0);
+  }
+
+  .admin-sidebar-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(2px);
+    z-index: 1009;
+  }
+
+  .admin-content {
+    margin-left: 0;
+    width: 100%;
+    margin-top: 56px; /* Offset the mobile top navbar */
+    padding: 24px 16px !important;
+  }
+}
+
+/* Stacking section headers and filter bars on mobile devices */
+@media (max-width: 767.98px) {
+  .admin-content .d-flex.justify-content-between.align-items-center.mb-4,
+  .admin-content .d-flex.justify-content-between.align-items-center.mb-5 {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 16px !important;
+    width: 100% !important;
+  }
+
+  .admin-content .d-flex.justify-content-between.align-items-center.mb-4 > *,
+  .admin-content .d-flex.justify-content-between.align-items-center.mb-5 > * {
+    width: 100% !important;
+  }
+
+  .admin-content .d-flex.gap-2 {
+    width: 100% !important;
+    flex-wrap: wrap !important;
+  }
+
+  .admin-content .d-flex.gap-2 > button,
+  .admin-content .d-flex.gap-2 > a,
+  .admin-content .d-flex.gap-2 > div {
+    flex: 1 1 auto !important;
+    width: auto !important;
+  }
+}
+
+.admin-sidebar-link {
+  display: flex;
+  align-items: center;
+  padding: 10px 24px;
+  color: var(--text-secondary);
+  text-decoration: none !important;
+  font-size: 0.85rem;
+  font-weight: 500;
+  border-left: 3px solid transparent;
+  transition: var(--transition-smooth);
+}
+
+.admin-sidebar-link:hover {
+  color: var(--text-primary);
+}
+
+.admin-sidebar-link.active {
+  color: var(--text-primary);
+  background-color: rgba(var(--color-gold-rgb), 0.12);
+  border-left-color: var(--color-gold);
+}
+
+.admin-sidebar-link i {
+  margin-right: 12px;
+  font-size: 1rem;
+}
+
+.admin-sidebar-footer {
+  flex-shrink: 0;
+  border-top: 1px solid var(--border-color);
+  padding-top: 16px;
+  margin-top: auto;
+}
+
+.admin-theme-toggle {
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-card);
+  color: var(--text-primary);
+  border-radius: 4px;
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.admin-theme-toggle:hover {
+  border-color: var(--color-gold);
+  color: var(--color-gold);
+}
+
+.admin-stat-card {
+  border-radius: 8px;
+}
+
+.admin-stat-card h2 {
+  color: var(--text-primary) !important;
+}
+
+.admin-quick-actions {
+  border-radius: 8px !important;
+}
+
+.admin-select {
+  background-color: var(--input-bg) !important;
+  color: var(--text-primary) !important;
+  border: 1px solid var(--border-color) !important;
+  border-radius: 4px !important;
+}
+
+.admin-select:focus {
+  border-color: var(--color-gold) !important;
+  box-shadow: 0 0 0 2px rgba(var(--color-gold-rgb), 0.18) !important;
+}
+
+.admin-page-link {
+  background-color: var(--bg-card) !important;
+  color: var(--text-primary) !important;
+  border-color: var(--border-color) !important;
+}
+
+.page-item.active .admin-page-link {
+  background-color: var(--color-gold) !important;
+  border-color: var(--color-gold) !important;
+  color: #ffffff !important;
+}
+
+.admin-page-link:hover {
+  color: var(--color-gold) !important;
+}
+
+/* Luxury Tables (Enterprise Quality) */
+.table-luxury {
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  overflow-x: auto;
+  background-color: var(--bg-card);
+  -webkit-overflow-scrolling: touch;
+}
+
+.table-luxury table {
+  margin-bottom: 0;
+  border-collapse: separate;
+  min-width: 750px; /* Force minimum width to prevent column squeezing on mobile */
+}
+
+.table-luxury th {
+  background-color: var(--bg-secondary) !important;
+  color: var(--text-primary) !important;
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  border-bottom: 1px solid var(--border-color);
+  padding: 12px 16px;
+}
+
+.table-luxury td {
+  color: var(--text-primary) !important;
+  padding: 16px;
+  font-size: 0.85rem;
+  border-bottom: 1px solid var(--border-color);
+  background-color: var(--bg-card);
+  transition: var(--transition-smooth);
+}
+
+.table-luxury tr:last-child td {
+  border-bottom: 0;
+}
+
+/* Remove CMS table row hover effect */
+.table-luxury tbody tr:hover td,
+.table-luxury tbody tr:hover th,
+.table-luxury tr:hover,
+.table-luxury tr:hover td,
+.table-hover tbody tr:hover {
+  background-color: var(--bg-card) !important;
+  color: var(--text-primary) !important;
+}
+
+/* Floating WhatsApp Button */
+.whatsapp-float {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background-color: #25d366;
+  color: #fff;
+  border-radius: 50%;
+  width: 55px;
+  height: 55px;
+  text-align: center;
+  font-size: 28px;
+  box-shadow: var(--box-shadow-md);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none !important;
+  transition: var(--transition-smooth);
+}
+
+.whatsapp-float:hover {
+  transform: translateY(-2px);
+  color: #fff;
+}
+
+/* Modal Overlay Restyle */
+.modal-luxury-content {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+}
+
+/* Light / Dark Mode Toggle button */
+.theme-toggle-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-primary);
+  font-size: 1.1rem;
+  padding: 6px 12px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: var(--transition-smooth);
+}
+
+.theme-toggle-btn:hover {
+  color: var(--color-gold);
+  background-color: rgba(197, 168, 128, 0.08);
+}
+
+/* Empty State Styling */
+.empty-state-card {
+  padding: 48px;
+  text-align: center;
+  color: var(--text-secondary);
+}
+.empty-state-icon {
+  font-size: 3rem;
+  color: var(--border-color);
+  margin-bottom: 16px;
+}
+
+/* Spinner Loader */
+.spinner-luxury {
+  color: var(--color-gold);
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+/* Gallery & Image Card Styles */
+.gallery-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 6px;
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-card);
+  cursor: pointer;
+  transition: var(--transition-smooth);
+  height: 250px;
+}
+
+.gallery-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.gallery-card:hover img {
+  transform: scale(1.06);
+}
+
+.gallery-card-info {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 20px 16px;
+  background: linear-gradient(to top, rgba(15, 15, 16, 0.95) 0%, rgba(15, 15, 16, 0.45) 70%, rgba(15, 15, 16, 0) 100%);
+  transition: var(--transition-smooth);
+  z-index: 2;
+}
+
+.gallery-card:hover {
+  border-color: var(--color-gold);
+  box-shadow: var(--box-shadow-md);
+}
+
+/* Hero Slider Styles */
+.hero-slider {
+  position: relative;
+  width: 100%;
+  height: calc(100vh - 75px);
+  min-height: 550px;
+  overflow: hidden;
+  background-color: #0F0F10;
+}
+
+@media (max-width: 768px) {
+  .hero-slider {
+    height: 70vh;
+    min-height: 450px;
+  }
+}
+
+.hero-slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 1s cubic-bezier(0.4, 0, 0.2, 1), visibility 1s;
+  background-size: cover;
+  background-position: center;
+  z-index: 1;
+}
+
+.hero-slide.active {
+  opacity: 1;
+  visibility: visible;
+  z-index: 2;
+}
+
+.hero-slide-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.25) 0%, rgba(0, 0, 0, 0.5) 100%);
+  z-index: 3;
+}
+
+.hero-slide-content {
+  position: relative;
+  z-index: 4;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+}
+
+/* Arrows */
+.hero-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background-color: rgba(15, 15, 16, 0.4);
+  border: 1px solid var(--border-color);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  transition: var(--transition-smooth);
+}
+
+.hero-arrow:hover {
+  background-color: var(--color-gold);
+  border-color: var(--color-gold);
+  color: #ffffff;
+}
+
+.hero-arrow-left {
+  left: 24px;
+}
+
+.hero-arrow-right {
+  right: 24px;
+}
+
+@media (max-width: 576px) {
+  .hero-arrow {
+    width: 38px;
+    height: 38px;
+    font-size: 0.85rem;
+  }
+
+  .hero-arrow-left {
+    left: 10px;
+  }
+
+  .hero-arrow-right {
+    right: 10px;
+  }
+}
+
+/* Dots */
+.hero-dots {
+  position: absolute;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 10px;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  z-index: 10;
+}
+
+.hero-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.35);
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: var(--transition-smooth);
+}
+
+.hero-dot.active {
+  background-color: var(--color-gold);
+  transform: scale(1.25);
+}
+
+/* Restaurant Menu Styles */
+.menu-search-bar {
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+.menu-item-card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  overflow: hidden;
+  transition: var(--transition-smooth);
+}
+
+.menu-item-card:hover {
+  border-color: var(--color-gold);
+  transform: translateY(-2px);
+  box-shadow: var(--box-shadow-md);
+}
+
+.menu-price-original {
+  text-decoration: line-through;
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+  margin-right: 8px;
+}
+
+.menu-price-active {
+  color: var(--color-gold);
+  font-weight: 700;
+}
+
+.menu-price-highlighted {
+  color: var(--color-error);
+  font-weight: 700;
+  animation: pulseHighlight 2s infinite ease-in-out;
+}
+
+@keyframes pulseHighlight {
+  0% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.05);
+    color: #FF6B6B;
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+.menu-badge-discount {
+  background-color: var(--color-error);
+  color: #fff;
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 3px;
+  font-weight: bold;
+}
+
+/* Double-Step Gallery Category Cards */
+.gallery-category-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 6px;
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-card);
+  cursor: pointer;
+  height: 280px;
+  transition: var(--transition-smooth);
+}
+
+.gallery-category-card:hover {
+  border-color: var(--color-gold);
+  box-shadow: var(--box-shadow-md);
+}
+
+.gallery-category-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.gallery-category-card:hover img {
+  transform: scale(1.08);
+}
+
+.gallery-category-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to top, rgba(15, 15, 16, 0.95) 0%, rgba(15, 15, 16, 0.35) 60%, rgba(15, 15, 16, 0.15) 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 24px;
+  z-index: 2;
+}
+
+.gallery-category-badge {
+  background-color: rgba(224, 90, 38, 0.15);
+  color: var(--color-orange);
+  border: 1px solid var(--color-orange);
+  font-size: 0.7rem;
+  padding: 3px 10px;
+  border-radius: 30px;
+  align-self: flex-start;
+  margin-bottom: 12px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+/* Custom Lightbox Navigation Overlay */
+.lightbox-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(10, 10, 11, 0.98);
+  z-index: 2000;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: blur(8px);
+}
+
+.lightbox-content-wrapper {
+  position: relative;
+  width: 90%;
+  max-width: 960px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.lightbox-close-btn {
+  position: absolute;
+  top: -60px;
+  right: 10px;
+  background: transparent;
+  border: none;
+  color: #ffffff;
+  font-size: 2.2rem;
+  cursor: pointer;
+  opacity: 0.7;
+  transition: var(--transition-smooth);
+}
+
+.lightbox-close-btn:hover {
+  opacity: 1;
+  color: var(--color-orange);
+  transform: scale(1.1);
+}
+
+.lightbox-img-container {
+  position: relative;
+  width: 100%;
+  height: 70vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lightbox-img-container img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  border: 1px solid var(--border-color);
+  box-shadow: var(--box-shadow-md);
+  user-select: none;
+}
+
+.lightbox-nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  background: rgba(15, 15, 16, 0.6);
+  border: 1px solid var(--border-color);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+  z-index: 10;
+}
+
+.lightbox-nav-btn:hover {
+  background: var(--color-orange);
+  border-color: var(--color-orange);
+  color: #ffffff;
+  transform: translateY(-50%) scale(1.05);
+}
+
+.lightbox-nav-prev {
+  left: -70px;
+}
+
+.lightbox-nav-next {
+  right: -70px;
+}
+
+@media (max-width: 1100px) {
+  .lightbox-nav-prev {
+    left: 10px;
+  }
+
+  .lightbox-nav-next {
+    right: 10px;
+  }
+
+  .lightbox-nav-btn {
+    background: rgba(15, 15, 16, 0.85);
+  }
+}
+
+.lightbox-info-panel {
+  width: 100%;
+  text-align: center;
+  padding-top: 16px;
+  color: #ffffff;
+}
+
+.lightbox-counter {
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--color-orange);
+  margin-bottom: 6px;
+  font-weight: 600;
+}
+
+/* High Contrast Theme Overrides for Bootstrap Utilities */
+.text-primary {
+  color: var(--text-primary) !important;
+}
+
+.text-secondary {
+  color: var(--text-secondary) !important;
+}
+
+.text-muted {
+  color: var(--text-secondary) !important;
+}
+
+/* Ensure placeholder texts have high contrast */
+::placeholder {
+  color: var(--text-secondary) !important;
+  opacity: 0.85 !important;
+}
+
+/* Ensure active/focus indicators have good contrast */
+.form-control:focus {
+  color: var(--text-primary) !important;
+  background-color: var(--input-bg) !important;
+}
+
+.hero-slide-content h1,
+.hero-slide-content p,
+.hero-slide-content span,
+.hero-slide-content .text-white:not(.btn):not(.badge),
+.hero-slide-content .hero-text-force-white,
+.hero-text-force-white {
+  color: #ffffff !important;
+}
+
+/* Weather Section Theme Shield (forces dark theme styling in both light and dark modes) */
+.weather-section-dark-override {
+  --bg-primary: #121214 !important;
+  --bg-secondary: #1B1B1E !important;
+  --bg-card: #222225 !important;
+  --text-primary: #FFFFFF !important;
+  --text-secondary: #D1D5DB !important;
+  --color-gold: #FBBF24 !important;
+  --border-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+/* Ensure all text inside the dark-override section uses the dark theme values */
+.weather-section-dark-override h2,
+.weather-section-dark-override h5,
+.weather-section-dark-override h6,
+.weather-section-dark-override p,
+.weather-section-dark-override span:not(.visually-hidden),
+.weather-section-dark-override div,
+.weather-section-dark-override strong {
+  color: #ffffff !important;
+}
+
+/* Specific text opacity overrides for premium contrast */
+.weather-section-dark-override .text-muted,
+.weather-section-dark-override .text-secondary,
+.weather-section-dark-override .small.text-secondary,
+.weather-section-dark-override p.small {
+  color: rgba(255, 255, 255, 0.7) !important;
+}
+
+/* Glassmorphism Weather Widget Styles */
+.weather-widget-glass {
+  background: rgba(15, 22, 36, 0.65) !important; /* Deep slate semi-transparent */
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 16px !important;
+  box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.5) !important;
+}
+
+/* Glass Widget Header & Panels */
+.weather-widget-glass .p-4.border-bottom {
+  background-color: rgba(0, 0, 0, 0.15) !important;
+  border-bottom-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+.weather-widget-glass .px-4.py-3 {
+  background-color: rgba(0, 0, 0, 0.25) !important;
+  border-bottom-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+.weather-widget-glass .p-4:not(.border-bottom) {
+  background-color: transparent !important;
+}
+
+/* Forecast Grid Cards */
+.weather-widget-glass .row-cols-2 .col > div {
+  background-color: rgba(255, 255, 255, 0.03) !important;
+  border: 1px solid rgba(255, 255, 255, 0.07) !important;
+  border-radius: 8px !important;
+  transition: var(--transition-smooth);
+}
+
+.weather-widget-glass .row-cols-2 .col > div:hover {
+  background-color: rgba(255, 255, 255, 0.06) !important;
+  border-color: rgba(255, 255, 255, 0.12) !important;
+  transform: translateY(-2px);
+}
+
+/* Make all icons inside the weather widget pure white as in the screenshot */
+.weather-widget-glass .text-gold,
+.weather-widget-glass .fs-1.text-gold,
+.weather-widget-glass .fs-3.text-gold,
+.weather-widget-glass .text-warning,
+.weather-widget-glass .text-info,
+.weather-widget-glass .text-primary,
+.weather-widget-glass i.bi {
+  color: #ffffff !important;
+}
