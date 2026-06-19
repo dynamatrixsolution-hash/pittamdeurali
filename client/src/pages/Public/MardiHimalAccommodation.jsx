@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import SEO from '../../components/SEO/SEO';
+import { getAPIImageUrl } from '../../services/api';
 
 const MardiHimalAccommodation = () => {
   return (
@@ -19,7 +20,7 @@ const MardiHimalAccommodation = () => {
       />
 
       <section className="hero-slider" style={{ height: '50vh', minHeight: '400px' }}>
-        <div className="hero-slide active" style={{ backgroundImage: `url('/uploads/image copy 8.png')` }}>
+        <div className="hero-slide active" style={{ backgroundImage: `url('${getAPIImageUrl('/uploads/image copy 8.png')}')` }}>
           <div className="hero-slide-overlay" style={{ background: 'rgba(0,0,0,0.6)' }}></div>
           <div className="hero-slide-content">
             <div className="container text-center">

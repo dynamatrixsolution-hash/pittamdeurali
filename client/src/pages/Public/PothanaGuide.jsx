@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import SEO from '../../components/SEO/SEO';
 import FAQAccordion from '../../components/SEO/FAQAccordion';
+import { getAPIImageUrl } from '../../services/api';
 
 const PothanaGuide = () => {
   return (
@@ -22,7 +23,7 @@ const PothanaGuide = () => {
       />
 
       <section className="hero-slider" style={{ height: '50vh', minHeight: '400px' }}>
-        <div className="hero-slide active" style={{ backgroundImage: `url('/uploads/image copy.png')` }}>
+        <div className="hero-slide active" style={{ backgroundImage: `url('${getAPIImageUrl('/uploads/image copy.png')}')` }}>
           <div className="hero-slide-overlay" style={{ background: 'rgba(0,0,0,0.6)' }}></div>
           <div className="hero-slide-content">
             <div className="container text-center">
@@ -47,7 +48,7 @@ const PothanaGuide = () => {
 
           <div className="row g-5 align-items-center">
             <div className="col-md-6">
-              <img src="/uploads/image copy 6.png" alt="Pothana Guest House Accommodation" className="img-fluid rounded shadow-sm" />
+              <img src={getAPIImageUrl('/uploads/image copy 6.png')} alt="Pothana Guest House Accommodation" className="img-fluid rounded shadow-sm" />
             </div>
             <div className="col-md-6">
               <h3 className="font-serif fw-bold mb-3">Why Book Your Stay With Us?</h3>

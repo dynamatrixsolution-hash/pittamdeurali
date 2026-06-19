@@ -155,7 +155,7 @@ Thank you.`;
 
       {/* Hero Section */}
       <section className="hero-slider" style={{ height: '40vh', minHeight: '350px' }}>
-        <div className="hero-slide active" style={{ backgroundImage: `url('/uploads/image copy.png')` }}>
+        <div className="hero-slide active" style={{ backgroundImage: `url('${getAPIImageUrl('/uploads/image copy.png')}')` }}>
           <div className="hero-slide-overlay" style={{ background: 'rgba(0,0,0,0.5)' }}></div>
           <div className="hero-slide-content">
             <div className="container text-center">
