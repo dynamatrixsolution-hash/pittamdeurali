@@ -420,10 +420,6 @@ b {
   font-weight: bold;
 }
 
-/* Fix text visibility in Light Theme for Admin CMS */
-.light-theme .admin-layout .text-white:not(.btn):not(.badge) {
-  /* color: var(--text-primary) !important; */
-}
 
 .light-theme .admin-layout .bg-secondary {
   background-color: var(--bg-secondary) !important;
@@ -542,7 +538,8 @@ b {
 
   .admin-sidebar {
     transform: translateX(-100%);
-    top: 0; /* Cover the whole height for a cleaner modal look */
+    top: 0;
+    /* Cover the whole height for a cleaner modal look */
     height: 100vh;
     z-index: 1010;
   }
@@ -565,13 +562,15 @@ b {
   .admin-content {
     margin-left: 0;
     width: 100%;
-    margin-top: 56px; /* Offset the mobile top navbar */
+    margin-top: 56px;
+    /* Offset the mobile top navbar */
     padding: 24px 16px !important;
   }
 }
 
 /* Stacking section headers and filter bars on mobile devices */
 @media (max-width: 767.98px) {
+
   .admin-content .d-flex.justify-content-between.align-items-center.mb-4,
   .admin-content .d-flex.justify-content-between.align-items-center.mb-5 {
     flex-direction: column !important;
@@ -580,8 +579,8 @@ b {
     width: 100% !important;
   }
 
-  .admin-content .d-flex.justify-content-between.align-items-center.mb-4 > *,
-  .admin-content .d-flex.justify-content-between.align-items-center.mb-5 > * {
+  .admin-content .d-flex.justify-content-between.align-items-center.mb-4>*,
+  .admin-content .d-flex.justify-content-between.align-items-center.mb-5>* {
     width: 100% !important;
   }
 
@@ -590,9 +589,9 @@ b {
     flex-wrap: wrap !important;
   }
 
-  .admin-content .d-flex.gap-2 > button,
-  .admin-content .d-flex.gap-2 > a,
-  .admin-content .d-flex.gap-2 > div {
+  .admin-content .d-flex.gap-2>button,
+  .admin-content .d-flex.gap-2>a,
+  .admin-content .d-flex.gap-2>div {
     flex: 1 1 auto !important;
     width: auto !important;
   }
@@ -699,7 +698,8 @@ b {
 .table-luxury table {
   margin-bottom: 0;
   border-collapse: separate;
-  min-width: 750px; /* Force minimum width to prevent column squeezing on mobile */
+  min-width: 750px;
+  /* Force minimum width to prevent column squeezing on mobile */
 }
 
 .table-luxury th {
@@ -793,6 +793,7 @@ b {
   text-align: center;
   color: var(--text-secondary);
 }
+
 .empty-state-icon {
   font-size: 3rem;
   color: var(--border-color);
@@ -1291,7 +1292,8 @@ b {
 
 /* Glassmorphism Weather Widget Styles */
 .weather-widget-glass {
-  background: rgba(15, 22, 36, 0.65) !important; /* Deep slate semi-transparent */
+  background: rgba(15, 22, 36, 0.65) !important;
+  /* Deep slate semi-transparent */
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border: 1px solid rgba(255, 255, 255, 0.08) !important;
@@ -1315,14 +1317,14 @@ b {
 }
 
 /* Forecast Grid Cards */
-.weather-widget-glass .row-cols-2 .col > div {
+.weather-widget-glass .row-cols-2 .col>div {
   background-color: rgba(255, 255, 255, 0.03) !important;
   border: 1px solid rgba(255, 255, 255, 0.07) !important;
   border-radius: 8px !important;
   transition: var(--transition-smooth);
 }
 
-.weather-widget-glass .row-cols-2 .col > div:hover {
+.weather-widget-glass .row-cols-2 .col>div:hover {
   background-color: rgba(255, 255, 255, 0.06) !important;
   border-color: rgba(255, 255, 255, 0.12) !important;
   transform: translateY(-2px);
