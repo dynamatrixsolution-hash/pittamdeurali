@@ -98,26 +98,35 @@ const Home = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [cmsRes, roomsRes, galleryRes, testimonialsRes, settingsRes, heroesRes, restaurantRes] = await Promise.all([
+        // Fetch critical above-the-fold data first
+        const [cmsRes, settingsRes, heroesRes] = await Promise.all([
           api.get('/cms/homepage'),
-          api.get('/rooms'),
-          api.get('/gallery'),
-          api.get('/reviews/approved'),
           api.get('/settings'),
-          api.get('/heroes'),
-          api.get('/restaurant')
+          api.get('/heroes')
         ]);
 
         if (cmsRes.success) setCms(cmsRes.data);
-        if (roomsRes.success) setRooms(roomsRes.data.filter(r => r.featured));
-        if (galleryRes.success) setGallery(galleryRes.data.slice(0, 6)); // Display up to 6 gallery images
-        if (testimonialsRes.success) setTestimonials(testimonialsRes.data.slice(0, 10));
         if (settingsRes.success) setSettings(settingsRes.data);
         if (heroesRes.success) setHeroes(heroesRes.data);
-        if (restaurantRes.success) setRestaurant(restaurantRes.data);
+        
+        // Remove loading state immediately so the hero slider renders!
+        setLoading(false);
+
+        // Fetch non-critical below-the-fold data asynchronously in the background
+        Promise.all([
+          api.get('/rooms'),
+          api.get('/gallery'),
+          api.get('/reviews/approved'),
+          api.get('/restaurant')
+        ]).then(([roomsRes, galleryRes, testimonialsRes, restaurantRes]) => {
+          if (roomsRes.success) setRooms(roomsRes.data.filter(r => r.featured));
+          if (galleryRes.success) setGallery(galleryRes.data.slice(0, 6));
+          if (testimonialsRes.success) setTestimonials(testimonialsRes.data.slice(0, 10));
+          if (restaurantRes.success) setRestaurant(restaurantRes.data);
+        }).catch(err => console.error('Error fetching secondary data:', err));
+
       } catch (err) {
         console.error('Error fetching homepage data:', err);
-      } finally {
         setLoading(false);
       }
     };
@@ -347,6 +356,7 @@ const Home = () => {
                   src={getAPIImageUrl(welcome.image)}
                   alt="Welcome New Pittam Deurali"
                   className="img-fluid w-100"
+                  loading="lazy"
                   style={{ objectFit: 'cover', height: '400px', borderRadius: '2px' }}
                 />
               </div>
@@ -412,6 +422,7 @@ const Home = () => {
                     <img
                       src={getAPIImageUrl(room.images[0])}
                       className="w-100 h-100"
+                      loading="lazy"
                       style={{ objectFit: 'cover' }}
                       alt={room.title}
                     />
@@ -505,6 +516,7 @@ const Home = () => {
                         src={getAPIImageUrl(img)}
                         alt="Restaurant representation"
                         className="img-fluid w-100"
+                        loading="lazy"
                         style={{ objectFit: 'cover', height: '280px', borderRadius: '4px', border: '1px solid var(--border-color)' }}
                       />
                     </div>
@@ -553,6 +565,7 @@ const Home = () => {
                     src={getAPIImageUrl(img.url)}
                     alt={img.caption || 'New Pittam Deurali'}
                     className="w-100 h-100"
+                    loading="lazy"
                     style={{ objectFit: 'cover', transition: 'transform 0.5s ease' }}
                   />
                 </div>
@@ -650,6 +663,7 @@ const Home = () => {
                           src={getAPIImageUrl(item.image) || 'https://img.icons8.com/office/40/user.png'}
                           alt={item.guestName}
                           className="rounded-circle"
+                          loading="lazy"
                           style={{ width: '50px', height: '50px', objectFit: 'cover', border: '1px solid var(--color-gold)' }}
                         />
                         <div className="text-start">
@@ -762,6 +776,7 @@ const Home = () => {
                   src={trekMap}
                   alt="Trekking Routes Approach Map"
                   className="img-fluid w-100"
+                  loading="lazy"
                   style={{ objectFit: 'contain', borderRadius: '4px', maxHeight: '650px' }}
                 />
               </div>
