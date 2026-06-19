@@ -1,6 +1,35 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import api, { getAPIImageUrl } from '../../services/api';
 import SEO from '../../components/SEO';
+
+const loadPannellum = () => {
+  if (window.pannellum) {
+    return Promise.resolve();
+  }
+
+  if (window.__pannellumLoader) {
+    return window.__pannellumLoader;
+  }
+
+  window.__pannellumLoader = new Promise((resolve, reject) => {
+    if (!document.querySelector('link[data-pannellum="true"]')) {
+      const stylesheet = document.createElement('link');
+      stylesheet.rel = 'stylesheet';
+      stylesheet.href = 'https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.css';
+      stylesheet.dataset.pannellum = 'true';
+      document.head.appendChild(stylesheet);
+    }
+
+    const script = document.createElement('script');
+    script.src = 'https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.js';
+    script.async = true;
+    script.onload = resolve;
+    script.onerror = reject;
+    document.body.appendChild(script);
+  });
+
+  return window.__pannellumLoader;
+};
 
 const Gallery = () => {
   const [images, setImages] = useState([]);
@@ -14,6 +43,7 @@ const Gallery = () => {
 
   // Active Panorama for 360 view
   const [activePano, setActivePano] = useState(null);
+  const [pannellumReady, setPannellumReady] = useState(false);
 
   // Lightbox navigation state for traditional photos
   const [lightboxActive, setLightboxActive] = useState(false);
@@ -57,9 +87,28 @@ const Gallery = () => {
   // 360 Panoramas filtered
   const panoramas = images.filter(img => img.category === '360 View');
 
+  useEffect(() => {
+    if (activeTab !== '360') return;
+
+    let cancelled = false;
+    loadPannellum()
+      .then(() => {
+        if (!cancelled) {
+          setPannellumReady(true);
+        }
+      })
+      .catch((err) => {
+        console.error('Error loading Pannellum:', err);
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [activeTab]);
+
   // Initialize Pannellum
   useEffect(() => {
-    if (activeTab === '360' && activePano) {
+    if (activeTab === '360' && activePano && pannellumReady) {
       const container = document.getElementById('panorama-viewer');
       if (container && window.pannellum) {
         container.innerHTML = ''; // Clear previous elements
@@ -74,7 +123,7 @@ const Gallery = () => {
           return () => {
             try {
               viewer.destroy();
-            } catch (e) {
+            } catch {
               // ignore destroy errors
             }
           };
@@ -83,7 +132,7 @@ const Gallery = () => {
         }
       }
     }
-  }, [activeTab, activePano]);
+  }, [activeTab, activePano, pannellumReady]);
 
   // Lightbox handlers
   const openLightbox = (index) => {
