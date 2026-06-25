@@ -849,6 +849,14 @@ b {
   z-index: 2;
 }
 
+.gallery-card-info span {
+  color: rgba(255, 255, 255, 0.85) !important;
+}
+
+.gallery-card-info p {
+  color: #ffffff !important;
+}
+
 .gallery-card:hover {
   border-color: var(--color-gold);
   box-shadow: var(--box-shadow-md);
