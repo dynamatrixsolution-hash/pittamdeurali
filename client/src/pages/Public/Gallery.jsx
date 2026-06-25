@@ -297,8 +297,8 @@ const Gallery = () => {
                   />
                   {img.caption && (
                     <div className="gallery-card-info">
-                      <span className="small text-muted text-uppercase tracking-wider">{img.category}</span>
-                      <p className="mb-0 text-white font-serif" style={{ fontSize: '0.85rem' }}>{img.caption}</p>
+                      <span className="small text-uppercase tracking-wider" style={{ color: 'rgba(255, 255, 255, 0.85)' }}>{img.category}</span>
+                      <p className="mb-0 font-serif" style={{ fontSize: '0.85rem', color: '#ffffff' }}>{img.caption}</p>
                     </div>
                   )}
                 </div>
