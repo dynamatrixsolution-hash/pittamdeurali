@@ -1,31 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
-import api from '../services/api';
+import { SettingsContext } from '../context/SettingsContext';
 
 const Footer = () => {
-  const [settings, setSettings] = useState({
-    hotelName: 'New Pittam Deurali Guest House and Restaurant',
-    address: 'Pittam Deurali, Lumle 33700, Kaski, Nepal',
-    phone: '+977-9801234567',
-    email: 'stay@newpittamdeurali.com',
-    facebookUrl: '#',
-    instagramUrl: '#',
-    tripAdvisorUrl: '#',
-  });
-
-  useEffect(() => {
-    const fetchSettings = async () => {
-      try {
-        const res = await api.get('/settings');
-        if (res.success && res.data) {
-          setSettings(res.data);
-        }
-      } catch (err) {
-        console.error('Footer settings loading error:', err);
-      }
-    };
-    fetchSettings();
-  }, []);
+  const { settings } = useContext(SettingsContext);
 
   return (
     <footer style={{ backgroundColor: 'var(--bg-secondary)', borderTop: '1px solid var(--border-color)', color: 'var(--text-secondary)' }} className="py-5">

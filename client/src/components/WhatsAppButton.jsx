@@ -1,22 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import api from '../services/api';
+import React, { useContext } from 'react';
+import { SettingsContext } from '../context/SettingsContext';
 
 const WhatsAppButton = () => {
-  const [whatsappNumber, setWhatsappNumber] = useState('');
-
-  useEffect(() => {
-    const fetchSettings = async () => {
-      try {
-        const res = await api.get('/settings');
-        if (res.success && res.data) {
-          setWhatsappNumber(res.data.whatsappNumber);
-        }
-      } catch (err) {
-        console.error('WhatsApp button settings loading error:', err);
-      }
-    };
-    fetchSettings();
-  }, []);
+  const { settings } = useContext(SettingsContext);
+  const whatsappNumber = settings?.whatsappNumber;
 
   if (!whatsappNumber) return null;
 

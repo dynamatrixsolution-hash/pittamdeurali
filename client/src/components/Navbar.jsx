@@ -1,28 +1,15 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
 import { ThemeContext } from '../context/ThemeContext';
+import { SettingsContext } from '../context/SettingsContext';
 import api from '../services/api';
 import ReviewModal from './ReviewModal';
 
 const Navbar = () => {
   const { isDarkMode, toggleTheme } = useContext(ThemeContext);
-  const [hotelName, setHotelName] = useState('Sanctum Retreat');
+  const { settings } = useContext(SettingsContext);
   const [isOpen, setIsOpen] = useState(false);
   const [isReviewModalOpen, setIsReviewModalOpen] = useState(false);
-
-  useEffect(() => {
-    const fetchSettings = async () => {
-      try {
-        const res = await api.get('/settings');
-        if (res.success && res.data) {
-          setHotelName(res.data.hotelName);
-        }
-      } catch (err) {
-        console.error('Navbar settings loading error:', err);
-      }
-    };
-    fetchSettings();
-  }, []);
 
   const closeMenu = () => setIsOpen(false);
 

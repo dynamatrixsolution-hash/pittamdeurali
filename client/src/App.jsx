@@ -9,6 +9,7 @@ import SEO from './components/SEO/SEO';
 
 // Context Providers
 import { ThemeProvider } from './context/ThemeContext';
+import { SettingsProvider } from './context/SettingsContext';
 
 const Home = lazy(() => import('./pages/Public/Home'));
 const About = lazy(() => import('./pages/Public/About'));
@@ -65,47 +66,49 @@ function App() {
   return (
     <HelmetProvider>
       <ThemeProvider>
-        <Router basename={import.meta.env.BASE_URL}>
-          <Suspense fallback={<PageLoader />}>
-            <Routes>
-              {/* Public Routes */}
-              <Route element={<PublicLayout />}>
-                <Route path="/" element={<Home />} />
-                <Route path="/about" element={<About />} />
-                <Route path="/rooms" element={<Rooms />} />
-                <Route path="/rooms/:slug" element={<RoomDetail />} />
-                <Route path="/gallery" element={<Gallery />} />
-                <Route path="/treks" element={<Treks />} />
-                <Route path="/treks/:id" element={<TrekDetail />} />
-                <Route path="/restaurant" element={<Restaurant />} />
-                <Route path="/blog" element={<Blog />} />
-                <Route path="/testimonials" element={<Testimonials />} />
-                <Route path="/contact" element={<Contact />} />
-                <Route path="/services" element={<Services />} />
-                <Route path="/location" element={<Location />} />
-                <Route path="/booking" element={<Booking />} />
-                <Route path="/pothana-accommodation-guide" element={<PothanaGuide />} />
-                <Route path="/dhampus-travel-guide" element={<DhampusGuide />} />
-                <Route path="/australian-camp-guide" element={<AustralianCampGuide />} />
-                <Route path="/mardi-himal-trek-accommodation" element={<MardiHimalAccommodation />} />
-                <Route path="/annapurna-trek-lodge" element={<AnnapurnaTrekLodge />} />
-                <Route path="/kande-to-pothana-trek-guide" element={<KandeToPothana />} />
-                <Route path="/pokhara-to-pothana-travel-guide" element={<PokharaToPothana />} />
-              </Route>
+        <SettingsProvider>
+          <Router basename={import.meta.env.BASE_URL}>
+            <Suspense fallback={<PageLoader />}>
+              <Routes>
+                {/* Public Routes */}
+                <Route element={<PublicLayout />}>
+                  <Route path="/" element={<Home />} />
+                  <Route path="/about" element={<About />} />
+                  <Route path="/rooms" element={<Rooms />} />
+                  <Route path="/rooms/:slug" element={<RoomDetail />} />
+                  <Route path="/gallery" element={<Gallery />} />
+                  <Route path="/treks" element={<Treks />} />
+                  <Route path="/treks/:id" element={<TrekDetail />} />
+                  <Route path="/restaurant" element={<Restaurant />} />
+                  <Route path="/blog" element={<Blog />} />
+                  <Route path="/testimonials" element={<Testimonials />} />
+                  <Route path="/contact" element={<Contact />} />
+                  <Route path="/services" element={<Services />} />
+                  <Route path="/location" element={<Location />} />
+                  <Route path="/booking" element={<Booking />} />
+                  <Route path="/pothana-accommodation-guide" element={<PothanaGuide />} />
+                  <Route path="/dhampus-travel-guide" element={<DhampusGuide />} />
+                  <Route path="/australian-camp-guide" element={<AustralianCampGuide />} />
+                  <Route path="/mardi-himal-trek-accommodation" element={<MardiHimalAccommodation />} />
+                  <Route path="/annapurna-trek-lodge" element={<AnnapurnaTrekLodge />} />
+                  <Route path="/kande-to-pothana-trek-guide" element={<KandeToPothana />} />
+                  <Route path="/pokhara-to-pothana-travel-guide" element={<PokharaToPothana />} />
+                </Route>
 
-              {/* Admin Authentication */}
-              <Route path="/admin/login" element={<Login />} />
+                {/* Admin Authentication */}
+                <Route path="/admin/login" element={<Login />} />
 
-              {/* Protected Admin Console */}
-              <Route element={<ProtectedRoute />}>
-                <Route path="/admin/dashboard" element={<Dashboard />} />
-              </Route>
+                {/* Protected Admin Console */}
+                <Route element={<ProtectedRoute />}>
+                  <Route path="/admin/dashboard" element={<Dashboard />} />
+                </Route>
 
-              {/* Fallback Catch-All */}
-              <Route path="*" element={<Home />} />
-            </Routes>
-          </Suspense>
-        </Router>
+                {/* Fallback Catch-All */}
+                <Route path="*" element={<Home />} />
+              </Routes>
+            </Suspense>
+          </Router>
+        </SettingsProvider>
       </ThemeProvider>
     </HelmetProvider>
   );

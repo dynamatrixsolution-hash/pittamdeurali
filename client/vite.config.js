@@ -6,6 +6,12 @@ export default defineConfig({
   plugins: [react()],
   base: '/',
   build: {
+    modulePreload: {
+      resolveDependencies: (filename, deps, { hostId, hostType }) => {
+        // Prevent preloading admin chunks on public pages
+        return deps.filter(dep => !dep.includes('admin'));
+      }
+    },
     rollupOptions: {
       output: {
         manualChunks(id) {

@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext, lazy, Suspense } from 'react';
 import { Link } from 'react-router-dom';
 import api, { getAPIImageUrl } from '../../services/api';
-import WeatherWidget from '../../components/WeatherWidget';
+import { SettingsContext } from '../../context/SettingsContext';
 import weatherBg from '../../assets/weather-bg.png';
 import trekMap from '../../assets/trek-map.jpg';
 import SEO from '../../components/SEO';
+
+const WeatherWidget = lazy(() => import('../../components/WeatherWidget'));
 
 const getCountryFlag = (country) => {
   if (!country) return '';
@@ -54,11 +56,11 @@ const getCountryFlag = (country) => {
 };
 
 const Home = () => {
+  const { settings, loading: settingsLoading } = useContext(SettingsContext);
   const [cms, setCms] = useState(null);
   const [rooms, setRooms] = useState([]);
   const [gallery, setGallery] = useState([]);
   const [testimonials, setTestimonials] = useState([]);
-  const [settings, setSettings] = useState(null);
   const [heroes, setHeroes] = useState([]);
   const [restaurant, setRestaurant] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -99,14 +101,12 @@ const Home = () => {
     const fetchData = async () => {
       try {
         // Fetch critical above-the-fold data first
-        const [cmsRes, settingsRes, heroesRes] = await Promise.all([
+        const [cmsRes, heroesRes] = await Promise.all([
           api.get('/cms/homepage'),
-          api.get('/settings'),
           api.get('/heroes')
         ]);
 
         if (cmsRes.success) setCms(cmsRes.data);
-        if (settingsRes.success) setSettings(settingsRes.data);
         if (heroesRes.success) setHeroes(heroesRes.data);
         
         // Remove loading state immediately so the hero slider renders!
@@ -180,7 +180,7 @@ const Home = () => {
     return () => clearInterval(interval);
   }, [slidesToRender.length]);
 
-  if (loading) {
+  if (loading || settingsLoading) {
     return (
       <div className="d-flex justify-content-center align-items-center" style={{ height: '80vh', color: 'var(--color-gold)' }}>
         <div className="spinner-border spinner-luxury" role="status">
@@ -394,7 +394,16 @@ const Home = () => {
           </div>
           <div className="row justify-content-center">
             <div className="col-lg-10 col-12">
-              <WeatherWidget />
+              <Suspense fallback={
+                <div className="card-luxury weather-widget-glass p-5 text-center text-secondary">
+                  <div className="spinner-border spinner-luxury mb-3" role="status">
+                    <span className="visually-hidden">Loading...</span>
+                  </div>
+                  <p className="small mb-0">Loading weather data...</p>
+                </div>
+              }>
+                <WeatherWidget />
+              </Suspense>
             </div>
           </div>
         </div>
