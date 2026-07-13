@@ -55,6 +55,7 @@ app.use('/uploads', express.static(localUploadsDir));
 
 // Register API Routes
 app.use('/api', apiRoutes);
+app.use('/', apiRoutes); // Fallback in case aaPanel Nginx strips the /api prefix
 
 // Simple diagnostic route
 app.get('/', (req, res) => {
