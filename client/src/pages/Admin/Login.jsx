@@ -39,6 +39,19 @@ const Login = () => {
 
   return (
     <div className="d-flex align-items-center justify-content-center" style={{ minHeight: '85vh', backgroundColor: 'var(--bg-primary)' }}>
+      {error && (
+        <div className="position-fixed bottom-0 start-50 translate-middle-x p-3" style={{ zIndex: 1050, marginBottom: '20px' }}>
+          <div className="toast show align-items-center text-bg-danger border-0" role="alert" aria-live="assertive" aria-atomic="true">
+            <div className="d-flex">
+              <div className="toast-body">
+                {error}
+              </div>
+              <button type="button" className="btn-close btn-close-white me-2 m-auto" onClick={() => setError('')} aria-label="Close"></button>
+            </div>
+          </div>
+        </div>
+      )}
+
       <div className="p-5" style={{ width: '100%', maxWidth: '420px', backgroundColor: 'var(--bg-card)', border: '1px solid var(--border-color)' }}>
         <div className="text-center mb-4">
           <img 
@@ -50,7 +63,7 @@ const Login = () => {
           <span className="small text-secondary text-uppercase tracking-wider">Property Administrator Panel</span>
         </div>
 
-        {error && <div className="alert alert-danger rounded-0 small py-2">{error}</div>}
+
 
         <form onSubmit={handleLogin} className="d-flex flex-column gap-3">
           <div>
