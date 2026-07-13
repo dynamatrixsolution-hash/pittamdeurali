@@ -23,8 +23,6 @@ const configuredOrigins = [
 const allowedOrigins = new Set([
   'http://localhost:5173',
   'http://127.0.0.1:5173',
-  'https://pittamdeurali.vercel.app',
-  'https://dynamatrixsolution-hash.github.io',
   'https://pittamdeuraliguesthouse.com',
   'https://www.pittamdeuraliguesthouse.com',
   ...configuredOrigins,
@@ -39,11 +37,6 @@ app.use(cors({
     if (allowedOrigins.has(sanitizedOrigin)) {
       return callback(null, true);
     }
-    // Allow any github.io subdomains dynamically
-    if (/^https?:\/\/[a-zA-Z0-9_-]+\.github\.io$/.test(sanitizedOrigin)) {
-      return callback(null, true);
-    }
-
     return callback(new Error(`CORS blocked request from origin: ${origin}`));
   },
   credentials: true
