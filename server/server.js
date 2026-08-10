@@ -14,6 +14,12 @@ connectDB();
 
 const app = express();
 
+// DEBUG LOGGING MIDDLEWARE
+app.use((req, res, next) => {
+  console.log(`[EXPRESS DEBUG] Incoming Request: ${req.method} ${req.url} (Original URL: ${req.originalUrl})`);
+  next();
+});
+
 // Middlewares
 const configuredOrigins = [
   process.env.CLIENT_URL,
@@ -23,6 +29,8 @@ const configuredOrigins = [
 const allowedOrigins = new Set([
   'http://localhost:5173',
   'http://127.0.0.1:5173',
+  'http://pittamdeuraliguesthouse.com',
+  'http://www.pittamdeuraliguesthouse.com',
   'https://pittamdeuraliguesthouse.com',
   'https://www.pittamdeuraliguesthouse.com',
   ...configuredOrigins,
