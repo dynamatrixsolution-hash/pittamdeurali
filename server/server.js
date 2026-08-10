@@ -61,6 +61,14 @@ if (!fs.existsSync(localUploadsDir)) {
 // Expose local upload folder publicly
 app.use('/uploads', express.static(localUploadsDir));
 
+// Normalize URL if Nginx prepends extra /api prefixes (e.g. /api/api/settings -> /api/settings)
+app.use((req, res, next) => {
+  if (req.url.startsWith('/api/api/')) {
+    req.url = req.url.replace(/^\/api\/api\//, '/api/');
+  }
+  next();
+});
+
 // Register API Routes
 app.use('/api', apiRoutes);
 app.use('/', apiRoutes); // Fallback in case aaPanel Nginx strips the /api prefix
