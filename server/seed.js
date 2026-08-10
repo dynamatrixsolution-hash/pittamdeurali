@@ -451,7 +451,7 @@ const seedData = async () => {
       {
         title: 'Welcome to New Pittam Deurali',
         subtitle: 'Experience warm wooden lodging, hot showers, and friendly hospitality in Kaski.',
-        imageUrl: '/uploads/image.png',
+        imageUrl: '/images/hero/hero-1.jpg',
         buttonText: 'Explore Rooms',
         buttonLink: '/rooms',
         order: 0,
@@ -469,7 +469,7 @@ const seedData = async () => {
       {
         title: 'Breathtaking Himalayan Vistas',
         subtitle: 'Wake up to direct sunrise views of the majestic Annapurna and Dhaulagiri ranges.',
-        imageUrl: '/uploads/image copy 8.png',
+        imageUrl: '/images/hero/hero-2.jpg',
         buttonText: 'View Gallery',
         buttonLink: '/gallery',
         order: 2,
