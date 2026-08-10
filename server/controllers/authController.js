@@ -21,9 +21,28 @@ export const loginAdmin = async (req, res) => {
       return res.status(400).json({ success: false, message: 'Please provide username and password' });
     }
 
-    const admin = await Admin.findOne({ username });
+    const cleanUsername = username.trim();
+    const cleanPassword = password.trim();
 
-    if (admin && (await admin.matchPassword(password))) {
+    let admin = await Admin.findOne({
+      username: { $regex: new RegExp(`^${cleanUsername}$`, 'i') }
+    });
+
+    // Auto-create default admin if database has no admin records yet
+    if (!admin) {
+      const count = await Admin.countDocuments();
+      if (count === 0 && cleanUsername.toLowerCase() === 'admin') {
+        admin = await Admin.create({
+          username: 'admin',
+          password: 'admin123',
+          email: 'admin@newpittamdeurali.com',
+          name: 'Pittam Deurali Manager',
+        });
+        console.log('[AUTH] Auto-created default admin user (admin / admin123)');
+      }
+    }
+
+    if (admin && (await admin.matchPassword(cleanPassword))) {
       res.json({
         success: true,
         token: generateToken(admin._id, admin.username),
@@ -38,6 +57,7 @@ export const loginAdmin = async (req, res) => {
       res.status(401).json({ success: false, message: 'Invalid username or password' });
     }
   } catch (error) {
+    console.error('Login Error:', error);
     res.status(500).json({ success: false, message: error.message });
   }
 };
