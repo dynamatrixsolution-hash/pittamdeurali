@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import api from '../../services/api';
 
@@ -10,11 +10,11 @@ const Login = () => {
   const navigate = useNavigate();
 
   // Redirect if already logged in
-  useState(() => {
+  useEffect(() => {
     if (localStorage.getItem('adminToken')) {
       navigate('/admin/dashboard');
     }
-  }, []);
+  }, [navigate]);
 
   const handleLogin = async (e) => {
     e.preventDefault();
